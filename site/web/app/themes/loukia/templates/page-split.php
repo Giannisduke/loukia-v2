@@ -27,7 +27,7 @@
 
         if($images) : ?>
 
-            <div id="carousel_<?php echo $counter_outer; ?>" class="carousel slide main_carousel" data-ride="carousel" data-interval="false">
+            <div id="carousel_<?php echo $counter_outer; ?>" class="carousel slide main_carousel" data-ride="carousel" >
               <!-- Wrapper for slides -->
         	<div class="carousel-inner">
         		<?php foreach( $images as $image ): ?>
@@ -54,7 +54,7 @@
 
       </div>
 
-      <div class="col-24 col-lg-10 pb-5 d-flex flex-column right right__<?php echo $counter_outer; ?> p-0">
+      <div class="col-18 col-lg-10 pb-5 d-flex flex-column right right__<?php echo $counter_outer; ?> p-0">
         <div class="row h-75">
           <div class="col-24"></div>
           <div class="col-24"><h1><?php print the_title(); ?></h1><h2><?php the_field('collection_subtitle'); ?></h2><?php print the_content(); ?></div>

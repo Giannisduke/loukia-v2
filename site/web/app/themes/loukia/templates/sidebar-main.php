@@ -7,6 +7,6 @@
       <div><a href="<?php echo wc_get_cart_url(); ?>" class="btn btn-primary btn-sm cart"></a></div>
     </div>
   </div>
-    <div>Flex item 3</div>
-  <div>Flex item 3</div>
+    <div></div>
+  <div></div>
 </div>

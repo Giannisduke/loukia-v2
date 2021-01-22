@@ -12,9 +12,9 @@
 );
 
 $loop = new WP_Query( $args ); $counter_menu = -1;
-$post_date = get_the_date( 'M / Y' );
+$post_date = get_the_date( 'n/y' );
 ?>
-<nav class="navbar navbar-expand-lg navbar-light navbar-right">
+<nav class="navbar navbar-expand-lg navbar-light navbar-right first">
 <div id="list-example" class="list-group">
 <?php while ( $loop->have_posts() ) : $loop->the_post(); $counter_menu++; ?>
    <a class="list-group-item list-group-item-action" href="#section__<?php echo $counter_menu; ?>"><?php echo $post_date; ?></a>

@@ -28,7 +28,7 @@ body{margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align
 /******** END GRID CSS *********/
 
 .mtm-container-bg{    width: 100%;float: left;background: rgba(0,0,0,0.5);padding: 15px;border-radius: 15px;}
-.mtm-main-wrapper{background: #e3e3e3 url('../images/sample-background.jpg')}
+/** .mtm-main-wrapper{background: #e3e3e3 url('../images/sample-background.jpg')} **/
 
 .mtm-main-wrapper *{-webkit-box-sizing: border-box; box-sizing: border-box;}
 .mtm-main-wrapper{display:table; position:absolute;top:0;left:0;height:100%;width:100%;text-align: center;float:left;overflow-Y:auto;overflow-X:hidden;-webkit-box-sizing: border-box;box-sizing: border-box;}
@@ -67,7 +67,7 @@ body{margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align
 
 /****** public css End *****/
 
-/************** 
+/**************
     COMMON CSS
 **************/
 .mtm-countdown-timer-design{width:100%;float:left;}
@@ -129,7 +129,7 @@ body{margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align
 	.mtm-countdown-wrp{padding:15px;}
 }
 
-/************** 
+/**************
     MTM DESIGN-4
 **************/
 .mtm-design-4 .mtm-container{padding:15px!important;}

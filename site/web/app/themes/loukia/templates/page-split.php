@@ -60,7 +60,7 @@
           <div class="col-24"><h1><?php print the_title(); ?></h1><h2><?php the_field('collection_subtitle'); ?></h2><?php print the_content(); ?></div>
           <div class="col-24"></div>
         </div>
-        <div class="row">
+        <div class="row d-none d-sm-block">
 
         <?php
      $images = get_field('collection_gallery');

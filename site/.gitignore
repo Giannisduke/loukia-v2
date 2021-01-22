@@ -3,6 +3,17 @@ web/app/plugins/*
 !web/app/plugins/.gitkeep
 !web/app/plugins/maintenance-mode-with-timer
 !web/app/plugins/wordpress-importer
+!web/app/plugins/facetwp_loukia
+!web/app/plugins/facetwp-color
+!web/app/plugins/facetwp-i18n
+!web/app/plugins/gravityforms
+!web/app/plugins/regenerate-thumbnails
+!web/app/plugins/soil
+!web/app/plugins/woo-payment-gateway-for-vivapayments
+!web/app/plugins/woocommerce
+!web/app/plugins/woocommerce-additional-variation-images
+!web/app/plugins/woocommerce-variation-swatches-and-photos
+
 web/app/mu-plugins/*/
 web/app/upgrade
 web/app/uploads/*

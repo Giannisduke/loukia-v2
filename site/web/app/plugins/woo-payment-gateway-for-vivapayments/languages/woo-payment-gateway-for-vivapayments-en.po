@@ -1,0 +1,268 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: VivaPayments WooCommerce Payment Gateway\n"
+"POT-Creation-Date: 2020-10-09 16:35+0300\n"
+"PO-Revision-Date: 2020-10-09 16:35+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: viva-woocommerce-payment-gateway.php:52
+msgid ""
+"VivaWallet Payment Gateway allows you to accept payment through various "
+"channels such as Maestro, Mastercard, AMex cards, Diners  and Visa cards On "
+"your Woocommerce Powered Site."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:102
+msgid "VivaWallet Payment Gateway"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:103
+msgid ""
+"VivaWallet Payment Gateway allows you to accept payment through various "
+"channels such as Maestro, Mastercard, AMex cards, Diners and Visa cards."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:117
+msgid "Enable/Disable"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:119
+msgid "Enable VivaWallet Payment Gateway"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:120
+msgid "Enable or disable the gateway."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:125
+msgid "Title"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:127
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:129
+msgid "Credit card via VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:132
+msgid "Description"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:134
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:135
+msgid "Pay Via VivaWallet: Accepts  Mastercard, Visa cards and etc."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:138
+msgid "Display the logo of VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:140
+msgid ""
+"Enable to display the logo of VivaWallet next to the title which the user "
+"sees during checkout."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:144
+msgid "VivaWallet Merchant ID"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:146
+msgid ""
+"Enter Your VivaWallet Merchant ID, this can be gotten on your account page "
+"when you login on VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:151
+msgid "VivaWallet API key"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:153
+msgid ""
+"Enter Your VivaWallet API key, this can be gotten on your account page when "
+"you login on VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:158
+msgid "VivaPayments CodeId"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:160
+msgid ""
+"Enter Your VivaWallet CodeId, or use \"default\" , this can be gotten on "
+"your account page when you login on VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:164
+msgid "Message to Customer"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:166
+msgid ""
+"Enter a message that will be shown to the customer at the payment receipt "
+"from VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:170
+msgid "Mode"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:172
+msgid "Enable Test Mode"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:174
+msgid "This controls  the payment mode as TEST or LIVE."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:177
+msgid "Return page URL <br />(Successful or Failed Transactions)"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:180
+msgid ""
+"We recommend you to select the default “Thank You Page”, in order to "
+"automatically serve both successful and failed transactions, with the latter "
+"also offering the option to try the payment again.<br /> If you select a "
+"different page, you will have to handle failed payments yourself by adding "
+"custom code."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:184
+msgid "Installments"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:187
+msgid ""
+"1 to 36 Installments,1 for one time payment</br> Your customers will be able "
+"to choose as many installments as they want, regardless of the total amount "
+"of their order."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:190
+msgid "Number of installments depending on the total order amount"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:192
+msgid ""
+"Example: 150:3, 600:6</br> Order total 150 -> allow 3 installments, order "
+"total 600 -> allow 6 installments</br> Leave the field blank if you do not "
+"want to limit the number of installments depending on the amount of the "
+"order."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:241
+msgid "Thank you page"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:369
+msgid "Wrong Merchant crendentials or API unavailable."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:371
+msgid "Wrong Merchant crendentials or API unavailable"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:388
+msgid ""
+"Thank you for your order. We are now redirecting you to VivaWallet to make "
+"payment."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:412
+msgid "Pay via VivaWallet"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:412
+msgid "Cancel order &amp; restore cart"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:419
+msgid "Wrong Merchant Credentials or SourceID"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:423
+msgid "The following error occured: "
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:469
+msgid ""
+"Thank you - your order is now pending payment. You should be automatically "
+"redirected to Vivapayments to make payment."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:516
+msgid "Wrong Merchant credentials or API unavailable"
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:540
+msgid "Payment Via VivaWallet<br />Transaction ID: "
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:543
+#: viva-woocommerce-payment-gateway.php:591
+#: viva-woocommerce-payment-gateway.php:605
+msgid ""
+"Payment Received.<br />Your order is currently being processed.<br />We will "
+"be shipping your order to you soon.<br />VivaWallet Transaction ID: "
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:551
+#: viva-woocommerce-payment-gateway.php:593
+#: viva-woocommerce-payment-gateway.php:607
+msgid ""
+"Thank you for shopping with us.<br />Your transaction was successful, "
+"payment was received.<br />Your order is currently being processed."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:573
+msgid "Payment received, your order is now complete."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:576
+#: viva-woocommerce-payment-gateway.php:588
+#: viva-woocommerce-payment-gateway.php:602
+msgid "Payment Via VivaWallet Payment Gateway<br />Transaction ID: "
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:579
+msgid ""
+"Payment Received.<br />Your order is now complete.<br />VivaWallet "
+"Transaction ID: "
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:581
+msgid ""
+"Thank you for shopping with us.<br />Your transaction was successful, "
+"payment was received.<br />Your order is now complete."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:585
+#: viva-woocommerce-payment-gateway.php:599
+msgid "Payment received, your order is currently being processed."
+msgstr ""
+
+#: viva-woocommerce-payment-gateway.php:625
+#: viva-woocommerce-payment-gateway.php:651
+msgid ""
+"Thank you for shopping with us. <br />However, the transaction wasn't "
+"successful, payment wasn't received."
+msgstr ""

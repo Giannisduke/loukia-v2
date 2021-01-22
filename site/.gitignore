@@ -4,6 +4,7 @@ web/app/plugins/*
 !web/app/plugins/maintenance-mode-with-timer
 !web/app/plugins/wordpress-importer
 !web/app/plugins/facetwp_loukia
+!web/app/plugins/facetwp
 !web/app/plugins/facetwp-color
 !web/app/plugins/facetwp-i18n
 !web/app/plugins/gravityforms

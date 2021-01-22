@@ -231,3 +231,5 @@ add_action( 'woocommerce_after_shop_loop', 'facet_pager', 20 );
   	return $args;
   }
   add_filter('woocommerce_form_field_args','lv2_add_bootstrap_input_classes',10,3);
+
+  

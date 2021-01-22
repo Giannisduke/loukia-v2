@@ -27,7 +27,7 @@
 
         if($images) : ?>
 
-            <div id="carousel_<?php echo $counter_outer; ?>" class="carousel slide main_carousel" data-ride="carousel" >
+            <div id="carousel_<?php echo $counter_outer; ?>" class="carousel slide main_carousel" data-ride="carousel">
               <!-- Wrapper for slides -->
         	<div class="carousel-inner">
         		<?php foreach( $images as $image ): ?>
@@ -115,7 +115,7 @@
 </div>
      </div>
       </div>
-    </div>
+
     </section>
 
     <?php //    the_excerpt();

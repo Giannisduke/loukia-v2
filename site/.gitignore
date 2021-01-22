@@ -2,6 +2,7 @@
 web/app/plugins/*
 !web/app/plugins/.gitkeep
 !web/app/plugins/maintenance-mode-with-timer
+!web/app/plugins/wordpress-importer
 web/app/mu-plugins/*/
 web/app/upgrade
 web/app/uploads/*

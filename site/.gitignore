@@ -17,6 +17,8 @@ web/app/plugins/*
 !web/app/plugins/advanced-custom-fields-pro
 !web/app/plugins/vivawallet-woocommerce-gateway
 !web/app/plugins/viva-wallet-for-woocommerce
+!web/app/plugins/sitepress-multilingual-cms
+!web/app/plugins/woocommerce-multilingual
 
 web/app/mu-plugins/*/
 web/app/upgrade

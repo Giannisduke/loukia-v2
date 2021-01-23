@@ -1,0 +1,608 @@
+# Copyright (C) 2020 Viva Wallet for WooCommerce
+# This file is distributed under the same license as the Viva Wallet for WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Viva Wallet for WooCommerce 1.0.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/viva-wallet-for-"
+"woocommerce\n"
+"POT-Creation-Date: 2020-09-08 15:34:27+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#. translators: error
+#: includes/admin/vivawallet-error-page.php:9
+msgid ""
+"Current currency %s selected for WooCommerce is not supported by Viva Wallet."
+msgstr ""
+
+#: includes/admin/vivawallet-error-page.php:10
+msgid ""
+"Merchants can use one of these currencies (EUR, GBP, BGN, PLN, RON) which "
+"should be the same as their Viva Wallet account currency."
+msgstr ""
+
+#: includes/admin/vivawallet-error-page.php:16
+msgid "Invalid currency"
+msgstr ""
+
+#: includes/admin/vivawallet-error-page.php:21
+msgid "Allowed currencies"
+msgstr ""
+
+#. translators: credentials
+#: includes/admin/vivawallet-settings.php:12
+msgid ""
+"Set the title and description of the payment gateway. Title and description "
+"are visible to end users in the checkout page."
+msgstr ""
+
+#. translators: credentials
+#: includes/admin/vivawallet-settings.php:18
+msgid ""
+"To find out how to retrieve your credentials for the payment gateway, please "
+"visit the Viva Wallet for WooCommerce <a target=\"_blank\" href=\"%s"
+"\">installation guide</a>."
+msgstr ""
+
+#. translators: Demo Mode
+#: includes/admin/vivawallet-settings.php:20
+msgid ""
+"If Demo Mode is enabled, please use the credentials you got from <a target="
+"\"_blank\" href=\"%s\">demo.vivapayments.com</a>."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:28
+msgid "Viva Wallet for WooCommerce settings"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:33
+msgid "Enable Viva Wallet"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:35
+msgid ""
+"Enable Viva Wallet Gateway to receive payments from all major credit cards "
+"through your Viva Wallet account."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:47
+msgid "Set Viva Wallet API credentials"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:52
+msgid "Demo mode"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:54
+msgid "Enable demo mode"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:62
+msgid "Live mode credentials"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:67
+msgid "Demo mode credentials"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:72
+msgid "Live Client ID"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:74
+msgid "Client ID provided by Viva Wallet."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:78
+msgid "Demo Client ID"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:80
+msgid "Client ID provided by Viva Wallet. "
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:87
+msgid "Live Client Secret"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:89
+#: includes/admin/vivawallet-settings.php:95
+msgid "Client Secret provided by Viva Wallet."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:93
+msgid "Demo Client Secret"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:111
+msgid "Advanced settings"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:116
+msgid "Show advanced settings"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:118
+msgid ""
+"Show advanced settings. If this checkbox is unchecked, the plugin will use "
+"default settings."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:134
+msgid "Title"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:136
+msgid "This controls the title which the user sees on checkout page."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:137
+msgid "Payment card (Viva Wallet)"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:140
+msgid "Description"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:142
+msgid "This controls the description which the user sees on checkout page."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:143
+msgid "Cards accepted: Visa, MasterCard, Maestro, Amex and more."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:148
+msgid "Installments"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:150
+msgid ""
+"WARNING: Only available to Greek Viva Wallet accounts. <br>Example: "
+"90:3,180:6<br>Order total 90 euro -> allow 0 and 3 installments <br>Order "
+"total 180 euro -> allow 0, 3 and 6 installments<br>Leave empty in case you "
+"do not want to offer installments."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:155
+msgid "Live Source Code List"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:157
+msgid ""
+"Provides a list with all source codes that are set in your Viva Wallet "
+"banking app."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:162
+msgid "Demo Source Code List"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:164
+msgid ""
+"Provides a list with all source codes that are set in the Viva Wallet "
+"banking app"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:170
+msgid "Show Viva Wallet logo."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:172
+msgid "Enable Viva Wallet logo on checkout page (default = yes)."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:176
+msgid "Show credit card logo on checkout page. "
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:178
+msgid ""
+"Enable credit card logo in the form element input as the user types credit "
+"card number info (default = yes)."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:182
+msgid "Order status after successful payment."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:183
+msgid ""
+"Your WooCommerce will be updated to this status after successful payment on "
+"Viva Wallet (default = completed)."
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:187
+msgid "Completed"
+msgstr ""
+
+#: includes/admin/vivawallet-settings.php:188
+msgid "Processing"
+msgstr ""
+
+#: includes/class-wc-vivawallet-helper.php:255
+#: includes/class-wc-vivawallet-helper.php:257
+msgid ""
+"There was a connection problem with Viva Wallet API services. Please try "
+"again later."
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:38
+msgid "You cannot edit an already refunded or canceled order."
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:44
+msgid ""
+"Partial Refund not available yet. Please try later or contact Viva Wallet "
+"support for more info."
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:49
+msgid ""
+"The transaction ID for this order could not be found. Something is wrong!"
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:70
+msgid "Error connecting to Viva Wallet services. Please try again!"
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:82
+msgid "Full refund was executed on Viva Wallet with ID: "
+msgstr ""
+
+#: includes/class-wc-vivawallet-refund.php:84
+msgid "Partial refund was executed on Viva Wallet with ID: "
+msgstr ""
+
+#. #-#-#-#-#  viva-wallet-for-woocommerce.pot (Viva Wallet for WooCommerce 1.0.3)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: includes/class-wc-vivawallet.php:114
+msgid "Viva Wallet for WooCommerce"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:115
+msgid ""
+"Sign up for a demo account to test the API. Cards accepted: Visa, "
+"MasterCard, Maestro, Amex and more. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:279
+msgid ""
+"Viva Wallet Warning: A valid domain name is needed for Viva Wallet services "
+"to work correctly. Your domain,"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:283 includes/class-wc-vivawallet.php:572
+msgid "does not seem valid."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:285 includes/class-wc-vivawallet.php:574
+msgid ""
+"To test locally, edit your hosts file and add a domain, for example, "
+"\"vivawalletdemo.test\"."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:293
+msgid ""
+"Viva Wallet: Your DEMO credentials are NOT valid. Please check your "
+"credentials!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:297
+msgid "Viva Wallet: Your DEMO credentials are valid."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:303
+msgid ""
+"Viva Wallet: Your LIVE credentials are NOT valid. Please check your "
+"credentials!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:307
+msgid "Viva Wallet: Your LIVE credentials are valid."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:317
+msgid ""
+"Viva Wallet: A new DEMO source code has been created in the Viva Wallet "
+"banking app with code: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:321
+msgid ""
+"Viva Wallet: A new LIVE source code has been created in the Viva Wallet "
+"banking app with code: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:325
+msgid ", and name: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:326 includes/class-wc-vivawallet.php:339
+msgid ", and set as default source code."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:333
+msgid ""
+"Viva Wallet: You changed or updated your DEMO credentials, a DEMO source "
+"code for your domain was found with name: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:336
+msgid ""
+"Viva Wallet: You changed or updated your LIVE credentials, a LIVE source "
+"code for your domain was found with name: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:345
+msgid "Viva Wallet: Your DEMO credentials are valid. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:347
+msgid "Viva Wallet: Your LIVE credentials are valid. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:349
+msgid "But there was an error trying to create a new source. Error: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:351
+msgid ""
+"Please try to save your settings again. Also check the sources selection box "
+"in advanced settings to see your available source codes and set one from "
+"there if available."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:375
+msgid "Viva Wallet: Your DEMO source code:"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:377
+msgid "Viva Wallet: Your LIVE source code:"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:383
+msgid "is verified and you are ready to accept payments."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:387 includes/class-wc-vivawallet.php:402
+msgid ""
+"Viva Wallet: Your DEMO credentials are valid and connection with Viva Wallet "
+"was successful. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:389
+msgid "We're in the process of reviewing your DEMO website \""
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:391 includes/class-wc-vivawallet.php:406
+msgid ""
+"Viva Wallet: Your LIVE credentials are valid and connection with Viva Wallet "
+"was successful. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:393
+msgid "We're in the process of reviewing your LIVE website \""
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:397
+msgid ""
+"For a perfect one-shot-approval (1-2 business days), make sure that you have "
+"included the elements described in the following link. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:404
+msgid "But your DEMO source code: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:408
+msgid "But your LIVE source code: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:413
+msgid ""
+"has been BLOCKED. Please check your latest email from Viva Wallet Support "
+"for more info."
+msgstr ""
+
+#. translators: warning
+#: includes/class-wc-vivawallet.php:517
+msgid "TEST MODE ENABLED. "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:518
+msgid ""
+"For testing you can use 4111 1111 1111 1111 for card number, 111 for card "
+"code and any future date for expiry date in order to test the payment "
+"process."
+msgstr ""
+
+#. translators: For more info check the %1$s documentation %2$s
+#: includes/class-wc-vivawallet.php:520
+msgid "For more info check the %1$s documentation %2$s"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:568
+msgid ""
+"Viva Wallet: A valid domain name is needed for Viva Wallet services to work "
+"correctly. Your domain,"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:596
+msgid ""
+"Viva Wallet: Client Secret or Client ID not set. Please check documentation "
+"and fill in your Viva Wallet gateway settings."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:601
+msgid ""
+"Viva Wallet: Source Code is not set. Please check documentation and fill in "
+"your Viva Wallet gateway settings."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:607 includes/class-wc-vivawallet.php:651
+msgid ""
+"Viva Wallet: Your credentials are NOT valid. Please check your credentials!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:615
+msgid ""
+"Viva Wallet: Your LIVE credentials are valid and connection with Viva Wallet "
+"was successful."
+msgstr ""
+
+#. translators: error
+#: includes/class-wc-vivawallet.php:617 includes/class-wc-vivawallet.php:661
+msgid ""
+"We're in the process of reviewing your LIVE website. For a perfect one-shot-"
+"approval (1-2 business days), make sure that you have included the elements "
+"described in <a href=\"%s\" target=\"_blank\" style=\"text-decoration: "
+"underline; font-weight: bold;\">this link</a>."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:622
+msgid ""
+"Viva Wallet: Your LIVE credentials are valid and connection with Viva Wallet "
+"was successful. But your LIVE source code, has been"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:625 includes/class-wc-vivawallet.php:669
+msgid "BLOCKED"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:628 includes/class-wc-vivawallet.php:672
+msgid "Please check your latest email from Viva Wallet Support for more info."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:631 includes/class-wc-vivawallet.php:675
+msgid ""
+"Viva Wallet: Something went wrong! Please try again or come back later. If "
+"you are the admin of the website, please check Viva Wallet for Woo Commerce "
+"plugin."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:640
+msgid ""
+"Viva Wallet: YOU ARE OPERATING IN TEST MODE. Test Client Secret or Client ID "
+"not set. Please check documentation and fill in your Viva Wallet gateway "
+"settings."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:645
+msgid ""
+"Viva Wallet: YOU ARE OPERATING IN TEST MODE. Test Source Code is not set. "
+"Please check documentation and fill in your Viva Wallet gateway settings."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:659
+msgid ""
+"Viva Wallet: Your DEMO credentials are valid and connection with Viva Wallet "
+"was successful."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:666
+msgid ""
+"Viva Wallet: Your DEMO credentials are valid and connection with Viva Wallet "
+"was successful. But your DEMO Source Code, has been"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:684
+msgid ""
+"Viva Wallet: This site is not SSL protected. Please protect your domain to "
+"use Viva Wallet payments."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:765
+msgid "Powered by"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:766
+msgid "PLEASE WAIT"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:767
+msgid "Please check your card details!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:768
+msgid ""
+"Connection to Viva Wallet API failed. Please check your connection or try "
+"again later."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:769
+msgid ""
+"Connection to WooCommerce checkout failed. Please check your connection or "
+"try again later."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:787
+msgid "Something went wrong. Please refresh your page and try again."
+msgstr ""
+
+#. translators: error credit card not valid
+#: includes/class-wc-vivawallet.php:805
+msgid "Please check your %s or try again later!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:805
+msgid "card details"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:826
+msgid "WARNING: This order was paid with installments!"
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:828
+msgid "Number of installments: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:841
+msgid "Order has been paid with Viva Wallet, TxID: "
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:866
+msgid "The card issuer rejected this transaction. Please use a different card."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:868
+msgid ""
+"There was a problem with your card. Please check the card details and try "
+"again."
+msgstr ""
+
+#: includes/class-wc-vivawallet.php:871
+msgid "There was a connection problem. Please try again later."
+msgstr ""
+
+#. translators: error message
+#: woocommerce-vivawallet-gateway.php:36
+msgid ""
+"The Viva Wallet payment gateway requires WooCommerce to work. You can "
+"download %s here."
+msgstr ""
+
+#: woocommerce-vivawallet-gateway.php:153
+msgid "Settings"
+msgstr ""
+
+#. #-#-#-#-#  viva-wallet-for-woocommerce.pot (Viva Wallet for WooCommerce 1.0.3)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  viva-wallet-for-woocommerce.pot (Viva Wallet for WooCommerce 1.0.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.vivawallet.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Connects WooCommerce to Viva Wallet payment gateway (native checkout) to "
+"process and sync your payments and help you sell more."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Viva Wallet"
+msgstr ""

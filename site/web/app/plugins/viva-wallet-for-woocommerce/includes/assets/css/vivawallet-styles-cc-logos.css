@@ -1,0 +1,26 @@
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified{
+	background-repeat: no-repeat;
+	background-position: 97% 50%;
+	padding-right: 50px;
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.amex{
+	background-image: url("../images/amex.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.bancontact{
+	background-image: url("../images/bancontact.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.diners{
+	background-image: url("../images/diners.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.jcb{
+	background-image: url("../images/jcb.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.maestro{
+	background-image: url("../images/maestro.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.mastercard{
+	background-image: url("../images/mastercard.png");
+}
+.payment_method_vivawallet_native .wc-credit-card-form-card-number.identified.visa{
+	background-image: url("../images/visa.png");
+}

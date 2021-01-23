@@ -1,0 +1,20 @@
+*** Viva Wallet for WooCommerce Changelog ***
+
+2020-09-08 - version 1.0.3
+* Removed countryCode from Create transaction API call (known issue with phone number validation in the backend).
+* Created a class for authorising the user and getting authorisation tokens.
+* Refactoring of the admin_notices function (improved the way messages are shown in admin page).
+
+2020-09-02 - version 1.0.2
+* Fixes in hidden form and injected HTML elements. Now these are injected through JavaScript so they are initialised only when the payment method is Viva Wallet native.
+* Loader added when the API call is made.
+* Fixes in checkout form error handling (Ajax calls added to check WooCommerce form).
+* Fixes in the function that creates source (new API call added to check for sources that match the current domain and if the source exists. It saves that one instead of creating a new one).
+* Better error handling when form submitted (by using default WooCommerce error function).
+* Fix in phone field when not required (now a default value is passed to the API call).
+
+2020-07-13 - version 1.0.1
+* Minor fix in sources creation and selection.
+
+2020-06-10 - version 1.0.0
+* Viva Wallet for WooCommerce. New plugin with native 3DS checkout implementation.

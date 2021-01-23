@@ -1,0 +1,8 @@
+{
+    "require": {
+        "woocommerce/woocommerce-sniffs": "^0.0.10"
+    },
+    "require-dev": {
+        "phpcompatibility/phpcompatibility-wp": "*"
+    }
+}

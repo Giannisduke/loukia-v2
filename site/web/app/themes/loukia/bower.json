@@ -10,7 +10,8 @@
     "bootstrap": "^4.0.0",
     "isotope-layout": "^3.0.6",
     "imagesloaded": "^4.1.4",
-    "ekko-lightbox": "^5.3.0"
+    "ekko-lightbox": "^5.3.0",
+    "breakpoints.js": "^1.0.6"
   },
   "overrides": {
     "bootstrap": {

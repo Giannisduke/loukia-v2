@@ -19,4 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<ul itemscope itemtype="https://schema.org/ItemList" class="facetwp-template products columns-<?php echo esc_attr( wc_get_loop_prop( 'columns' ) ); ?>">
+	<div class="products facetwp-template">
+	<div class="row">

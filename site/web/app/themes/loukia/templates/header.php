@@ -5,28 +5,26 @@
        the_custom_logo();
       } ?>
   </div>
-  <div class="col-11">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-
+  <div class="col-24 col-lg-11">
 <?php
    wp_nav_menu([
      'menu'            => 'Primary Navigation',
 //     'theme_location'  => 'Primary Navigation',
      'container'       => 'div',
-     'container_id'    => 'bs4navbar',
-     'container_class' => 'collapse navbar-collapse',
+     //'container_id'    => 'navbarNav',
+     'container_class' => 'navbar',
      'menu_id'         => false,
-     'menu_class'      => 'navbar-nav mr-auto',
+     'menu_class'      => 'list-inline',
      'depth'           => 2,
      'fallback_cb'     => 'bs4navwalker::fallback',
      'walker'          => new bs4navwalker()
    ]);
    ?>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
 
-    </div>
+
     </div>
   </nav>
 </header>

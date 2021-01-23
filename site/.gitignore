@@ -19,6 +19,9 @@ web/app/plugins/*
 !web/app/plugins/viva-wallet-for-woocommerce
 !web/app/plugins/sitepress-multilingual-cms
 !web/app/plugins/woocommerce-multilingual
+!web/app/plugins/wpml-translation-management
+!web/app/plugins/wpml-string-translation
+!web/app/plugins/wp-mail-smtp
 
 web/app/mu-plugins/*/
 web/app/upgrade

@@ -19,5 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-	<div class="products facetwp-template">
+	<div class="products facetwp-template px-5">
 	<div class="row">

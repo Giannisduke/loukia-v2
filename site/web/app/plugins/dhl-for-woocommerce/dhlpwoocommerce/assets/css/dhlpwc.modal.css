@@ -1,0 +1,122 @@
+@media screen and (max-width: 599px) {
+    .dhlpwc-modal-content {
+        width: 95vw;
+        margin: 15vh auto 0 auto;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .dhlpwc-modal-content {
+        width: 80vw;
+        margin: 8vh auto 0 auto;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .dhlpwc-modal-content {
+        width: 55vw;
+        margin: 5vh auto 0 auto;
+    }
+}
+
+/* The Modal (background) */
+.dhlpwc-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.dhlpwc-modal-content {
+    background-color: #f7f7f7;
+    background-repeat: repeat-x;
+    padding: 5px 15px 20px 15px;
+    border: 1px solid #888;
+
+    font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* The Close Button */
+.dhlpwc-modal-close-wrapper {
+    width:100%;
+    text-align: right;
+    padding-bottom: 38px;
+}
+
+.dhlpwc-modal-close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.dhlpwc-modal-close:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+
+.dhlpwc-modal-close:hover,
+.dhlpwc-modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Reset table style */
+.dhlpwc-modal-content table,
+.dhlpwc-modal-content caption,
+.dhlpwc-modal-content tbody,
+.dhlpwc-modal-content tfoot,
+.dhlpwc-modal-content thead,
+.dhlpwc-modal-content tr,
+.dhlpwc-modal-content th,
+.dhlpwc-modal-content td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+.dhlpwc-modal-content tr:nth-child(odd) td,
+.dhlpwc-modal-content tr:nth-child(even) td {
+    background: transparent;
+}
+
+/* Reset input styling */
+.dhlpwc-modal-content .input-text,
+.dhlpwc-modal-content input[type="email"],
+.dhlpwc-modal-content input[type="password"],
+.dhlpwc-modal-content input[type="search"],
+.dhlpwc-modal-content input[type="text"],
+.dhlpwc-modal-content input[type="url"],
+.dhlpwc-modal-content textarea {
+    box-shadow: none;
+}
+
+.dhlpwc-modal-content .input-text:focus,
+.dhlpwc-modal-content input[type="email"]:focus,
+.dhlpwc-modal-content input[type="password"]:focus,
+.dhlpwc-modal-content input[type="search"]:focus,
+.dhlpwc-modal-content input[type="text"]:focus,
+.dhlpwc-modal-content input[type="url"]:focus,
+.dhlpwc-modal-content textarea:focus {
+    background-color: transparent;
+}

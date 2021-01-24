@@ -232,5 +232,16 @@ add_action( 'woocommerce_after_shop_loop', 'facet_pager', 20 );
   }
   add_filter('woocommerce_form_field_args','lv2_add_bootstrap_input_classes',10,3);
 
+  add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
 
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+  function woo_remove_product_tabs( $tabs ) {
+      unset( $tabs['description'] );          // Remove the description tab
+      unset( $tabs['reviews'] );          // Remove the reviews tab
+      unset( $tabs['additional_information'] );   // Remove the additional information tab
+      return $tabs;
+  }
+
+function get_product_description() {
+  the_content();
+}
+add_action ('woocommerce_single_product_summary', 'get_product_description', 35 );

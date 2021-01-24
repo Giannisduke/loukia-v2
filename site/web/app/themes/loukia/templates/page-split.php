@@ -16,7 +16,7 @@
     $counter_outer = -1;
     while ( $loop->have_posts() ) : $loop->the_post(); $counter_outer++ ?>
     <section id="section__<?php echo $counter_outer; ?>" class="section__<?php echo $counter_outer; ?><?php echo $loop->current_post >= 1 ? '' : ' active'; ?>">
-      <div class="row">
+      <div class="row left-row">
       <div class="col-24 col-lg-13 left left__<?php echo $counter_outer; ?> p-0">
         <?php
         /* FRONT-PAGE SLIDER WITH ACF GALLERY AND BOOTSTRAP 4 CAROUSEL */

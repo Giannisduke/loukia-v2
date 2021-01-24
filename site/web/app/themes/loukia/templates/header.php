@@ -20,9 +20,12 @@
      'walker'          => new bs4navwalker()
    ]);
    ?>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarcollapse" aria-controls="sidebarcollapse" aria-expanded="true" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-   </button>
+   <?php if ( is_shop() ) { ?>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarcollapse" aria-controls="sidebarcollapse" aria-expanded="true" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+
+<?php } ?>
 
 
     </div>

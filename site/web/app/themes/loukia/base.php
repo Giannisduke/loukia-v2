@@ -26,7 +26,7 @@ use Roots\Sage\Wrapper;
 
         <?php if (Setup\display_sidebar()) : ?>
 
-          <aside class="sidebar" id="collapseExample">
+          <aside class="sidebar" id="sidebarcollapse">
             <?php
             if ( !is_shop() ) {
             include Wrapper\sidebar_path();

@@ -1,11 +1,11 @@
 <header class="banner fixed-top">
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <div class="col-24 col-lg-13 p-0">
+  <nav class="navbar navbar-expand-lg navbar-light logo">
+    <div class="col-22 col-lg-13 p-0">
       <?php if ( function_exists( 'the_custom_logo' ) ) {
        the_custom_logo();
       } ?>
   </div>
-  <div class="col-24 col-lg-11">
+  <div class="col-22 col-lg-11 text-center">
 <?php
    wp_nav_menu([
      'menu'            => 'Primary Navigation',
@@ -20,7 +20,7 @@
      'walker'          => new bs4navwalker()
    ]);
    ?>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarcollapse" aria-controls="sidebarcollapse" aria-expanded="true" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
 

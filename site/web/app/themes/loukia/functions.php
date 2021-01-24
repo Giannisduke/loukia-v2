@@ -232,4 +232,5 @@ add_action( 'woocommerce_after_shop_loop', 'facet_pager', 20 );
   }
   add_filter('woocommerce_form_field_args','lv2_add_bootstrap_input_classes',10,3);
 
-  
+
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );

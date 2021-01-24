@@ -7,5 +7,5 @@
     </div>
   </div>
     <div></div>
-  <div><?php do_action('wpml_footer_language_selector'); ?></div>
+  <div><?php do_action('wpml_add_language_selector'); ?></div>
 </div>

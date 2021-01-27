@@ -64,6 +64,14 @@ function gallery_to_thumbnail($post_id) {
 		set_post_thumbnail($post_id, $image_id);
 	}
 }
+add_filter('acf/save_post', 'portfolio_gallery_to_thumbnail');
+function portfolio_gallery_to_thumbnail($post_id) {
+	$portfolio_gallery = get_field('portfolio_photos', $post_id, false);
+	if (!empty($portfolio_gallery)) {
+		$image_id = $portfolio_gallery[0];
+		set_post_thumbnail($post_id, $image_id);
+	}
+}
 
 add_filter( 'facetwp_is_main_query', function( $is_main_query, $query ) {
 	if ( isset( $query->query_vars['facetwp'] ) ) {

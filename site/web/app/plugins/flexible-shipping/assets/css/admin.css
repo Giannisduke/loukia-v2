@@ -1,0 +1,1186 @@
+/* Shipping Methods Table */
+table.flexible_shipping_methods th.select,
+table.flexible_shipping_methods td.select {
+    text-align: center;
+    width: 40px;
+    margin-top: -7px;
+    margin-left: -6px;
+    padding: 2px;
+}
+
+table.flexible_shipping_methods .checkbox-select-all {
+    margin: 0 12px 0 8px;
+}
+
+table.flexible_shipping_methods th.integration,
+table.flexible_shipping_methods td.integration {
+    text-align: center;
+    width: 130px;
+}
+
+table.flexible_shipping_methods tr.highlight td {
+    background-color: #e4f2fd;
+}
+
+table.flexible_shipping_methods.wc_shipping th {
+    font-weight: 400;
+    width: auto;
+}
+
+table.flexible_shipping_methods td.ui-sortable-handle:before, table.flexible_shipping_services td.ui-sortable-handle:before {
+    content: '\f333';
+    font-family: Dashicons;
+    text-align: center;
+    line-height: 1;
+    color: #999;
+    display: block;
+    width: 17px;
+    float: left;
+    height: 100%;
+    line-height: 24px;
+}
+
+/* ZmianyMO: POCZĄTEK */
+table.wc_input_table.flexible_shipping_rules.fs_new_interface td {
+    padding: 25px 5px;
+    vertical-align: middle;
+    border: none;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface tr:nth-child( even ) td {
+    background: #f9f9f9;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface tr:nth-child( odd ) td.sort {
+    background: white;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface td p.form-row {
+    margin-top: 0;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface .description {
+    padding-top: 5px;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface .form-row {
+    padding-right: 5px;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface .single_rule_condition {
+    vertical-align: middle;
+    display: flex;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface tbody .sort {
+    padding-top: 27px !important;
+    padding-bottom: 23px !important;
+}
+/* ZmianyMO: KONIEC */
+
+/* Rules Table */
+
+.flexible_shipping_method_rules th {
+    width: auto;
+}
+
+.flexible_shipping_method_rules th.sort {
+    width: 10px;
+}
+
+td.fs_cost {
+    width: 75px!important;
+}
+
+div.rule_condition div {
+    display: inline-block;
+}
+
+div.rule_condition div.based_on {
+    width: 70px;
+}
+
+div.rule_condition div input {
+    width: 70px;
+}
+
+table.flexible_shipping_method_rules th, table.flexible_shipping_method_rules th {
+    padding: 5px 10px 5px 0px;
+}
+
+table.flexible_shipping_method_rules td p,
+table.flexible_shipping_method_rules td p input,
+table.flexible_shipping_method_rules td p select {
+    margin: 0;
+    width: 100%;
+    box-shadow: none;
+    padding: 0px!important;
+}
+
+table.flexible_shipping_method_rules td p input[type=text] {
+    text-align: right;
+    padding: 0px 5px 0px 5px!important;
+    width: 100%!important;
+}
+
+table.flexible_shipping_method_rules td p select {
+    margin: 0;
+    width: 100%!important;
+    box-shadow: none;
+    line-height: 28px;
+    height: 37px;
+    vertical-align: middle;;
+}
+
+table.flexible_shipping_method_rules td p input[type=checkbox] {
+    margin: 0;
+    width: auto;
+}
+
+table.flexible_shipping_method_rules th,
+table.flexible_shipping_method_rules td {
+    text-align: center;
+}
+
+table.flexible_shipping_method_rules th.shipping_class,
+table.flexible_shipping_method_rules td.shipping_class {
+    text-align: center;
+    width: 200px;
+}
+
+table.flexible_shipping_method_rules td.shipping_class span {
+    border:none;
+}
+
+table.flexible_shipping_method_rules th.stop,
+table.flexible_shipping_method_rules td.stop {
+    text-align: center;
+    width: 30px;
+}
+
+table.flexible_shipping_method_rules th.cancel,
+table.flexible_shipping_method_rules td.cancel {
+    text-align: center;
+    width: 60px;
+}
+
+.woocommerce table.form-table .flexible_shipping_method_rules th span.woocommerce-help-tip {
+    float: none;
+    margin: 0px;
+}
+
+.woocommerce table.form-table .flexible_shipping_method_rules .select2-container {
+    margin: 0;
+}
+
+/* Locations Add-On */
+.woocommerce table.form-table .fs-locations-table .select2-container {
+    max-width: none;
+}
+
+.woocommerce table.form-table .fs-locations-table th .woocommerce-help-tip {
+    float: none;
+}
+
+div.flexilble_shipping_export_import {
+    float:right;
+}
+
+table.flexible_shipping_method_rules tfoot th {
+    padding: 10px;
+}
+
+.fs_shipping_class {
+    /*width: 300px!important;*/
+}
+
+/* Ads */
+.woocommerce_page_wc-settings #mainform {
+    position: relative;
+}
+
+/* Flexible Shipping Column - Orders List */
+
+.column-flexible_shipping {
+    width: 130px;
+}
+
+.column-flexible_shipping .shipping-status {
+    float: left;
+    margin-right: 8px;
+    margin-top: 4px;
+    text-align: left;
+    width: 18px;
+}
+
+.column-flexible_shipping .shipping-status .created:after {
+    color: #d0c21f !important;
+}
+
+.column-flexible_shipping .shipping-actions a.button {
+    float: left;
+    margin: 0 4px 2px 0;
+    display: block;
+    height: 2em !important;
+    padding: 0 !important;
+    position: relative;
+    text-indent: -9999px;
+    width: 2em;
+}
+
+.column-flexible_shipping .shipping-actions a.button:after {
+    font-family: WooCommerce;
+    font-variant: normal;
+    font-weight: 400;
+    height: 100%;
+    left: 0;
+    line-height: 1.85;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    text-indent: 0;
+    text-transform: none;
+    top: 0;
+    width: 100%;
+}
+
+.column-flexible_shipping .shipping-actions a.button.get-label:after {
+    content: "\e01e";
+}
+
+.column-flexible_shipping .shipping-actions a.button.track:after {
+    content: "\e01b";
+}
+
+.column-flexible_shipping mark.failed:after {
+    color: #a00 !important;
+}
+
+.column-flexible_shipping mark.manifest:after {
+    color: #2ea2cc !important;
+}
+
+.flexible_shipping_shipment_message {
+    color: green;
+}
+
+.flexible_shipping_shipment_message_error {
+    color: #a00 !important;
+}
+
+.flexible_shipping_shipment_message_error span {
+    color: #444;
+    font-weight: bold;
+}
+
+/** select */
+.woocommerce .wp-admin select {
+    height: 100%;
+}
+
+/** flexible printing integration */
+.button.flexible-printing-button-print {
+    height: auto !important;
+    white-space: normal !important;;
+    word-wrap: break-word !important;;
+}
+
+/* Info Page */
+.inspire-settings {
+    display: table;
+    width: 100%;
+}
+
+.inspire-settings .inspire-main-content,
+.inspire-settings .inspire-sidebar {
+    display: table-cell;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+
+.inspire-settings .inspire-main-content {
+    min-width: 800px;
+}
+
+.inspire-settings .inspire-sidebar {
+    padding-left: 30px;
+    width: 250px;
+}
+
+.flexible-shipping-info ol {
+    margin-top: 0;
+}
+
+#wpbody-content .flexible-shipping-info .metabox-holder {
+    padding-top: 0;
+}
+
+/* menu */
+
+#adminmenu #toplevel_page_flexible-shipping .menu-icon-generic div.wp-menu-image::before {
+    font-family: WooCommerce!important;
+    content: '\e01d';
+}
+
+/* Flexible shipping settings */
+.fs-new-service {
+    color: #006799;
+}
+
+/* Order shipping */
+.fs-order-item-fallback {
+    margin-top: .5em;
+    color: #888;
+}
+
+/* order metabox */
+.flexible_shipping_shipment_content p select {
+    max-width: 95%;
+}
+
+.flexible_shipping_shipment_content span.description {
+    display: block;
+}
+
+.fs-saas-button-cancel-created {
+    float: right;
+    color: #a00;
+    margin-top: 5px;
+}
+
+.fs-saas-button-cancel-created:hover {
+    color: #a00;
+    cursor: pointer;
+}
+
+.flexible_shipping_shipment_content input[type=checkbox] {
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px !important;
+    opacity: 1;
+    border-color: #888;
+}
+
+.flexible_shipping_shipment_content input[type=checkbox]:disabled {
+    opacity: 0.7;
+    border-color: rgba( 51, 51, 51, 0.5 );
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status {
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status span {
+    font-weight: bold;
+    color: #444;
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status-fs-new {
+    color: #ffba00;
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status-fs-created {
+    color: #d0c21f;
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status-fs-confirmed {
+    color: #444;
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status-fs-failed {
+    color: #a00;
+}
+
+.flexible_shipping_shipment_content p.fs-saas-status-fs-manifest {
+    color: #2ea2cc;
+}
+
+.flexible_shipping_shipment_content p.connection-error {
+    font-weight: bold;
+    color: #a00;
+}
+
+.fs-saas-shipment span {
+    font-weight: bold;
+}
+
+.fs-saas-charges span {
+}
+
+.fs-saas-labels-counts span {
+    font-weight: bold;
+}
+
+.fs-saas-no-labels-left {
+    color: #a00;
+}
+
+
+div.flexible-shipping-shipment-attachments p {
+    display: inline;
+}
+
+.flexible_shipping_shipment_attachment_message {
+    padding-top: 10px;
+    color: green;
+}
+
+
+table.flexible_shipping_services {
+    max-width: 550px;
+}
+
+table.flexible_shipping_services .sort {
+    width: 1%;
+}
+
+table.flexible_shipping_services .service_code {
+    width: 30px;
+}
+
+table.flexible_shipping_services .select {
+    text-align: center;
+    width: 1%;
+}
+
+table.flexible_shipping_services .select input {
+    margin: 0 8px 0 8px;
+}
+
+.woocommerce table.form-table table.flexible_shipping_services td.service_name input {
+    width: 100%;
+}
+
+input.woocommerce_flexible_shipping_service_name {
+    width: 100%;
+}
+
+
+
+/* Connect Global Notice */
+.updated .fs-banner__button-container {
+    padding: 0.75rem 0 0;
+}
+
+.notice-info.fs-connect__container {
+    border-left: none;
+    padding: 0;
+    box-shadow: 0 0 0 1px #dfdfdf, 0 1px 2px #dfdfdf;
+}
+
+@media screen and (max-width: 782px) {
+    .notice-info.fs-connect__container {
+        padding: 0 !important;
+    }
+}
+
+.fs-connect__container {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.fs-connect__inner-container > a:first-child {
+    z-index: 1;
+}
+
+.fs-connect__inner-container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-flex-pack: left;
+    justify-content: left;
+}
+
+.fs-connect__content-container {
+    width: 1250px;
+    position: relative;
+    padding: 2rem;
+    z-index: 0;
+}
+
+@media (min-width: 782px) {
+    .fs-connect__content-container {
+        padding: 2rem 2rem 4rem 2rem;
+    }
+}
+
+.fs-connect__content-container p {
+    color: #555;
+    font-size: 0.875rem;
+}
+
+.fs-connect__content-container h2 {
+    margin-top: 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.fs-connect__content-icon {
+    float: right;
+    margin: 0 1.5rem 0 2.25rem;
+}
+
+.fs-connect__content-icon svg {
+    fill: #0085ba;
+    height: 180px;
+    width: auto;
+}
+
+@media (max-width: 782px) {
+    .fs-connect__content-icon.fs-connect-illo {
+        float: none;
+        width: 100%;
+        text-align: center;
+        margin: 2.25rem 0 1.5rem;
+    }
+}
+
+.fs-connect__slide {
+    display: none;
+}
+
+.fs-connect__slide.fs__slide-is-active {
+    display: block;
+}
+
+@media (min-width: 782px) {
+    .fs-connect__content-container .fs-banner__button-container {
+        position: absolute;
+        bottom: 0.5rem;
+    }
+}
+
+.fs-banner__button-container .button-primary {
+    margin: 0 0.3125rem 0.3125rem 0;
+}
+
+.fs-connect__vertical-nav {
+    background-color: #f1f1f1;
+}
+
+@media (min-width: 600px) {
+    .fs-connect__vertical-nav {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    .fs-connect__vertical-nav {
+        display: none;
+    }
+}
+
+.fs-connect__vertical-nav-container {
+    width: 15rem;
+}
+
+.vertical-menu__feature-item-label {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .vertical-menu__feature-item {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        align-items: center;
+        border: none;
+        padding: 0.5rem;
+        border-bottom: 1px solid #dfdfdf;
+        border-right: 1px solid #dfdfdf;
+        border-left: 3px solid #f9f9f9;
+        background-color: #f9f9f9;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .vertical-menu__feature-item:last-of-type {
+        position: relative;
+        top: 1px;
+    }
+
+    .vertical-menu__feature-item-is-selected {
+        border-left: 3px solid #0085ba;
+        border-right: 1px solid #fff;
+        background-color: #fff;
+        color: #2e4453;
+    }
+
+    .vertical-menu__feature-item-is-selected.fs-feature-intro {
+        border-left: 3px solid #00BE28;
+    }
+
+    .vertical-menu__feature-item-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        padding: 0.25rem;
+        text-align: center;
+    }
+
+    .vertical-menu__feature-item svg {
+        fill: #555;
+        vertical-align: middle;
+    }
+
+    .vertical-menu__feature-item-is-selected svg {
+        fill: #0085ba;
+    }
+
+    .vertical-menu__feature-item-label {
+        display: block;
+        padding: 0.5rem;
+    }
+}
+
+.fs-couriers {
+    margin-top: 2.5em;
+}
+
+.fs-courier {
+    position: relative;
+    margin-bottom: 2.5em;
+    text-align: center;
+}
+
+.fs-courier img {
+    height: 50px;
+    width: auto;
+}
+
+.fs-courier-label {
+    background-color: #333;
+    border-radius: 3px;
+    color: #fff;
+    padding: 0 4px 1px;
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+
+@media (min-width: 1200px) {
+    .fs-couriers {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .fs-courier {
+        width: 20%;
+    }
+}
+
+/* Connect Register */
+.admin_page_flexible_shipping_connect_register .notice.is-dismissible,
+.admin_page_flexible_shipping_connect_register .update-nag,
+.admin_page_flexible_shipping_connect_register .updated,
+.admin_page_flexible_shipping_connect_register .settings-error {
+    display: none !important;
+}
+
+.fs-page-wrap {
+    margin: 0 auto;
+    max-width: 45rem;
+}
+
+.fs-page-wrap h1 {
+    font-weight: normal;
+    margin-bottom: .67em;
+    text-align: center;
+}
+
+.fs-box {
+    display: block;
+    position: relative;
+    margin: 0 auto 20px;
+    padding: 16px;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: 0 0 0 1px #dfdfdf, 0 1px 2px #dfdfdf;
+}
+
+.fs-box:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.admin_page_flexible_shipping_connect_register .fs-box,
+.fs-box.text-center {
+    text-align: center;
+}
+
+.admin_page_flexible_shipping_connect_register .fs-box p {
+    margin: 1.5em 0;
+}
+
+.fs-box input[type="email"] {
+    padding: 8px 10px;
+}
+
+.fs-actions {
+    padding-left: 40px;
+}
+
+.fs-actions button:active {
+    vertical-align: inherit !important;
+}
+
+.fs-actions .spinner {
+    float: none;
+    margin-top: 0;
+
+}
+
+.fs-cols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.fs-inner-box {
+    box-sizing: border-box;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.fs-inner-box h4 {
+    font-size: 1.2em;
+    margin-bottom: .37em;
+}
+
+.fs-inner-box svg {
+    fill: #0085ba;
+    height: 70px;
+    width: auto;
+}
+
+@media (min-width: 600px) {
+    .fs-inner-box {
+        width: 33.33%;
+    }
+}
+
+.fs-connect-box-header {
+    margin-top: 3em;
+}
+
+.hide-fs-connect-integration-box {
+    display: none;
+}
+
+.fs-settings-div table.form-table {
+    width: 700px;
+    float: left;
+}
+
+.fs-flexible-shipping-sidebar {
+    float:right;
+    padding-left: 30px;
+    width: 300px;
+    margin-top: -100px;
+}
+
+@media (max-width: 1200px) {
+    .fs-flexible-shipping-sidebar {
+        display: none;
+    }
+}
+
+/* WP Desk Metabox */
+.wpdesk-metabox {
+    background-color: #23282d;
+    color: #fff;
+    padding: 20px;
+}
+
+.wpdesk-metabox .title {
+    color: #fff;
+}
+
+.wpdesk-metabox .icon {
+    display: block;
+    margin: 0 auto;
+    width: 110px;
+}
+
+/* flexible_shipping_rules */
+table.wc_input_table.flexible_shipping_rules {
+    width: auto;
+    min-width: 764px;
+}
+
+table.wc_input_table.flexible_shipping_rules td {
+    padding: 3px 5px;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper input {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper select, table.wc_input_table.flexible_shipping_rules p span.woocommerce-input-wrapper select {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper label {
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+table.wc_input_table.flexible_shipping_rules td label {
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-top: 5px;
+}
+
+/* ZmianyMO: większy oddech między polami */
+table.wc_input_table.flexible_shipping_rules.fs_new_interface td label {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper span.description, table.wc_input_table.flexible_shipping_rules p.form-row span.description {
+    padding-right: 3px;
+    padding-left: 3px;
+    vertical-align: middle;
+    font-style: normal;
+    font-size: 14px;
+}
+
+table.wc_input_table.flexible_shipping_rules p.form-row span.description {
+    padding-top:4px;
+    position: absolute;
+}
+
+table.wc_input_table.flexible_shipping_rules td {
+    vertical-align: top;
+}
+
+table.wc_input_table.flexible_shipping_rules td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+table.wc_input_table.flexible_shipping_rules th.sort, table.wc_input_table.flexible_shipping_rules th.sort {
+    width: 20px;
+    text-align: center;
+}
+
+table.wc_input_table.flexible_shipping_rules th.cb, table.wc_input_table.flexible_shipping_rules td.cb {
+    width: 20px;
+    text-align: center;
+    padding: 10px 5px;
+    padding-right: 5px!important;
+    margin: 0px;
+}
+
+table.wc_input_table.flexible_shipping_rules th.cb input, table.wc_input_table.flexible_shipping_rules td.cb input {
+    margin: 0px;
+}
+
+table.wc_input_table.flexible_shipping_rules th.rule_costs {
+    width: 220px;
+}
+
+table.wc_input_table.flexible_shipping_rules input[type=text] {
+    width:100px!important;
+    height:2em!important;
+    border: 1px solid;
+}
+
+table.wc_input_table.flexible_shipping_rules select {
+    width:120px !important;
+    height:2em!important;
+    border: 1px solid;
+    padding: 0 5px;
+}
+
+table.wc_input_table.flexible_shipping_rules.fs_new_interface select {
+    width:130px !important; /* ZmianyMO: tutaj musi być, jeżeli chcemy dać "is" do środka */
+}
+
+table.wc_input_table.flexible_shipping_rules input.cost_additional {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules input.per_value {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs div.input-wrapper.cost_per_order {
+    display: block;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs a.button.plus.insert {
+    display: inline-block;
+    float: right;
+    clear: both;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs div.additional_cost_wrapper {
+    border-top: 1px solid #dfdfdf;
+    margin-top: 2px;
+    padding-top: 2px;
+    display: block;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs a.button.minus {
+    display: inline-block;
+    float: right;
+    clear: both;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) {
+    border-top: 1px solid #dfdfdf;
+    padding-top: 2px;
+    margin-top: 2px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_field_wrapper  {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper  {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper input.parameter_min {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper input.parameter_max {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition label.condition_field_label  {
+    width: 55px;
+    text-align: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child label.condition_field_label_where {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) label.condition_field_label_where {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child label.condition_field_label_and {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) label.condition_field_label_and {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition a.minus {
+    float: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition a.plus {
+    float: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child a.minus {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) a.plus {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules input.select2-search__field {
+    border: 0px;
+}
+
+table.wc_input_table.flexible_shipping_method_rules td p label span.optional {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_conditions {
+    min-width: 465px;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_conditions div.single_rule_condition p.form-row {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules td p label span.optional {
+    display: none;
+}
+
+/** New rules table banner */
+table#fs_new_rules_table_banner.widefat thead td, table#fs_new_rules_table_banner_for_new_table.widefat thead td {
+    padding:5px 20px 20px;
+}
+/* flexible_shipping_rules */
+table.wc_input_table.flexible_shipping_rules span.input-wrapper {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper input {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper select {
+    line-height: 2em;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper label {
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+table.wc_input_table.flexible_shipping_rules span.input-wrapper span.description {
+    padding-right: 3px;
+    padding-left: 3px;
+    vertical-align: middle;
+}
+
+table.wc_input_table.flexible_shipping_rules td {
+    vertical-align: top;
+}
+
+table.wc_input_table.flexible_shipping_rules td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+table.wc_input_table.flexible_shipping_rules th.sort, table.wc_input_table.flexible_shipping_rules th.sort {
+    width: 20px;
+    text-align: center;
+}
+
+table.wc_input_table.flexible_shipping_rules th.cb, table.wc_input_table.flexible_shipping_rules td.cb {
+    width: 20px;
+    text-align: center;
+}
+
+table.wc_input_table.flexible_shipping_rules th.rule_costs {
+    width: 520px;
+}
+
+table.wc_input_table.flexible_shipping_rules input[type=text] {
+    width:auto!important;
+    height:auto!important;
+    border: 1px solid;
+}
+
+table.wc_input_table.flexible_shipping_rules input.cost_additional {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules input.per_value {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs div.input-wrapper.cost_per_order {
+    display: block;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs a.button.plus.insert {
+    display: inline-block;
+    float: right;
+    clear: both;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs div.additional_cost_wrapper {
+    border-top: 1px solid #dfdfdf;
+    margin-top: 2px;
+    padding-top: 2px;
+    display: block;
+}
+
+table.wc_input_table.flexible_shipping_rules td.rule_costs a.button.minus {
+    display: inline-block;
+    float: right;
+    clear: both;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) {
+    border-top: 1px solid #dfdfdf;
+    padding-top: 2px;
+    margin-top: 2px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_field_wrapper  {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper  {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper input.parameter_min {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition div.condition_parameters_wrapper input.parameter_max {
+    width: 60px!important;
+    min-width: 60px;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition label.condition_field_label  {
+    width: 55px;
+    text-align: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child label.condition_field_label_where {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) label.condition_field_label_where {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child label.condition_field_label_and {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) label.condition_field_label_and {
+    display: inline-block;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition a.minus {
+    float: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition a.plus {
+    float: right;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:first-child a.minus {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules div.single_rule_condition:nth-child(n+2) a.plus {
+    display: none;
+}
+
+table.wc_input_table.flexible_shipping_rules input.select2-search__field {
+    border: 0px;
+}

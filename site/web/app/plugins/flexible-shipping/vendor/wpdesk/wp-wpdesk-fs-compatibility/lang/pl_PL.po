@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-16 18:05+0100\n"
+"PO-Revision-Date: 2020-12-16 18:14+0100\n"
+"Last-Translator: Sebastian Pisula <sebastian.pisula@gmail.com>\n"
+"Language-Team: Polish (Poland)\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 &&(n"
+"%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Loco-Source-Locale: en_PL\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor_prefixed\n"
+"X-Poedit-SearchPathExcluded-2: vendor\n"
+
+#: src/BlockSettings.php:135
+#, php-format
+msgid ""
+"In order to prevent any further issues with the plugin configuration or its "
+"proper functioning, before saving the changes please update the following: "
+"%s."
+msgstr ""
+"Aby wykluczyć możliwość wystąpienia dalszych nieprawidłowości związanych z "
+"konfiguracją i funkcjonowaniem wtyczki, przed zapisaniem zmian konieczna "
+"jest aktualizacja: %s."
+
+#: src/BlockSettings.php:144
+msgid "Go to the plugins list &rarr;"
+msgstr "Przejdź do listy wtyczek &rarr;"
+
+#: src/Notice.php:50
+#, php-format
+msgid ""
+"If the WordPress updater hasn't informed you about the newer versions "
+"available, please %sfollow these instructions &rarr;%s"
+msgstr ""
+"Jeżeli nie została automatycznie wyświetlona informacja o dostępnej "
+"aktualizacji wtyczki, postępuj %szgodnie z tymi instrukcjami &rarr;%s"
+
+#: src/Notice.php:51
+msgid "https://wpde.sk/fs-2-docs"
+msgstr "https://wpde.sk/fs-2-docs-pl"
+
+#: src/Notice.php:62
+#, php-format
+msgid ""
+"%sFlexible Shipping%s plugin you are currently using is not compatible with "
+"the installed version of Flexible Shipping PRO and Flexible Shipping "
+"Locations. Please update the %sFlexible Shipping%s plugin to %s version or "
+"newer."
+msgstr ""
+"Wtyczka %sFlexible Shipping%s nie jest kompatybilna z aktualnie używaną "
+"wersją wtyczki Flexible Shipping PRO oraz Flexible Shipping Lokalizacje. "
+"Prosimy zaktualizować wtyczkę %sFlexible Shipping%s do wersji %s lub "
+"najnowszej."
+
+#: src/Notice.php:67
+#, php-format
+msgid ""
+"%sFlexible Shipping%s plugin you are currently using is not compatible with "
+"the installed version of Flexible Shipping PRO. Please update the %sFlexible "
+"Shipping%s plugin to %s version or newer."
+msgstr ""
+"Wtyczka %sFlexible Shipping%s nie jest kompatybilna z aktualnie używaną "
+"wersją wtyczki Flexible Shipping PRO. Prosimy zaktualizować wtyczkę "
+"%sFlexible Shipping%s do wersji %s lub najnowszej."
+
+#: src/Notice.php:72
+#, php-format
+msgid ""
+"%sFlexible Shipping%s plugin you are currently using is not compatible with "
+"the installed version of Flexible Shipping Locations. Please update the "
+"%sFlexible Shipping%s plugin to %s version or newer."
+msgstr ""
+"Wtyczka %sFlexible Shipping%s nie jest kompatybilna z aktualnie używaną "
+"wersją wtyczki Flexible Shipping Lokalizacje. Prosimy zaktualizować wtyczkę "
+"%sFlexible Shipping%s do wersji %s lub najnowszej."
+
+#: src/Notice.php:76
+#, php-format
+msgid ""
+"%sFlexible Shipping PRO%s plugin you are currently using is not compatible "
+"with the installed version of Flexible Shipping free. Please update the "
+"%sFlexible Shipping PRO%s plugin to %s version or newer."
+msgstr ""
+"Wtyczka %sFlexible Shipping PRO%s nie jest kompatybilna z aktualnie używaną "
+"wersją darmowej wtyczki Flexible Shipping. Prosimy zaktualizować wtyczkę "
+"%sFlexible Shipping PRO%s do wersji %s lub najnowszej."
+
+#: src/Notice.php:80
+#, php-format
+msgid ""
+"%sFlexible Shipping Locations%s plugin you are currently using is not "
+"compatible with the installed version of Flexible Shipping free. Please "
+"update the %sFlexible Shipping Locations%s plugin to %s version or newer."
+msgstr ""
+"Wtyczka %sFlexible Shipping Lokalizacje%s nie jest kompatybilna z aktualnie "
+"używaną wersją darmowej wtyczki Flexible Shipping. Prosimy zaktualizować "
+"wtyczkę %sFlexible Shipping Lokalizacje%s do wersji %s lub najnowszej."
+
+#: src/PluginCompatibilityChecker.php:96
+msgid "Flexible Shipping"
+msgstr ""
+
+#: src/PluginCompatibilityChecker.php:100
+msgid "Flexible Shipping PRO"
+msgstr ""
+
+#: src/PluginCompatibilityChecker.php:104
+msgid "Flexible Shipping Locations"
+msgstr "Flexible Shipping Lokalizacje"
+
+#, php-format
+#~ msgid ""
+#~ "Learn more %show to downgrade the plugin and return to its previous "
+#~ "version &rarr;%s"
+#~ msgstr ""
+#~ "Dowiedz się %sjak wykonać downgrade i powrócić do poprzedniej wersji "
+#~ "wtyczki &rarr;%s"
+
+#~ msgid ""
+#~ "Learn more how to downgrade the plugin and return to its previous version."
+#~ msgstr ""
+#~ "Dowiedz się jak wykonać downgrade i powrócić do poprzedniej wersji "
+#~ "wtyczki."
+
+#~ msgid ""
+#~ "https://docs.flexibleshipping.com/article/856-how-to-downgrade-a-plugin-"
+#~ "to-its-previous-version"
+#~ msgstr "https://www.wpdesk.pl/docs/downgrade-wtyczki-wczesniejsza-wersja/"

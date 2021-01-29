@@ -1,0 +1,238 @@
+[
+    {
+        "name": "psr/log",
+        "version": "1.1.3",
+        "version_normalized": "1.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
+            "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2020-03-23T09:12:05+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Log\\": "Psr/Log/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "homepage": "https://github.com/php-fig/log",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "wpdesk/wp-builder",
+        "version": "1.4.4",
+        "version_normalized": "1.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://gitlab.com/wpdesk/wp-builder.git",
+            "reference": "e18df43bc3bc047c7bc0ed3e52eabb16118f4bc9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://gitlab.com/api/v4/projects/wpdesk%2Fwp-builder/repository/archive.zip?sha=e18df43bc3bc047c7bc0ed3e52eabb16118f4bc9",
+            "reference": "e18df43bc3bc047c7bc0ed3e52eabb16118f4bc9",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "10up/wp_mock": "*",
+            "mockery/mockery": "*",
+            "phpunit/phpunit": "<7",
+            "squizlabs/php_codesniffer": "^3.0.2",
+            "wimg/php-compatibility": "^8",
+            "wp-coding-standards/wpcs": "^0.14.1"
+        },
+        "time": "2020-06-17T08:00:07+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "WPDesk\\PluginBuilder\\": "src/"
+            },
+            "classmap": [
+                "src/Plugin/WithoutNamespace"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Krzysiek",
+                "email": "krzysiek@wpdesk.pl"
+            }
+        ]
+    },
+    {
+        "name": "wpdesk/wp-notice",
+        "version": "3.1.3",
+        "version_normalized": "3.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://gitlab.com/wpdesk/wp-notice.git",
+            "reference": "bd062f56852a6206ae23f0c635ee7c97aa553438"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://gitlab.com/api/v4/projects/wpdesk%2Fwp-notice/repository/archive.zip?sha=bd062f56852a6206ae23f0c635ee7c97aa553438",
+            "reference": "bd062f56852a6206ae23f0c635ee7c97aa553438",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5",
+            "wpdesk/wp-builder": "^1.0"
+        },
+        "require-dev": {
+            "10up/wp_mock": "*",
+            "mockery/mockery": "*",
+            "phpunit/phpunit": "<7",
+            "squizlabs/php_codesniffer": "^3.0.2",
+            "wimg/php-compatibility": "^8",
+            "wp-coding-standards/wpcs": "^0.14.1"
+        },
+        "time": "2020-03-06T11:09:25+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "WPDesk\\Notice\\": "src/WPDesk/Notice/"
+            },
+            "files": [
+                "src/WPDesk/notice-functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "grola",
+                "email": "grola@wpdesk.net"
+            }
+        ],
+        "description": "Library for displaying Wordpress notices.",
+        "homepage": "https://gitlab.com/wpdesk/wp-notice",
+        "keywords": [
+            "admin",
+            "notice",
+            "wordpress"
+        ]
+    },
+    {
+        "name": "wpdesk/wp-wpdesk-fs-compatibility",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://gitlab.com/wpdesk/wp-wpdesk-fs-compatibility.git",
+            "reference": "fd1157fe2f7033865d07635e8e5580cb8097272a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://gitlab.com/api/v4/projects/wpdesk%2Fwp-wpdesk-fs-compatibility/repository/archive.zip?sha=fd1157fe2f7033865d07635e8e5580cb8097272a",
+            "reference": "fd1157fe2f7033865d07635e8e5580cb8097272a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "psr/log": "^1.1",
+            "wpdesk/wp-builder": "^1.4",
+            "wpdesk/wp-notice": "^3.1.3"
+        },
+        "require-dev": {
+            "10up/wp_mock": "^0.3",
+            "mockery/mockery": "^1.2",
+            "phpunit/phpunit": "<7"
+        },
+        "time": "2020-12-16T17:22:21+00:00",
+        "type": "library",
+        "extra": {
+            "text-domain": "wp-wpdesk-fs-compatibility",
+            "translations-folder": "lang",
+            "po-files": {
+                "pl_PL": "pl_PL.po"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "WPDesk\\FS\\Compatibility\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Sebastian",
+                "email": "sebastian.pisula@flexibleshipping.com"
+            }
+        ]
+    },
+    {
+        "name": "wpdesk/wp-wpdesk-helper-override",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://gitlab.com/wpdesk/wp-wpdesk-helper-override.git",
+            "reference": "77844fc71da7ebb7645f10f0fc15f5294fed8542"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://gitlab.com/api/v4/projects/wpdesk%2Fwp-wpdesk-helper-override/repository/archive.zip?sha=77844fc71da7ebb7645f10f0fc15f5294fed8542",
+            "reference": "77844fc71da7ebb7645f10f0fc15f5294fed8542",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "<7"
+        },
+        "time": "2019-08-13T07:33:46+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Krzysiek",
+                "email": "krzysiek@wpdesk.pl"
+            }
+        ]
+    }
+]

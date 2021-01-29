@@ -24,6 +24,7 @@ web/app/plugins/*
 !web/app/plugins/wp-mail-smtp
 !web/app/plugins/dhl-for-woocommerce
 !web/app/plugins/flexible-shipping
+!web/app/plugins/flexible-shipping-dhl-express
 
 web/app/mu-plugins/*/
 web/app/upgrade

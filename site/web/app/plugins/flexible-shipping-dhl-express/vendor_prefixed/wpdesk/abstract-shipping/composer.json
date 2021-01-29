@@ -1,0 +1,53 @@
+{
+    "name": "wpdesk\/abstract-shipping",
+    "description": "Abstract Shipping",
+    "license": "MIT",
+    "keywords": [
+        "wordpress",
+        "woocommerce",
+        "shipping"
+    ],
+    "homepage": "https:\/\/gitlab.com\/wpdesk\/abstract-shipping",
+    "authors": [
+        {
+            "name": "grola",
+            "email": "grola@wpdesk.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "psr\/log": "^1.1"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "<7",
+        "wp-coding-standards\/wpcs": "^0.14.1",
+        "squizlabs\/php_codesniffer": "^3.0.2",
+        "mockery\/mockery": "*",
+        "10up\/wp_mock": "*",
+        "phpcompatibility\/php-compatibility": "^9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "DhlVendor\\WPDesk\\AbstractShipping\\": "src\/AbstractShipping"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests\/unit"
+        ]
+    },
+    "extra": {
+        "text-domain": "abstract-shipping",
+        "translations-folder": "lang",
+        "po-files": {
+            "pl_PL": "pl_PL.po"
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpunit-unit": "phpunit --configuration phpunit-unit.xml --coverage-text --colors=never",
+        "phpunit-unit-fast": "phpunit --configuration phpunit-unit.xml --no-coverage",
+        "phpunit-integration": "phpunit --configuration phpunit-integration.xml --coverage-text --colors=never",
+        "phpunit-integration-fast": "phpunit --configuration phpunit-integration.xml --no-coverage"
+    }
+}

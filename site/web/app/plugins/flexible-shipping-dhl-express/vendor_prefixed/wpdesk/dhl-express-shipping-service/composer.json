@@ -1,0 +1,58 @@
+{
+    "name": "wpdesk\/dhl-express-shipping-service",
+    "description": "DHL Express Shipping Service",
+    "license": "MIT",
+    "keywords": [
+        "wordpress",
+        "woocommerce",
+        "dhl",
+        "dhl express"
+    ],
+    "homepage": "https:\/\/gitlab.com\/wpdesk\/dhl-express-shipping-service",
+    "authors": [
+        {
+            "name": "grola",
+            "email": "grola@wpdesk.net"
+        }
+    ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6",
+        "wpdesk\/abstract-shipping": "^2.6.0",
+        "psr\/log": "^1.1",
+        "alfallouji\/dhl_api": "^0.2.10",
+        "ext-simplexml": "*"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "<7",
+        "mockery\/mockery": "*",
+        "10up\/wp_mock": "*",
+        "phpcompatibility\/php-compatibility": "^9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "DhlVendor\\WPDesk\\DhlExpressShippingService\\": "src\/DhlExpressShippingService",
+            "DhlVendor\\DHL\\": "src\/DHL"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests\/unit"
+        ]
+    },
+    "extra": {
+        "text-domain": "dhl-express-shipping-service",
+        "translations-folder": "lang",
+        "po-files": {
+            "pl_PL": "pl_PL.po"
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpunit-unit": "phpunit --configuration phpunit-unit.xml --coverage-text --colors=never",
+        "phpunit-unit-fast": "phpunit --configuration phpunit-unit.xml --no-coverage",
+        "phpunit-integration": "phpunit --configuration phpunit-integration.xml --coverage-text --colors=never",
+        "phpunit-integration-fast": "phpunit --configuration phpunit-integration.xml --no-coverage"
+    }
+}

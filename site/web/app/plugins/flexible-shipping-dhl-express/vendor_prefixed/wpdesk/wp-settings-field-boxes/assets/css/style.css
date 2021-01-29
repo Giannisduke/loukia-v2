@@ -1,0 +1,83 @@
+fieldset.settings-field-boxes {
+    margin: 0;
+    padding: 0;
+    boder: 0;
+}
+
+table.shipping-boxes {
+    position: relative;
+    table-layout: fixed;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border-spacing: 0;
+    width: 100%;
+    clear: both;
+    margin: 0;
+}
+
+table.shipping-boxes thead td {
+    display: table-cell;
+    padding: 1em;
+    vertical-align: top;
+    line-height: 1.75em;
+    text-align: left;
+    font-weight: 600;
+    text-shadow: none;
+    font-size: 14px;
+}
+
+table.shipping-boxes tbody td {
+    margin-bottom: 9px;
+    padding: 15px 10px;
+    line-height: 1.3;
+    vertical-align: middle;
+    border-top: 1px solid #e5e5e5;
+}
+
+table.shipping-boxes tfoot td {
+    border-top: 1px solid #e1e1e1;
+}
+
+table.shipping-boxes tbody tr:nth-child(even) td {
+    background: #f9f9f9;
+}
+
+table.shipping-boxes input[type="text"] {
+    max-width: 100%;
+    width: 100%;
+}
+
+table.shipping-boxes thead tr td:first-child {
+    width: 20%;
+}
+
+
+table.shipping-boxes tbody tr td:first-child select {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+
+    table.shipping-boxes tbody tr td:first-child select {
+        width: auto;
+        max-width: 100%;
+    }
+
+    table.shipping-boxes, table.shipping-boxes tbody {
+        display: block;
+    }
+    table.shipping-boxes thead {
+        display: none;
+    }
+
+    table.shipping-boxes tbody tr td:first-child,
+    table.shipping-boxes thead tr td:first-child {
+        width: 100%;
+        display: block;
+    }
+    table.shipping-boxes tbody tr, table.shipping-boxes tbody td {
+        display: block;
+        width: 100%;
+    }
+}

@@ -14,7 +14,7 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 	/**
 	 * Import all files matched by path
 	 * @param callable[optional] $logger Method where progress messages are submmitted
-	 * @return PMXI_Import_Record
+	 * @return PMXI_Export_Record
 	 * @chainable
 	 */
 	public function execute($logger = NULL, $cron = false) {
@@ -35,11 +35,16 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 
 		XmlExportEngine::$exportOptions  	 = $this->options;
 		XmlExportEngine::$is_user_export 	 = $this->options['is_user_export'];
-		XmlExportEngine::$is_comment_export  = $this->options['is_comment_export'];
+        XmlExportEngine::$is_comment_export  = $this->options['is_comment_export'];
+        XmlExportEngine::$is_woo_review_export  = empty($this->options['is_woo_review_export']) ? false: $this->options['is_woo_review_export'];
         XmlExportEngine::$is_taxonomy_export = empty($this->options['is_taxonomy_export']) ? false : $this->options['is_taxonomy_export'];
 		XmlExportEngine::$exportID 		 	 = $this->id;
 		XmlExportEngine::$exportRecord 		 = $this;
         XmlExportEngine::$post_types         = $this->options['cpt'];
+
+        if(isset($this->options['is_woo_customer_export'])) {
+            XmlExportEngine::$is_woo_customer_export = $this->options['is_woo_customer_export'];
+        }
 
         if ( class_exists('SitePress') && ! empty(XmlExportEngine::$exportOptions['wpml_lang'])){
           do_action( 'wpml_switch_language', XmlExportEngine::$exportOptions['wpml_lang'] );
@@ -83,7 +88,7 @@ class PMXE_Export_Record extends PMXE_Model_Record {
                 }
 
 				add_action('pre_user_query', 'wp_all_export_pre_user_query', 10, 1);
-				$exportQuery = eval('return new WP_User_Query(array(' . $this->options['wp_query'] . ', \'offset\' => ' . $this->exported . ', \'number\' => ' . $this->options['records_per_iteration'] . '));');			
+				$exportQuery = eval('return new WP_User_Query(array(' . $this->options['wp_query'] . ', \'offset\' => ' . $this->exported . ', \'number\' => ' . $this->options['records_per_iteration'] . '));');
 				remove_action('pre_user_query', 'wp_all_export_pre_user_query');
 			}
 			elseif (XmlExportEngine::$is_comment_export)
@@ -95,10 +100,11 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 			else
 			{		
 				remove_all_actions('parse_query');
-				remove_all_actions('pre_get_posts');
-				remove_all_filters('posts_clauses');			
+				remove_all_filters('posts_clauses');
+                wp_all_export_remove_before_post_except_toolset_actions();
 
-				add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
+
+                add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
 				add_filter('posts_join', 'wp_all_export_posts_join', 10, 1);
 				$exportQuery = eval('return new WP_Query(array(' . $this->options['wp_query'] . ', \'offset\' => ' . $this->exported . ', \'posts_per_page\' => ' . $this->options['records_per_iteration'] . '));');			
 				remove_filter('posts_join', 'wp_all_export_posts_join');			
@@ -137,6 +143,21 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 				}
 				remove_action('comments_clauses', 'wp_all_export_comments_clauses');
 			}
+            elseif ( in_array('shop_review', $this->options['cpt']))
+            {
+                add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
+                global $wp_version;
+
+                if ( version_compare($wp_version, '4.2.0', '>=') )
+                {
+                    $exportQuery = new WP_Comment_Query( array( 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $this->options['records_per_iteration'], 'offset' => $this->exported));
+                }
+                else
+                {
+                    $exportQuery = get_comments( array( 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $this->options['records_per_iteration'], 'offset' => $this->exported));
+                }
+                remove_action('comments_clauses', 'wp_all_export_comments_clauses');
+            }
             elseif ( in_array('taxonomies', $this->options['cpt']))
             {
                 add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
@@ -147,10 +168,10 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 			else
 			{				
 				remove_all_actions('parse_query');
-				remove_all_actions('pre_get_posts');
-				remove_all_filters('posts_clauses');			
-				
-				add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
+				remove_all_filters('posts_clauses');
+                wp_all_export_remove_before_post_except_toolset_actions();
+
+                add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
 				add_filter('posts_join', 'wp_all_export_posts_join', 10, 1);
 				
 				$exportQuery = new WP_Query( array( 'post_type' => $this->options['cpt'], 'post_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC', 'ignore_sticky_posts' => 1, 'offset' => $this->exported, 'posts_per_page' => $this->options['records_per_iteration'] ));
@@ -290,8 +311,8 @@ class PMXE_Export_Record extends PMXE_Model_Record {
         }
 		else
 		{
-			$foundPosts = ( ! XmlExportEngine::$is_user_export ) ? $exportQuery->found_posts : $exportQuery->get_total();
-			$postCount  = ( ! XmlExportEngine::$is_user_export ) ? $exportQuery->post_count : count($exportQuery->get_results());
+			$foundPosts = ( ! XmlExportEngine::$is_user_export && ! XmlExportEngine::$is_woo_customer_export ) ? $exportQuery->found_posts : $exportQuery->get_total();
+			$postCount  = ( ! XmlExportEngine::$is_user_export && ! XmlExportEngine::$is_woo_customer_export ) ? $exportQuery->post_count : count($exportQuery->get_results());
 		}
 		// [ \get total found records ]
 
@@ -388,7 +409,7 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 				'processing' => 0,
 				'triggered' => 0,
 				'canceled' => 0,				
-				'registered_on' => date('Y-m-d H:i:s'),	
+				'registered_on' => date('Y-m-d H:i:s'),
 				'iteration' => ++$this->iteration										
 			))->update();	
 
@@ -397,8 +418,6 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 		    do_action('pmxe_after_iteration', $this->id, $this);
         }
 
-		$this->set('registered_on', date('Y-m-d H:i:s'))->save(); // update registered_on to indicated that job has been exectured even if no files are going to be imported by the rest of the method
-		
 		return $this;
 	}
 
@@ -699,7 +718,8 @@ class PMXE_Export_Record extends PMXE_Model_Record {
             return false;
         }
 
-    	$unsupported_post_types = array('comments');
+    	$unsupported_post_types = [];
+
     	return ( empty($options['cpt']) and ! in_array($options['wp_query_selector'], array('wp_comment_query')) or ! empty($options['cpt']) and ! in_array($options['cpt'][0], $unsupported_post_types) ) ? true : false;
     }
 

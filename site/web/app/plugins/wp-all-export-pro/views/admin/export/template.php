@@ -1,5 +1,6 @@
 <?php
 $addons = new \Wpae\App\Service\Addons\AddonService();
+
 ?>
 <h2 class="wpallexport-wp-notices"></h2>
 <div class="wpallexport-wrapper">
@@ -57,7 +58,9 @@ $addons = new \Wpae\App\Service\Addons\AddonService();
 				endif;
 				if (XmlExportComment::$is_active):
 					$selected_post_type = 'comments';
-				endif;
+				elseif (XmlExportWooCommerceReview::$is_active):
+                    $selected_post_type = 'shop_review';
+                endif;
 				if (empty($selected_post_type) and ! empty($post['cpt'][0]))
 				{
 					$selected_post_type = $post['cpt'][0];
@@ -113,7 +116,7 @@ $addons = new \Wpae\App\Service\Addons\AddonService();
 												elseif ($this->isWizard)
 												{
 													$new_export = true;
-													if ( empty($post['cpt']) and ! XmlExportWooCommerceOrder::$is_active and ! $addons->isUserAddonActiveAndIsUserExport() and ! XmlExportComment::$is_active ){
+													if ( empty($post['cpt']) and ! XmlExportWooCommerceOrder::$is_active and ! $addons->isUserAddonActiveAndIsUserExport() and ! XmlExportComment::$is_active and ! XmlExportWooCommerceReview::$is_active){
 														$init_fields[] = 
 															array(
 																'label' => 'post_type',
@@ -169,7 +172,7 @@ $addons = new \Wpae\App\Service\Addons\AddonService();
 								</div>
 
 								<!-- Warning Messages -->
-								<?php if ( ! XmlExportWooCommerceOrder::$is_active && ! XmlExportComment::$is_active && ! XmlExportTaxonomy::$is_active ) : ?>
+								<?php if ( ! XmlExportWooCommerceOrder::$is_active && ! XmlExportComment::$is_active && !XmlExportWooCommerceReview::$is_active && ! XmlExportTaxonomy::$is_active ) : ?>
 								<div class="wp-all-export-warning" <?php if ( empty($post['ids']) or count($post['ids']) > 1 ) echo 'style="display:none;"'; ?>>
 									<p></p>
 									<input type="hidden" id="warning_template" value="<?php _e("Warning: without %s you won't be able to re-import this data back to this site using WP All Import.", "wp_all_export_plugin"); ?>"/>
@@ -181,7 +184,7 @@ $addons = new \Wpae\App\Service\Addons\AddonService();
 								<input type="hidden" id="is_product_export" value="1"/>													
 								<?php endif; ?>
 
-								<?php if ( empty($post['cpt']) and ! XmlExportWooCommerceOrder::$is_active and ! $addons->isUserAddonActiveAndIsUserExport() and ! XmlExportComment::$is_active and ! XmlExportTaxonomy::$is_active ) : ?>
+								<?php if ( empty($post['cpt']) and ! XmlExportWooCommerceOrder::$is_active and ! $addons->isUserAddonActiveAndIsUserExport() and ! XmlExportComment::$is_active and !XmlExportWooCommerceReview::$is_active and ! XmlExportTaxonomy::$is_active ) : ?>
 								<input type="hidden" id="is_wp_query" value="1"/>								
 								<?php endif; ?>
 																									
@@ -306,14 +309,18 @@ $addons = new \Wpae\App\Service\Addons\AddonService();
 												<input type="hidden" name="order_item_per_row" value="0"/>
 												<input type="checkbox" id="order_item_per_row" name="order_item_per_row" value="1" <?php if ($post['order_item_per_row']):?>checked="checked"<?php endif; ?> class="switcher"/>
 												<label for="order_item_per_row"><?php _e("Display each product in its own row", "wp_all_export_plugin"); ?></label>
-												<a href="#help" class="wpallexport-help" style="position: relative; top: 0px;" title="<?php _e('If an order contains multiple products, each product will have its own row. If disabled, each product will have its own column.', 'wp_all_export_plugin'); ?>">?</a>
-												<div class="input switcher-target-order_item_per_row" style="margin-top: 10px; text-align:left;">
+												<span>
+                                                    <a href="#help" class="wpallexport-help" style="position: relative; top: 0px;" title="<?php _e('If an order contains multiple products, each product will have its own row. If disabled, each product will have its own column.', 'wp_all_export_plugin'); ?>">?</a>
+												</span>
+                                                <div class="input switcher-target-order_item_per_row" style="margin-top: 10px; text-align:left;">
 													<input type="hidden" name="order_item_fill_empty_columns" value="0"/>
 													<input type="checkbox" id="order_item_fill_empty_columns" name="order_item_fill_empty_columns" value="1" <?php if ($post['order_item_fill_empty_columns']):?>checked="checked"<?php endif; ?>/>
 													<label for="order_item_fill_empty_columns"><?php _e("Fill in empty columns", "wp_all_export_plugin"); ?></label>
-													<a href="#help" class="wpallexport-help" style="position: relative; top: 0px;"
-													   title="<?php _e('If enabled, each order item will appear as its own row with all order info filled in for every column. If disabled, order info will only display on one row with only the order item info displaying in additional rows.', 'wp_all_export_plugin'); ?>">?</a>
-												</div>
+													<span>
+                                                        <a href="#help" class="wpallexport-help" style="position: relative; top: 0px;"
+                                                           title="<?php _e('If enabled, each order item will appear as its own row with all order info filled in for every column. If disabled, order info will only display on one row with only the order item info displaying in additional rows.', 'wp_all_export_plugin'); ?>">?</a>
+												    </span>
+                                                </div>
 											</div>
 											<div class="clear"></div>
 										<?php endif; ?>

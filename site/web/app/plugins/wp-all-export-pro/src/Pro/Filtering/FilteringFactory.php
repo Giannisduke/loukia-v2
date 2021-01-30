@@ -17,12 +17,19 @@ class FilteringFactory
         if (\XmlExportEngine::$is_comment_export) {
             return new FilteringComments();
         }
+        if (\XmlExportEngine::$is_woo_review_export) {
+            return new FilteringReviews();
+        }
         if (\XmlExportEngine::$is_user_export && $addonService->isUserAddonActive()){
-            if (! empty(\XmlExportEngine::$post_types) and @in_array("shop_customer", \XmlExportEngine::$post_types)){
-                return new \FilteringCustomers();
-            }
             return new \FilteringUsers();
         } else if(\XmlExportEngine::$is_user_export && !$addonService->isUserAddonActive()) {
+
+            throw new AddonNotFoundException(\__('The User Export Add-On Pro is required to run this export. You can download the add-on here: <a href="http://www.wpallimport.com/portal/" target="_blank">http://www.wpallimport.com/portal/</a>', \PMXE_Plugin::LANGUAGE_DOMAIN));
+
+        }
+        if (\XmlExportEngine::$is_woo_customer_export && $addonService->isUserAddonActive()){
+            return new \FilteringCustomers();
+        } else if(\XmlExportEngine::$is_woo_customer_export && !$addonService->isUserAddonActive()) {
 
             throw new AddonNotFoundException(\__('The User Export Add-On Pro is required to run this export. You can download the add-on here: <a href="http://www.wpallimport.com/portal/" target="_blank">http://www.wpallimport.com/portal/</a>', \PMXE_Plugin::LANGUAGE_DOMAIN));
 
@@ -47,9 +54,10 @@ class FilteringFactory
 
         if ( $isWizard or $post['export_type'] != 'specific' ) return;
 
+        if(!current_user_can(\PMXE_Plugin::$capabilities)) return;
         ?>
         <div class="wpallexport-collapsed wpallexport-section closed">
-            <div class="wpallexport-content-section wpallexport-filtering-section" <?php if ($is_on_template_screen):?>style="margin-bottom: 10px;"<?php endif; ?>>
+            <div id="wpallexport-filtering-container" class="wpallexport-content-section wpallexport-filtering-section" <?php if ($is_on_template_screen):?>style="margin-bottom: 10px;"<?php endif; ?>>
                 <div class="wpallexport-collapsed-header" style="padding-left: 25px;">
                     <h3><?php _e('Filtering Options','wp_all_export_plugin');?></h3>
                 </div>

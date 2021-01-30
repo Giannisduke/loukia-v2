@@ -87,6 +87,10 @@ $l10n = array(
 					if (XmlExportComment::$is_active):
 						$selected_post_type = 'comments';
 					endif;
+					if (XmlExportWooCommerceReview::$is_active):
+                        $selected_post_type = 'shop_review';
+					endif;
+
 					if (empty($selected_post_type) and ! empty($post['cpt'][0]))
 					{
 						$selected_post_type = $post['cpt'][0];
@@ -101,7 +105,21 @@ $l10n = array(
                     <input type="hidden" name="record-count" class="wpae-record-count" value="0" />
 
 					<?php \Wpae\Pro\Filtering\FilteringFactory::render_filtering_block( $engine, $this->isWizard, $post ); ?>
-                    <?php include(__DIR__ . "/../../../src/Scheduling/views/SchedulingOptions.php"); ?>
+                    <?php
+                    if(current_user_can(PMXE_Plugin::$capabilities)) {
+                        include(__DIR__ . "/../../../src/Scheduling/views/SchedulingOptions.php");
+                    } else {
+                        ?>
+                        <script type="text/javascript">
+                            jQuery(document).ready(function(){
+                                jQuery('.wpae-save-button').click(function (e) {
+                                    jQuery('#wpae-options-form').submit();
+                                });
+                            });
+                        </script>
+                    <?php
+                    }
+                    ?>
                     <?php include_once 'options/settings.php'; ?>
                     <?php wp_nonce_field('options', '_wpnonce_options') ?>
                     <input type="hidden" name="is_submitted" value="1" />

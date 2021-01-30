@@ -150,7 +150,10 @@ class PMXE_XMLWriter extends XMLWriter
             $founded_values = array_keys($article);
             $node_tpl = XmlExportEngine::$exportOptions['custom_xml_template_loop'];
 
-            // clean up XPaths for not found values
+            // Handle Fee Amount (per surcharge) as a special case, this has different key/values.
+            $node_tpl = str_replace('{Fee Amount (per surcharge)}', '{Fee Name}({Fee Amount})', $node_tpl);
+
+            // Clean up XPaths for not found values
             preg_match_all("%(\{[^\}\{]*\})%", $node_tpl, $matches);
             $xpaths = array_unique($matches[0]);
 
@@ -181,6 +184,10 @@ class PMXE_XMLWriter extends XMLWriter
                             $key = "Downloadable Files";
                         }
 
+                        if($key == "Fee Amount (per surcharge)") {
+                            $key = "Fee Name";
+                        }
+
                         if (is_array($v)) {
                             foreach($v as &$val) {
                                 $val = str_replace("\"","**DOUBLEQUOT**",$val);
@@ -209,12 +216,12 @@ class PMXE_XMLWriter extends XMLWriter
                         }
 
                         // We have an array with just one value (Which is transformed into a string)
-                        if(in_array($key, $arrayTypes) && count($originalValue) == 1) {
+                        if(in_array($key, $arrayTypes) && (is_array($originalValue) && count($originalValue) == 1)) {
                             $delimiter = uniqid();
                             $node_tpl = preg_replace('%\[(.*)\{'.$key.'\}([^\[]*)\]%', "[$1explode('" . $delimiter . "', '" . implode($delimiter, array($originalValue)) . "')$2]", $node_tpl);
                             $v = "[explode('" . $delimiter . "', '" . implode($delimiter, array($originalValue)) . "')]";
                         }
-                        
+
                         $node_tpl = str_replace('{' . $key . '}', $v, $node_tpl);
 
                         break;

@@ -7,7 +7,8 @@ class IsBundle extends Field
 {
     public function getValue($snippetData)
     {
-        return 'no';
+        $defaultValue = 'no';
+        return apply_filters('pmxe_is_bundle', $defaultValue, $this->entry, \XmlExportEngine::$exportID);
     }
     
     public function getFieldName()

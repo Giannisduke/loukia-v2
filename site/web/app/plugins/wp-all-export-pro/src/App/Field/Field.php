@@ -72,7 +72,15 @@ abstract class Field
             }
         }
 
-        $value = str_replace("**DOUBLEQUOT**", "\\\"", $value);
+        if($this->getFieldName() == 'sale_price') {
+            $availabilityPriceData = $this->feed->getSectionFeedData(SalePrice::SECTION);
+            if($value == ' '.$availabilityPriceData['currency']) {
+                $value = "";
+            }
+
+        }
+
+        $value = str_replace("**DOUBLEQUOT**", "\"", $value);
         $value = str_replace("**SINGLEQUOT**","'", $value);
 
         return $value;

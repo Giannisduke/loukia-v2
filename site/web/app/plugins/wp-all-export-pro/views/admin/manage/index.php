@@ -54,6 +54,10 @@ $columns = array(
 
 //if ( ! wp_all_export_is_compatible()) unset($columns['info']);
 
+if(!current_user_can(PMXE_Plugin::$capabilities)) {
+    unset($columns['info']);
+}
+
 $columns = apply_filters('pmxe_manage_imports_columns', $columns);
 
 ?>
@@ -65,14 +69,18 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
 
     <div class="tablenav">
         <div class="alignleft actions">
+            <?php if(current_user_can(PMXE_Plugin::$capabilities)) { ?>
+
             <select name="bulk-action">
                 <option value="" selected="selected"><?php _e('Bulk Actions', 'wp_all_export_plugin') ?></option>
                 <option value="delete"><?php _e('Delete', 'wp_all_export_plugin') ?></option>
+                <option value="allow_client_mode"><?php _e('Toggle Client Mode', 'wp_all_export_plugin') ?></option>
             </select>
             <input type="submit" value="<?php esc_attr_e('Apply', 'wp_all_export_plugin') ?>" name="doaction"
                    id="doaction" class="button-secondary action"/>
         </div>
 
+        <?php } ?>
         <?php if ($page_links): ?>
             <div class="tablenav-pages">
                 <?php echo $page_links_html = sprintf(
@@ -90,9 +98,11 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
     <table class="widefat pmxe-admin-exports">
         <thead>
         <tr>
+            <?php if(current_user_can(PMXE_Plugin::$capabilities)) {?>
             <th class="manage-column column-cb check-column" scope="col">
                 <input type="checkbox"/>
             </th>
+            <?php } ?>
             <?php
             $col_html = '';
             foreach ($columns as $column_id => $column_display_name) {
@@ -111,9 +121,11 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
         </thead>
         <tfoot>
         <tr>
+            <?php if(current_user_can(PMXE_Plugin::$capabilities)) {?>
             <th class="manage-column column-cb check-column" scope="col">
                 <input type="checkbox"/>
             </th>
+            <?php } ?>
             <?php echo $col_html; ?>
         </tr>
         </tfoot>
@@ -132,10 +144,12 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
             <?php foreach ($list as $item): ?>
                 <?php $class = ('alternate' == $class) ? '' : 'alternate'; ?>
                 <tr class="<?php echo $class; ?>" valign="middle">
-                    <th scope="row" class="check-column">
-                        <input type="checkbox" id="item_<?php echo $item['id'] ?>" name="items[]"
-                               value="<?php echo esc_attr($item['id']) ?>"/>
-                    </th>
+                    <?php if(current_user_can(PMXE_Plugin::$capabilities)) {?>
+                        <th scope="row" class="check-column">
+                            <input type="checkbox" id="item_<?php echo $item['id'] ?>" name="items[]"
+                                   value="<?php echo esc_attr($item['id']) ?>"/>
+                        </th>
+                    <?php } ?>
                     <?php foreach ($columns as $column_id => $column_display_name): ?>
                         <?php
                         switch ($column_id):
@@ -151,13 +165,14 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
                                 <td style="min-width: 325px;">
                                     <strong><?php echo $item['friendly_name']; ?></strong> <br>
                                     <div class="row-actions">
+                                        <?php if(current_user_can(PMXE_Plugin::$capabilities)) { ?>
                                         <span class="edit"><a class="edit"
                                                               href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'template'), $this->baseUrl)) ?>"><?php _e('Edit Export', 'wp_all_export_plugin') ?></a></span>
                                         |
                                         <span class="edit"><a class="edit"
                                                               href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'options'), $this->baseUrl)) ?>"><?php _e('Export Settings', 'wp_all_export_plugin') ?></a></span>
                                         |
-
+                                        <?php } ?>
                                         <?php if (!$is_secure_import and $item['attch_id']): ?>
                                             <span class="update"><a class="update"
                                                                     href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'get_file', '_wpnonce' => wp_create_nonce('_wpnonce-download_feed')), $this->baseUrl)) ?>"><?php echo strtoupper(wp_all_export_get_export_format($item['options'])); ?></a></span> |
@@ -168,28 +183,31 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
                                         <?php endif; ?>
 
                                         <?php if ($item['options']['export_to'] == XmlExportEngine::EXPORT_TYPE_XML && $item['options']['xml_template_type'] == XmlExportEngine::EXPORT_TYPE_GOOLE_MERCHANTS) : ?>
+
                                             <?php if ($is_secure_import and !empty($item['options']['filepath'])): ?>
                                                 <span class="update"><a class="update"
-                                                                        href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'get_file', '_wpnonce' => wp_create_nonce('_wpnonce-download_feed')), $this->baseUrl)) ?>">TXT</a></span> |
+                                                                        href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'get_file', '_wpnonce' => wp_create_nonce('_wpnonce-download_feed')), $this->baseUrl)) ?>"><?php if(current_user_can(PMXE_Plugin::CLIENT_MODE_CAP) && !current_user_can(PMXE_Plugin::$capabilities)) {?>Download <?php } ?>TXT</a></span>
                                             <?php endif; ?>
                                         <?php else: ?>
-                                            <?php if ($is_secure_import and !empty($item['options']['filepath'])): ?>
-                                                <span class="update"><a class="update"
-                                                                        href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'get_file', '_wpnonce' => wp_create_nonce('_wpnonce-download_feed')), $this->baseUrl)) ?>"><?php echo strtoupper(wp_all_export_get_export_format($item['options'])); ?></a></span> |
-                                                <?php if (!empty($item['options']['bundlepath']) and PMXE_Export_Record::is_bundle_supported($item['options'])): ?>
-                                                    <span class="update"><a class="update"
-                                                                            href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'bundle', '_wpnonce' => wp_create_nonce('_wpnonce-download_bundle')), $this->baseUrl)) ?>"><?php _e('Bundle', 'wp_all_export_plugin'); ?></a></span> |
+                                            <?php if ($is_secure_import && !empty($item['options']['filepath'])): ?>
+                                                  <span class="update"><a class="update"
+                                                                        href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'get_file', '_wpnonce' => wp_create_nonce('_wpnonce-download_feed')), $this->baseUrl)) ?>"><?php if(current_user_can(PMXE_Plugin::CLIENT_MODE_CAP) && !current_user_can(PMXE_Plugin::$capabilities)) {?>Download <?php } ?><?php echo strtoupper(wp_all_export_get_export_format($item['options'])); ?></a></span>
+                                                <?php if (current_user_can(PMXE_Plugin::$capabilities) && !empty($item['options']['bundlepath']) && PMXE_Export_Record::is_bundle_supported($item['options'])): ?>
+                                                   | <span class="update"><a class="update"
+                                                                            href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'bundle', '_wpnonce' => wp_create_nonce('_wpnonce-download_bundle')), $this->baseUrl)) ?>"><?php _e('Bundle', 'wp_all_export_plugin'); ?></a></span>
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
 
-                                        <?php if (!empty($item['options']['split_large_exports']) and !empty($item['options']['split_files_list'])): ?>
-                                            <span class="update"><a class="update"
+                                        <?php if (!empty($item['options']['split_large_exports']) and !empty($item['options']['split_files_list']) and current_user_can(PMXE_Plugin::$capabilities)): ?>
+                                            | <span class="update"><a class="update"
                                                                     href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'split_bundle', '_wpnonce' => wp_create_nonce('_wpnonce-download_split_bundle')), $this->baseUrl)) ?>"><?php printf(__('Split %ss', 'wp_all_export_plugin'), strtoupper(wp_all_export_get_export_format($item['options']))); ?></a></span> |
                                         <?php endif; ?>
 
-                                        <span class="delete"><a class="delete"
-                                                                href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'delete'), $this->baseUrl)) ?>"><?php _e('Delete', 'wp_all_export_plugin') ?></a></span>
+                                        <?php if(current_user_can(PMXE_Plugin::$capabilities)) { ?>
+                                            | <span class="delete"><a class="delete"
+                                                                    href="<?php echo esc_url(add_query_arg(array('id' => $item['id'], 'action' => 'delete'), $this->baseUrl)) ?>"><?php _e('Delete', 'wp_all_export_plugin') ?></a></span>
+                                        <?php } ?>
                                     </div>
                                 </td>
                                 <?php
@@ -197,6 +215,7 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
                             case 'info':
                                 ?>
                                 <td style="min-width: 180px;">
+                                    <?php if(current_user_can(PMXE_Plugin::$capabilities)) { ?>
                                     <a
                                             <?php
                                             if (!is_array($item['options']['cpt'])) {
@@ -215,12 +234,11 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
                                             <?php } ?>
                                        data-itemid="<?php echo $item['id']; ?>"><?php _e('Scheduling Options', 'wp_all_export_plugin'); ?></a>
                                     <br>
+                                    <?php } ?>
 
                                     <?php if ($item['options']['export_to'] === XmlExportEngine::EXPORT_TYPE_XML && $item['options']['xml_template_type'] == XmlExportEngine::EXPORT_TYPE_GOOLE_MERCHANTS) : ?>
                                         <a href="<?php echo add_query_arg(array('id' => $item['id'], 'action' => 'google_merchants_info'), $this->baseUrl) ?>"><?php _e('Google Merchant Center Info', 'wp_all_export_plugin'); ?></a>
-                                        <br>
                                     <?php endif; ?>
-
 									<?php
 										$isImportAllowedSpecification = new \Wpae\App\Specification\IsImportAllowed();
 										$is_re_import_allowed = $isImportAllowedSpecification->isSatisfied($item);
@@ -239,7 +257,12 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
 											}
 										?>													
 									<?php endif; ?>
-								</td>
+                                    <br/>
+                                    <?php if(current_user_can(PMXE_Plugin::$capabilities && $item['client_mode_enabled'])) { ?>
+                                        <span style="color: green;">Client mode enabled</span>
+                                    <?php } ?>
+
+                                </td>
 								<?php
 								break;
 							case 'data':
@@ -381,10 +404,13 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
             <div class="tablenav-pages"><?php echo $page_links_html ?></div><?php endif ?>
 
         <div class="alignleft actions">
+            <?php if(current_user_can(PMXE_Plugin::$capabilities)) { ?>
+
             <select name="bulk-action2">
                 <option value="" selected="selected"><?php _e('Bulk Actions', 'wp_all_export_plugin') ?></option>
                 <?php if (empty($type) or 'trash' != $type): ?>
-                    <option value="delete"><?php _e('Delete', 'wp_all_export_plugin') ?></option>
+                        <option value="delete"><?php _e('Delete', 'wp_all_export_plugin') ?></option>
+                        <option value="allow_client_mode"><?php _e('Toggle Client Mode', 'wp_all_export_plugin') ?></option>
                 <?php else: ?>
                     <option value="restore"><?php _e('Restore', 'wp_all_export_plugin') ?></option>
                     <option value="delete"><?php _e('Delete Permanently', 'wp_all_export_plugin') ?></option>
@@ -392,6 +418,8 @@ $columns = apply_filters('pmxe_manage_imports_columns', $columns);
             </select>
             <input type="submit" value="<?php esc_attr_e('Apply', 'wp_all_export_plugin') ?>" name="doaction2"
                    id="doaction2" class="button-secondary action"/>
+            <?php } ?>
+
         </div>
     </div>
     <div class="clear"></div>

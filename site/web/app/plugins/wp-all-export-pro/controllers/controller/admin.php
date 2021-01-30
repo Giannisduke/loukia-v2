@@ -67,8 +67,10 @@ abstract class PMXE_Controller_Admin extends PMXE_Controller {
 		if (is_file(PMXE_Plugin::ROOT_DIR . '/static/css/admin-colors-' . $scheme_color . '.css')) {
 			wp_enqueue_style('pmxe-admin-style-color', PMXE_ROOT_URL . '/static/css/admin-colors-' . $scheme_color . '.css', array('media-views'));
 		}
-	
-		wp_enqueue_script('jquery-ui-datepicker', PMXE_ROOT_URL . '/static/js/jquery/ui.datepicker.js', 'jquery-ui-core');
+
+        wp_deregister_script('wp-codemirror');
+
+        wp_enqueue_script('jquery-ui-datepicker', PMXE_ROOT_URL . '/static/js/jquery/ui.datepicker.js', 'jquery-ui-core');
 		wp_enqueue_script('jquery-tipsy', PMXE_ROOT_URL . '/static/js/jquery/jquery.tipsy.js', 'jquery');
 		wp_enqueue_script('jquery-pmxe-nestable', PMXE_ROOT_URL . '/static/js/jquery/jquery.mjs.pmxe_nestedSortable.js', array('jquery', 'jquery-ui-dialog', 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-tabs', 'jquery-ui-progressbar'));
 		wp_enqueue_script('jquery-select2', PMXE_ROOT_URL . '/static/js/jquery/select2.min.js', 'jquery');
@@ -100,30 +102,31 @@ abstract class PMXE_Controller_Admin extends PMXE_Controller {
 	/**
 	 * @see Controller::render()
 	 */
-	protected function render($viewPath = NULL)
-	{
+	protected function render($viewPath = NULL) {
 		// assume template file name depending on calling function
 		if (is_null($viewPath)) {
-			$trace = debug_backtrace();			
-			$viewPath = str_replace('_', '/', preg_replace('%^' . preg_quote(PMXE_Plugin::PREFIX, '%') . '%', '', strtolower($trace[1]['class']))) . '/' . $trace[1]['function'];
+			$trace = debug_backtrace();
+			$dispatchedFunction = str_replace('_action', '', $trace[1]['function']);
+			$viewPath = str_replace('_', '/', preg_replace('%^' . preg_quote(PMXE_Plugin::PREFIX, '%') . '%', '', strtolower($trace[1]['class']))) . '/' . $dispatchedFunction;
 		}
-		
-		// render contextual help automatically
-		$viewHelpPath = $viewPath;
-		// append file extension if not specified
-		if ( ! preg_match('%\.php$%', $viewHelpPath)) {
-			$viewHelpPath .= '.php';
-		}
-		$viewHelpPath = preg_replace('%\.php$%', '-help.php', $viewHelpPath);
-		$fileHelpPath = PMXE_Plugin::ROOT_DIR . '/views/' . $viewHelpPath;
-				
-		if (is_file($fileHelpPath)) { // there is help file defined
-			ob_start();
-			include $fileHelpPath;
-			add_contextual_help(PMXE_Plugin::getInstance()->getAdminCurrentScreen()->id, ob_get_clean());
-		}
-		
 		parent::render($viewPath);
 	}
+
+    protected function onlyAllowAdmin()
+    {
+        if (!current_user_can(PMXE_Plugin::$capabilities)) {
+            die('Security check');
+        }
+    }
+
+    /**
+     * @param $item
+     */
+    protected function userHasAccessToItem($item)
+    {
+        if (!current_user_can(PMXE_Plugin::$capabilities) && !(current_user_can(PMXE_Plugin::CLIENT_MODE_CAP) && $item['client_mode_enabled'])) {
+            die('Security check');
+        }
+    }
 	
 }

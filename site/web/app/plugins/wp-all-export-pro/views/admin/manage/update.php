@@ -47,7 +47,7 @@ $l10n = array(
 						<div class="wp_all_export_preloader"></div>
 					</div>	
 
-					<form class="confirm <?php echo ! $isWizard ? 'edit' : '' ?>" method="post" style="float:right;">							
+					<form id="runExportForm" class="confirm <?php echo ! $isWizard ? 'edit' : '' ?>" method="post" style="float:right;">
 
 						<?php wp_nonce_field('update-export', '_wpnonce_update-export') ?>
 						<input type="hidden" name="is_confirmed" value="1" />
@@ -61,7 +61,7 @@ $l10n = array(
 
 				<div class="clear"></div>
 
-				<form class="<?php echo ! $isWizard ? 'edit' : 'options' ?> choose-export-options" method="post" enctype="multipart/form-data" autocomplete="off" <?php echo ! $isWizard ? 'style="overflow:visible;"' : '' ?>>
+				<form id="mainRunForm" class="<?php echo ! $isWizard ? 'edit' : 'options' ?> choose-export-options" method="post" enctype="multipart/form-data" autocomplete="off" <?php echo ! $isWizard ? 'style="overflow:visible;"' : '' ?>>
 
 					<input type="hidden" class="hierarhy-output" name="filter_rules_hierarhy" value="<?php echo esc_html($post['filter_rules_hierarhy']);?>"/>
 					
@@ -74,7 +74,10 @@ $l10n = array(
 					endif;
 					if (XmlExportComment::$is_active):
 						$selected_post_type = 'comments';
-					endif;
+					elseif (XmlExportWooCommerceReview::$is_active):
+                        $selected_post_type = 'shop_review';
+                    endif;
+
 					if (empty($selected_post_type) and ! empty($post['cpt'][0]))
 					{
 						$selected_post_type = $post['cpt'][0];
@@ -95,9 +98,14 @@ $l10n = array(
 					<p class="wpallexport-submit-buttons" style="text-align: center;">
 						<?php wp_nonce_field('update-export', '_wpnonce_update-export') ?>
 						<input type="hidden" name="is_confirmed" value="1" />					
-						
-						<a href="<?php echo apply_filters('pmxi_options_back_link', add_query_arg('id', $item->id, add_query_arg('action', 'template', $this->baseUrl)), $isWizard); ?>" class="back rad3"><?php _e('Edit Template', 'wp_all_export_plugin') ?></a>							
-						<?php if (empty(PMXE_Plugin::$session->found_posts)):?>
+
+                        <?php if(current_user_can(PMXE_Plugin::$capabilities)) {?>
+						    <a href="<?php echo apply_filters('pmxi_options_back_link', add_query_arg('id', $item->id, add_query_arg('action', 'template', $this->baseUrl)), $isWizard); ?>" class="back rad3"><?php _e('Edit Template', 'wp_all_export_plugin') ?></a>
+						<?php } else { ?>
+                            <a href="<?php echo $this->baseUrl; ?>" class="back rad3"><?php _e('Manage Exports', 'wp_all_export_plugin') ?></a>
+
+                        <?php } ?>
+                        <?php if (empty(PMXE_Plugin::$session->found_posts)):?>
 						<input type="submit" class="button button-primary button-hero wpallexport-large-button confirm_and_run_bottom" value="<?php _e('Save Export Configuration', 'wp_all_export_plugin') ?>" />								
 						<?php else:?>
 						<input type="submit" class="button button-primary button-hero wpallexport-large-button confirm_and_run_bottom" value="<?php _e('Confirm & Run Export', 'wp_all_export_plugin') ?>" />								

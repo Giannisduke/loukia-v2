@@ -21,8 +21,10 @@
                        value="1"/>
                 <label
                     for="repeater_field_fill_empty_columns"><?php _e("Fill in empty columns", "wp_all_export_plugin"); ?></label>
+                    <span>
                 <a href="#help" class="wpallexport-help" style="position: relative; top: 0px;"
                    title="<?php _e('If enabled, each repeater row will appear as its own csv line with all post info filled in for every column.', 'wp_all_export_plugin'); ?>">?</a>
+                    </span>
             </div>
         </div>
         <!-- Options for Content field -->
@@ -63,7 +65,8 @@
             <div class="input pmxe_date_format_wrapper">
                 <label
                     style="padding:4px; display: block;"><?php _e("date() Format", "wp_all_export_plugin"); ?></label>
-                <input type="text" class="pmxe_date_format" value="" placeholder="Y-m-d" style="width: 100%;"/>
+                <input type="text" class="pmxe_date_format" value="" placeholder="Y-m-d H:i:s"
+                       style="width: 100%;"/>
             </div>
         </div>
         <!-- Options for Up/Cross sells products -->
@@ -80,9 +83,11 @@
         <input type="checkbox" id="coperate_php" name="coperate_php" value="1" class="switcher" style="margin: 2px;"/>
         <label
             for="coperate_php"><?php _e("Export the value returned by a PHP function", "wp_all_export_plugin"); ?></label>
-        <a href="#help" class="wpallexport-help"
-           title="<?php _e('The value of the field chosen for export will be passed to the PHP function.', 'wp_all_export_plugin'); ?>"
-           style="top: 0;">?</a>
+        <span>
+            <a href="#help" class="wpallexport-help"
+               title="<?php _e('The value of the field chosen for export will be passed to the PHP function.', 'wp_all_export_plugin'); ?>"
+               style="top: 0;">?</a>
+        </span>
         <div class="switcher-target-coperate_php" style="margin-top:5px; padding-left: 3px;">
             <?php echo "&lt;?php "; ?>
             <input type="text" class="php_code" value="" style="width:50%;" placeholder='your_function_name'/>

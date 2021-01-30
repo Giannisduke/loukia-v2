@@ -90,13 +90,26 @@ do_action('pmxe_addons_html');
 										}
 									}
 
+                                if (  class_exists('WooCommerce') ){
+                                    $reviewElement = new stdClass();
+                                    $reviewElement->labels = new stdClass();
+                                    $reviewElement->labels->name = __('WooCommerce Reviews', PMXE_Plugin::LANGUAGE_DOMAIN);
+
+                                    $sorted_cpt = $this->insertAfter($sorted_cpt, 'product', 'shop_review', $reviewElement);
+                                }
+
 								?>								
 
 								<select id="file_selector">
 									<option value=""><?php _e('Choose a post type...', 'wp_all_export_plugin'); ?></option>									
 					            	<?php if (count($sorted_cpt)): $unknown_cpt = array(); ?>
 										<?php foreach ($sorted_cpt as $key => $ct):?>
-											<?php 
+											<?php
+
+                        // Remove unused post types
+                        if( in_array($key, array('wp_block', 'customize_changeset', 'custom_css', 'scheduled_action', 'scheduled-action', 'user_request', 'oembed_cache'))) {
+                           continue;
+                        }
 												$image_src = 'dashicon-cpt';																								
 												$cpt_label = $ct->labels->name;												
 
@@ -104,6 +117,9 @@ do_action('pmxe_addons_html');
 												{
 													$image_src = 'dashicon-' . $key;	 
 												}
+												else if($key == 'shop_review') {
+                                                    $image_src = 'dashicon-review';
+                                                }
 												else
 												{
 													$unknown_cpt[$key] = $ct;
@@ -190,10 +206,7 @@ do_action('pmxe_addons_html');
 						</div>
 					</div>
 
-
-
-
-                    <div class="wpallexport-upload-resource-step-two rad4 wpallexport-collapsed closed">
+                    <div id="wpallexport-filtering-container" class="wpallexport-upload-resource-step-two rad4 wpallexport-collapsed closed">
 							
 					</div>
 

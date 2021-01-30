@@ -21,6 +21,7 @@ class GoogleMerchantsDataProcessor
         'availability',
         'availability_date',
         'sale_price_effective_date',
+        'cost_of_goods_sold',
         'price',
         'sale_price',
         'product_type',

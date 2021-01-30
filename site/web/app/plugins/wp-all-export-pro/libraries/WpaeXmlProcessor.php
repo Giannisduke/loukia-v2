@@ -51,9 +51,6 @@ class WpaeXmlProcessor
 
             $xml = $this->cleanResponse($response);
 
-            // if ($this->step > 8) {
-            //  throw new WpaeTooMuchRecursionException('Too much recursion');
-            // }
         }
 
         $xml = $this->postProcessXml($xml);
@@ -444,7 +441,6 @@ class WpaeXmlProcessor
 
     /**
      * @param $xml
-     * @return DOMDocument
      */
     private function initVariables($xml)
     {
@@ -489,7 +485,7 @@ class WpaeXmlProcessor
         }
 
         // Clean empty strings
-        $sanitizedSnippet = str_replace(array(', ,',',,'), ',\"\",', $sanitizedSnippet);
+        $sanitizedSnippet = str_replace( array( '(,', '( ,', ',)', ', )' ), array( '(""', '(""', ',"")', ',"")' ), $sanitizedSnippet );
 
         $snippetValue = eval('return ' . $sanitizedSnippet . ';');
         $snippetValue = $this->encodeSpecialCharacters($snippetValue);

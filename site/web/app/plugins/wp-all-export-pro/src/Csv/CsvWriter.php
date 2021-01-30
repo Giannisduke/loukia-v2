@@ -17,6 +17,8 @@ class CsvWriter
 
     public function writeCsv($resource, $value, $delimiter)
     {
+        $value = apply_filters('pmxe_csv_value', $value);
+
         foreach($value as $key => &$val ) {
             if(is_object($val)) {
                 $val = '';

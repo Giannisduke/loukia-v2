@@ -469,6 +469,10 @@ if (!class_exists('PMXE_Updater')) {
                 $request = json_decode(wp_remote_retrieve_body($request));
             }
 
+            if ( $request && isset( $request->contributors ) ) {
+                $request->contributors = maybe_unserialize( $request->contributors );
+            }
+
             if ($request && isset($request->banners)) {
                 $request->banners = maybe_unserialize($request->banners);
             }

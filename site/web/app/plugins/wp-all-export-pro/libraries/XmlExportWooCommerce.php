@@ -40,7 +40,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				 '_stock_status', '_downloadable', '_virtual', '_regular_price', '_sale_price', '_purchase_note', '_featured', '_weight', '_length',
 				'_width', '_height', '_sku', '_sale_price_dates_from', '_sale_price_dates_to', '_price', '_sold_individually', '_manage_stock', '_stock', '_upsell_ids', '_crosssell_ids',
 				'_downloadable_files', '_download_limit', '_download_expiry', '_download_type', '_product_url', '_button_text', '_backorders', '_tax_status', '_tax_class', '_product_image_gallery', '_default_attributes',
-				'total_sales', '_product_attributes', '_product_version', '_variation_description', '_wc_rating_count', '_wc_review_count', '_wc_average_rating'
+				'total_sales', '_product_attributes', '_product_version', '_variation_description', '_wc_rating_count', '_wc_review_count', '_wc_average_rating', '_children'
 			);
 
 			$this->wooCommerceVersion = new \Wpae\App\Service\WooCommerceVersion();
@@ -696,6 +696,16 @@ if ( ! class_exists('XmlExportWooCommerce') )
 										$data[$element_name . ' Names'] = pmxe_filter(implode($implode_delimiter, $file_names), $fieldSnipped);
 
 										break;
+									case '_children':
+										$_ids = maybe_unserialize($cur_meta_value);
+										$_values = array();
+										if (!empty($_ids)){
+											foreach ($_ids as $_id) {
+												$_values[] = get_post_meta($_id, '_sku', true);
+											}
+										}
+										$data[$element_name] = apply_filters('pmxe_woo_field', pmxe_filter(implode($implode_delimiter, $_values), $fieldSnipped), $element_value, $record->ID);
+										break;
 									case '_crosssell_ids':
 									case '_upsell_ids':
 
@@ -1001,6 +1011,13 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				case '_stock':
 					$templateOptions['single_product_stock_qty'] = '{'. $element_name .'[1]}';
 					break;
+				case '_children':
+					if ($implode_delimiter == "|") {
+						$templateOptions['grouped_product_children_xpath'] = '[str_replace("|", ",",{' . $element_name . '[1]})]';
+					} else {
+						$templateOptions['grouped_product_children_xpath'] = '{' . $element_name . '[1]}';
+					}
+					break;
 				case '_upsell_ids':								
 
 					if ($implode_delimiter == "|")
@@ -1018,15 +1035,14 @@ if ( ! class_exists('XmlExportWooCommerce') )
 
 					break;
 				case '_downloadable_files':
-					if ($is_xml_template)
-					{
+					if ($is_xml_template) {
 						$templateOptions['single_product_files'] = '{'. $element_name .'Paths[1]}';
 						$templateOptions['single_product_files_names'] = '{'. $element_name .'Names[1]}';												
-					}
-					else
-					{
+					} else {
 						$templateOptions['single_product_files'] = '{'. $element_name .'paths[1]}';
 						$templateOptions['single_product_files_names'] = '{'. $element_name .'names[1]}';	
+						$templateOptions['product_files_delim'] = $implode_delimiter;
+						$templateOptions['product_files_names_delim'] = $implode_delimiter;
 					}
 					break;
 				case '_download_limit':
@@ -1060,10 +1076,14 @@ if ( ! class_exists('XmlExportWooCommerce') )
                     $templateOptions['single_product_variation_description'] = '{'. $element_name .'[1]}';
                     break;
                 case '_product_attributes':
-                case '_default_attributes':
                     $templateOptions['custom_name'][] = $element_key;
                     $templateOptions['custom_value'][] = '{'. $element_name .'[1]}';
                     $templateOptions['custom_format'][] = 0;
+                    break;
+                case '_default_attributes':
+                    $templateOptions['is_default_attributes'] = 1;
+                    $templateOptions['default_attributes_type'] = 'xpath';
+                    $templateOptions['default_attributes_xpath'] = '{'. $element_name .'[1]}';
                     break;
                 case 'product_visibility':
                     $templateOptions['is_product_visibility'] = 'xpath';

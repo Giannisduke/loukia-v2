@@ -9,7 +9,7 @@ function pmxe_wp_ajax_wpallexport()
         exit(__('Security check', 'wp_all_export_plugin'));
     }
 
-    if (!current_user_can(PMXE_Plugin::$capabilities)) {
+    if (!current_user_can(PMXE_Plugin::$capabilities) && ! current_user_can(PMXE_Plugin::CLIENT_MODE_CAP)) {
         exit(__('Security check', 'wp_all_export_plugin'));
     }
 
@@ -29,13 +29,19 @@ function pmxe_wp_ajax_wpallexport()
         exit(__('Export is not defined.', 'wp_all_export_plugin'));
     }
 
+    if(!current_user_can(PMXE_Plugin::$capabilities) && !(current_user_can(PMXE_Plugin::CLIENT_MODE_CAP) && $export['client_mode_enabled'])) {
+        die('Security check');
+    }
+
     $exportOptions = $export->options + PMXE_Plugin::get_default_import_options();
 
     wp_reset_postdata();
 
     XmlExportEngine::$exportOptions = $exportOptions;
     XmlExportEngine::$is_user_export = $exportOptions['is_user_export'];
+    XmlExportEngine::$is_woo_customer_export = $exportOptions['is_woo_customer_export'];
     XmlExportEngine::$is_comment_export = $exportOptions['is_comment_export'];
+    XmlExportEngine::$is_woo_review_export = $exportOptions['is_woo_review_export'];
     XmlExportEngine::$is_taxonomy_export = empty($exportOptions['is_taxonomy_export']) ? false : $exportOptions['is_taxonomy_export'];
     XmlExportEngine::$exportID = $export_id;
     XmlExportEngine::$exportRecord = $export;
@@ -54,14 +60,15 @@ function pmxe_wp_ajax_wpallexport()
             add_action('pre_user_query', 'wp_all_export_pre_user_query', 10, 1);
             $exportQuery = eval('return new WP_User_Query(array(' . $exportOptions['wp_query'] . ', \'offset\' => ' . $export->exported . ', \'number\' => ' . $posts_per_page . ' ));');
             remove_action('pre_user_query', 'wp_all_export_pre_user_query');
-        } elseif (XmlExportEngine::$is_comment_export) {
+        } elseif (XmlExportEngine::$is_comment_export || XmlExportEngine::$is_woo_review_export) {
             add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
             $exportQuery = eval('return new WP_Comment_Query(array(' . $exportOptions['wp_query'] . ', \'offset\' => ' . $export->exported . ', \'number\' => ' . $posts_per_page . ' ));');
             remove_action('comments_clauses', 'wp_all_export_comments_clauses');
-        } else {
+        }
+        else {
             remove_all_actions('parse_query');
-            remove_all_actions('pre_get_posts');
             remove_all_filters('posts_clauses');
+            wp_all_export_remove_before_post_except_toolset_actions();
 
             add_filter('posts_join', 'wp_all_export_posts_join', 10, 1);
             add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
@@ -88,19 +95,37 @@ function pmxe_wp_ajax_wpallexport()
         } elseif (in_array('comments', $exportOptions['cpt'])) {
             add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
 
+            $products = new WP_Query( array (
+                'post_type' => 'product',
+                'fields' => 'ids'
+            ));
+
             global $wp_version;
 
             if (version_compare($wp_version, '4.2.0', '>=')) {
-                $exportQuery = new WP_Comment_Query(array('orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
+
+                $exportQuery = new WP_Comment_Query(array('post__not_in' => $products->posts, 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
             } else {
-                $exportQuery = get_comments(array('orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
+                $exportQuery = get_comments(array('post__not_in' => $products->posts, 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
             }
             remove_action('comments_clauses', 'wp_all_export_comments_clauses');
-        } else {
+        } elseif (in_array('shop_review', $exportOptions['cpt'])) {
+            add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
+
+            global $wp_version;
+
+            if (version_compare($wp_version, '4.2.0', '>=')) {
+                $exportQuery = new WP_Comment_Query(array('post_type'=>'product', 'orderby' => 'comment_ID', 'order' => 'ASC',  'number' => $posts_per_page, 'offset' => $export->exported));
+            } else {
+                $exportQuery = get_comments(array('post_type' => 'product', 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => $posts_per_page, 'offset' => $export->exported));
+            }
+            remove_action('comments_clauses', 'wp_all_export_comments_clauses');
+        }
+        else {
             remove_all_actions('parse_query');
-            remove_all_actions('pre_get_posts');
             remove_all_filters('posts_clauses');
             remove_all_filters('posts_orderby');
+            wp_all_export_remove_before_post_except_toolset_actions();
 
             add_filter('posts_join', 'wp_all_export_posts_join', 10, 1);
             add_filter('posts_where', 'wp_all_export_posts_where', 10, 1);
@@ -116,28 +141,51 @@ function pmxe_wp_ajax_wpallexport()
 
     // get total founded records
     if (XmlExportEngine::$is_comment_export) {
+
         global $wp_version;
+
+        $products = new WP_Query( array (
+            'post_type' => 'product',
+            'fields' => 'ids'
+        ));
 
         if (version_compare($wp_version, '4.2.0', '>=')) {
             $postCount = count($exportQuery->get_comments());
             add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
-            $result = new WP_Comment_Query(array('orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
+            $result = new WP_Comment_Query(array('post__not_in' => $products->posts, 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
             $foundPosts = $result->get_comments();
             remove_action('comments_clauses', 'wp_all_export_comments_clauses');
         } else {
             $postCount = count($exportQuery);
             add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
-            $foundPosts = get_comments(array('orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
+            $foundPosts = get_comments(array('post__not_in' => $products->posts, 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
             remove_action('comments_clauses', 'wp_all_export_comments_clauses');
         }
-    } elseif (XmlExportEngine::$is_taxonomy_export) {
+    }
+    elseif (XmlExportEngine::$is_woo_review_export) {
+        global $wp_version;
+
+        if (version_compare($wp_version, '4.2.0', '>=')) {
+            $postCount = count($exportQuery->get_comments());
+            add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
+            $result = new WP_Comment_Query(array('post_type' => 'product', 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
+            $foundPosts = $result->get_comments();
+            remove_action('comments_clauses', 'wp_all_export_comments_clauses');
+        } else {
+            $postCount = count($exportQuery);
+            add_action('comments_clauses', 'wp_all_export_comments_clauses', 10, 1);
+            $foundPosts = get_comments(array('post_type' => 'product', 'orderby' => 'comment_ID', 'order' => 'ASC', 'number' => 10, 'count' => true));
+            remove_action('comments_clauses', 'wp_all_export_comments_clauses');
+        }
+    }
+    elseif (XmlExportEngine::$is_taxonomy_export) {
         add_filter('terms_clauses', 'wp_all_export_terms_clauses', 10, 3);
         $result = new WP_Term_Query(array('taxonomy' => $exportOptions['taxonomy_to_export'], 'orderby' => 'term_id', 'order' => 'ASC', 'hide_empty' => false));
         $foundPosts = count($result->get_terms());
         remove_filter('terms_clauses', 'wp_all_export_terms_clauses');
     } else {
 
-        if(XmlExportEngine::$is_user_export) {
+        if(XmlExportEngine::$is_user_export || XmlExportEngine::$is_woo_customer_export ) {
             $foundPosts = $exportQuery->get_total();
             $postCount = count($exportQuery->get_results());
         } else {
@@ -277,7 +325,6 @@ function pmxe_wp_ajax_wpallexport()
                         'options' => $exportOptions
                     ))->save();
                 }
-
             }
 
             PMXE_Wpallimport::generateImportTemplate($export, PMXE_Plugin::$session->file, PMXE_Plugin::$session->count);

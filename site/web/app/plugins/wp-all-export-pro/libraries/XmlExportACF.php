@@ -212,7 +212,7 @@ if ( ! class_exists('XmlExportACF') )
 
 		public static function export_acf_field($field_value  = '', $exportOptions, $ID, $pid, &$article, $xmlWriter = false, &$acfs, $element_name = '', $element_name_ns = '', $fieldSnipped = '', $group_id = '', $preview = false, $return_value = false, $is_sub_field = false )
 		{
-			global $acf;
+            global $acf;
 
 			$put_to_csv = true;
 
@@ -236,10 +236,9 @@ if ( ! class_exists('XmlExportACF') )
 				$field_value = empty($field_options['message']) ? '' : $field_options['message'];
 			}
 
-
-			if ( ! empty($field_value))
+            if ( ! empty($field_value))
 			{
-				$field_value = maybe_unserialize($field_value);
+                $field_value = maybe_unserialize($field_value);
 
 				$implode_delimiter = XmlExportEngine::$implode;
 
@@ -247,11 +246,31 @@ if ( ! class_exists('XmlExportACF') )
 				{
 					case 'date_time_picker':
 						$format = empty($field_options['return_format']) ? 'Y-m-d H:i:s' : $field_options['return_format'];
-						$field_value = date($format, (is_numeric($field_value) ? $field_value : (empty($field_options['return_format']))? strtotime($field_value): DateTime::createFromFormat($format, $field_value)->getTimestamp()));
+						// ACF documentation shows the value should always be stored as 'Y-m-d H:i:s' in the database
+						$field_value = date($format, (is_numeric($field_value) ? $field_value : strtotime($field_value)));
 						break;
 					case 'date_picker':
-						$format = empty($field_options['return_format']) ? 'Y-m-d' : $field_options['return_format'];
-						$field_value = date($format, (empty($field_options['return_format']))? strtotime($field_value): DateTime::createFromFormat($format, $field_value)->getTimestamp());
+
+					    // In case the date is in format Y-m-d H:i:s, convert it to Ymd
+					    if(strpos($field_value,'-') !== false) {
+                            $dateParts = explode(" ", $field_value);
+					        $field_value = $dateParts[0];
+					        $dateParts = explode("-", $field_value);
+					        $year = $dateParts[0];
+					        $month = $dateParts[1];
+					        $day = $dateParts[2];
+					        $field_value = $year.$month.$day;
+
+                        }
+                        // retain this filter's control over the database format to avoid breaking existing workarounds
+                        $format = apply_filters('pmxe_acf_date_picker_format', 'Ymd', $field_value);
+					    // separately calculate the output format to solve the original problem
+					    $output_format = empty($field_options['return_format']) ? 'Ymd' : $field_options['return_format'];
+					    // Try to generate the date object using the database format specified
+						// According to ACF documentation this value should always be saved in the database as 'Ymd'
+						$date_obj = DateTime::createFromFormat($format, $field_value);
+						// avoid fatal errors by confirming there is a date object before using it
+                        $field_value = date($output_format, ( !$date_obj ) ? strtotime($field_value): $date_obj->getTimestamp()); // strtotime is left to deal with any invalid/unexpected dates
 						break;
 
 					case 'file':
@@ -457,9 +476,9 @@ if ( ! class_exists('XmlExportACF') )
 								}
 								else{
 									$acfs[$element_name] = array($element_name . '_title', $element_name . '_url', $element_name . '_target');
-									$article[$element_name . '_title'] = $field_value['_title'];
-									$article[$element_name . '_url'] = $field_value['_url'];
-									$article[$element_name . '_target'] = $field_value['_target'];
+									$article[$element_name . '_title'] = $field_value['title'];
+									$article[$element_name . '_url'] = $field_value['url'];
+									$article[$element_name . '_target'] = $field_value['target'];
 								}
 							}
 						}
@@ -547,7 +566,7 @@ if ( ! class_exists('XmlExportACF') )
 									}
 								}
 								else{
-									$v[] = $user['user_email'];
+									$v[] = $user->user_email;
 								}
 							}
 							$field_value = implode($implode_delimiter, $v);
@@ -715,12 +734,64 @@ if ( ! class_exists('XmlExportACF') )
 
 						break;
 
+                    case 'group':
+
+                        if (!empty($field_options['id'])) {
+                            $sub_fields = get_posts(array('posts_per_page' => -1, 'post_type' => 'acf-field', 'post_parent' => $field_options['id'], 'post_status' => 'publish', 'orderby' => 'menu_order', 'order' => 'ASC'));
+                            if ( ! empty($sub_fields) ) {
+                                $values = maybe_unserialize($field_value);
+                                foreach ($sub_fields as $sub_field) {
+                                    $field_value = isset($values[$sub_field->post_excerpt]) ? $values[$sub_field->post_excerpt] : '';
+                                    $sub_field_name = empty($sub_field->post_excerpt) ? str_replace("-","_", sanitize_title($sub_field->post_title)) : $sub_field->post_excerpt;
+                                    $sub_field_options = unserialize($sub_field->post_content);
+                                    $sub_field_value = self::export_acf_field(
+                                        $field_value,
+                                        $sub_field_options,
+                                        false,
+                                        $pid,
+                                        $article,
+                                        $xmlWriter,
+                                        $acfs,
+                                        $is_xml_export ? $sub_field_name : $element_name . '_' . $sub_field_name,
+                                        $element_name_ns,
+                                        '',
+                                        '',
+                                        $preview,
+                                        $is_xml_export ? false : true,
+                                        true
+                                    );
+
+                                    if ( ! isset( $acfs[ $element_name ] ) || is_array( $acfs[ $element_name ] ) ) {
+                                        $acfs[$element_name][] = $element_name . '_' . $sub_field_name;
+                                    }
+
+                                    $article[$element_name . '_' . $sub_field_name] = ($preview) ? trim(preg_replace('~[\r\n]+~', ' ', htmlspecialchars($sub_field_value))) : $sub_field_value;
+                                }
+                            }
+                        }
+
+                        $put_to_csv = false;
+
+                        break;
+
 					case 'repeater':
 
-						if ($is_xml_export) $xmlWriter->beginElement($element_name_ns, $element_name, null);
 
+                        if ($is_xml_export) $xmlWriter->beginElement($element_name_ns, $element_name, null);
+
+                        // If there are blocks that might contain acf fields, inject the values into the ACF meta stores
+                        // so that the default wpae functionality will work
+                        if(has_blocks($pid)) {
+                            $entry = get_post($pid);
+                            $blocks = parse_blocks($entry->post_content);
+
+                            foreach ($blocks as $block) {
+                                if (strpos($block['blockName'], 'acf/') !== false) {
+                                    acf_setup_meta($block['attrs']['data'], $pid);
+                                }
+                            }
+                        }
 						if( have_rows($field_name, $pid) ):
-
 							$rowValues = array();
 
 							$repeater_sub_field_names = array();
@@ -733,14 +804,35 @@ if ( ! class_exists('XmlExportACF') )
 
 								if ($is_xml_export) $xmlWriter->startElement('row');
 
-								foreach ($row['field']['sub_fields'] as $sub_field) {
+								$repeater_sub_fields = [];
+                                foreach ($row['field']['sub_fields'] as $sub_field) {
+                                    if ($sub_field['type'] == 'group') {
+                                        foreach ($sub_field['sub_fields'] as $sf) {
+                                            $sf['parent_field'] = $sub_field;
+                                            $repeater_sub_fields[] = $sf;
+                                        }
+                                    } else {
+                                        $repeater_sub_fields[] = $sub_field;
+                                    }
+                                }
 
-									if ($acf and version_compare($acf->settings['version'], '5.0.0') >= 0)
-									{
-										$v = $row['value'][ $row['i'] ][ $sub_field['key'] ];
+								foreach ($repeater_sub_fields as $sub_field) {
+
+									if ($acf and version_compare($acf->settings['version'], '5.0.0') >= 0) {
+									    if (isset($sub_field['parent_field'])) {
+                                            $v = $row['value'][ $row['i'] ][$sub_field['parent_field']['key']][ $sub_field['key'] ];
+                                        } else {
+                                            $v = $row['value'][ $row['i'] ][ $sub_field['key'] ];
+                                        }
 										$cache_slug = "format_value/post_id=".$row['post_id']."/name={$sub_field['name']}";
 										wp_cache_delete($cache_slug, 'acf');
-										if ($is_xml_export) $v = acf_format_value($v, $row['post_id'], $sub_field);
+
+                                        if ($acf and version_compare($acf->settings['version'], '5.7.10') >= 0) {
+                                            $store = acf_get_store('values');
+                                            $store->remove($row['post_id'] . ":" . $sub_field['name'] . ":formatted");
+                                        }
+
+                                        if ($is_xml_export) $v = acf_format_value($v, $row['post_id'], $sub_field);
 									}
 									else
 									{
@@ -969,7 +1061,7 @@ if ( ! class_exists('XmlExportACF') )
 											{
 												$v = $row['value'][ $row['i']][$sub_field[$fieldValueKey]];
 
-												if ($is_xml_export)
+												if ($is_xml_export && $sub_field['value'] != 'gallery')
 												{
 													// apply filters
 													$v = apply_filters( "acf/format_value", $v, $pid, $sub_field );
@@ -1762,5 +1854,30 @@ if ( ! class_exists('XmlExportACF') )
 			return false;
 
 		}
+
+        /**
+         * Return ACF value for simple fields (text, etc.)
+         *
+         * @param $entry
+         * @param $field_name
+         * @return string
+         */
+		public static function get_acf_block_value($entry, $field_name){
+
+		    $field_value = '';
+
+		    if ( has_blocks( $entry ) ) {
+                $blocks = parse_blocks( $entry->post_content );
+                foreach ( $blocks as $block ) {
+                    if (strpos($block['blockName'], 'acf/') !== false) {
+                        if (isset($block['attrs']['data'][$field_name])) {
+                            $field_value = $block['attrs']['data'][$field_name];
+                        }
+                    }
+                }
+            }
+
+            return $field_value;
+        }
 	}
 }

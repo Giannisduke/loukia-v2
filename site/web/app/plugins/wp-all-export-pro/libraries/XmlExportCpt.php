@@ -60,7 +60,12 @@ final class XmlExportCpt
 				$fieldCode = $exportOptions['cc_code'][$ID];
 				$fieldType = $exportOptions['cc_type'][$ID];
 				$fieldOptions = $exportOptions['cc_options'][$ID];
-				$fieldSettings = empty($exportOptions['cc_settings'][$ID]) ? $fieldOptions : $exportOptions['cc_settings'][$ID];
+
+				if($fieldType !== 'date') {
+                    $fieldSettings = empty(XmlExportEngine::$exportOptions['cc_settings'][$ID]) ? $fieldOptions : XmlExportEngine::$exportOptions['cc_settings'][$ID];
+                } else {
+				    $fieldSettings = XmlExportEngine::$exportOptions['cc_settings'][$ID];
+                }
 
                 $fieldSnippet = (!empty($fieldPhp) and !empty($fieldCode)) ? $fieldCode : false;
 
@@ -80,7 +85,7 @@ final class XmlExportCpt
 				}
 
 				// Use this in simple xml feed
-				if (XmlExportEngine::$exportOptions['export_to'] == XmlExportEngine::EXPORT_TYPE_XML && isset($exportOptions['cc_combine_multiple_fields'][$ID]) && $exportOptions['cc_combine_multiple_fields'][$ID]) {
+				if (XmlExportEngine::$exportOptions['export_to'] == XmlExportEngine::EXPORT_TYPE_XML && XmlExportEngine::$exportOptions['xml_template_type'] !==  'custom' && isset($exportOptions['cc_combine_multiple_fields'][$ID]) && $exportOptions['cc_combine_multiple_fields'][$ID]) {
 
 				    $combineMultipleFieldsValue = $exportOptions['cc_combine_multiple_fields_value'][$ID];
 
@@ -226,11 +231,11 @@ final class XmlExportCpt
 							break;
 
 						case 'date':
-							$post_date = prepare_date_field_value($fieldSettings, get_post_time('U', true, $entry->ID), "Ymd");
+							$post_date = prepare_date_field_value($fieldSettings, get_post_time('U', true, $entry->ID), "Y-m-d H:i:s");
 							wp_all_export_write_article($article, $element_name, apply_filters('pmxe_post_date', pmxe_filter($post_date, $fieldSnippet), $entry->ID));
 							break;
 						case 'post_modified':
-							$post_date = prepare_date_field_value($fieldSettings, get_post_modified_time('U', true, $entry->ID), "Ymd");
+							$post_date = prepare_date_field_value($fieldSettings, get_post_modified_time('U', true, $entry->ID), "Y-m-d H:i:s");
 							wp_all_export_write_article($article, $element_name, apply_filters('pmxe_post_modified_date', pmxe_filter($post_date, $fieldSnippet), $entry->ID));
 							break;
 						case 'parent':
@@ -360,6 +365,8 @@ final class XmlExportCpt
 
 							if (!empty($fieldLabel) and class_exists('acf')) {
 
+							    $blocks = parse_blocks($entry->post_content);
+
 								global $acf;
 
 								$field_options = unserialize($fieldOptions);
@@ -386,6 +393,19 @@ final class XmlExportCpt
 								} else {
 									$field_value = get_field($fieldLabel, $entry->ID);
 								}
+
+                                if($blocks) {
+								    foreach ($blocks as $block) {
+								        if($block['attrs']['id'] == $field_options['key']) {
+								            $field_value = $block['data'][$fieldLabel];
+                                        }
+                                    }
+                                }
+
+                                  if(!$field_value) {
+                                        $field_value = XmlExportACF::get_acf_block_value($entry, $field_options['name']);
+                                  }
+                                
 
 								XmlExportACF::export_acf_field(
 									$field_value,
@@ -682,6 +702,11 @@ final class XmlExportCpt
                 $templateOptions['is_update_menu_order'] = 1;
                 $templateOptions['single_product_menu_order'] = '{'. $element_name .'[1]}';
                 break;
+			case 'comment_status':
+				$templateOptions['is_update_comment_status'] = 1;
+				$templateOptions['is_product_enable_reviews'] = 'xpath';
+				$templateOptions['single_product_enable_reviews'] = '[str_replace("open","yes",{' . $element_name . '[1]})]';
+				break;
 			case 'post_type':
 
 				if ( empty($options['cpt']) )
@@ -695,7 +720,7 @@ final class XmlExportCpt
 				
 				if ( ! empty($options['cc_value'][$ID]) )
 				{																																
-					$exclude_cf = array('_thumbnail_id');
+					$exclude_cf = array('_thumbnail_id', 'cf_review_verified', 'rating');
 
 					if (strpos($options['cc_value'][$ID], 'attribute_') === 0 and ! in_array($options['cc_value'][$ID], $attr_list))
 					{

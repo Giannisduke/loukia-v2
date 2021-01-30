@@ -1,7 +1,7 @@
 <?php
 function pmxe_render_xml_text($text, $shorten = false, $is_render_collapsed = false)
 {		
-	if (empty($text)) {
+	if (empty($text) && $text != "0") {
 		return; // do not display empty text nodes
 	}	
 

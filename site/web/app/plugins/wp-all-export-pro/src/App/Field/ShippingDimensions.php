@@ -3,7 +3,7 @@
 namespace Wpae\App\Field;
 
 
-class ShippingWidth extends Field
+class ShippingDimensions extends Field
 {
     const SECTION = 'shipping';
 
@@ -17,7 +17,7 @@ class ShippingWidth extends Field
             $toUnit = $shippingData['convertTo'];
 
             $product = $_product = wc_get_product($this->entry->ID);
-            $width = wc_get_dimension($product->width, $currentUnit,  $toUnit);
+            $width = wc_get_dimension($product->get_width(), $currentUnit,  $toUnit);
 
             return $width . ' '.$toUnit;
         } else {
@@ -27,6 +27,6 @@ class ShippingWidth extends Field
 
     public function getFieldName()
     {
-        return 'shipping_width';
+        return 'shipping_dimensions';
     }
 }

@@ -6,7 +6,7 @@
  */
 class PMXE_Admin_Feedback extends PMXE_Controller_Admin {
 	
-	public function index() {
+	public function index_action() {
 		$this->render();
 	}
 }

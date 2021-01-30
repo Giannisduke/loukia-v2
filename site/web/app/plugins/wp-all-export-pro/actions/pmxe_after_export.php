@@ -85,10 +85,10 @@ function pmxe_pmxe_after_export($export_id, $export)
                     }
                     if ( ! $lineNumber && XmlExportEngine::$exportOptions['include_bom']){
                         fwrite($out, chr(0xEF).chr(0xBB).chr(0xBF));
-                        fputcsv($out, $line, XmlExportEngine::$exportOptions['delimiter']);
+                        XmlCsvExport::getCsvWriter()->writeCsv($out, $line, XmlExportEngine::$exportOptions['delimiter']);
                     }
                     else{
-                        fputcsv($out, $line, XmlExportEngine::$exportOptions['delimiter']);
+                        XmlCsvExport::getCsvWriter()->writeCsv($out, $line, XmlExportEngine::$exportOptions['delimiter']);
                     }
                     apply_filters('wp_all_export_after_csv_line', $out, XmlExportEngine::$exportID);
                     $lineNumber++;
@@ -213,9 +213,9 @@ function pmxe_pmxe_after_export($export_id, $export)
 						    }						    
 						    if ($data){				
 						    	if (($rowCount % $splitSize) == 0) {
-						    		fputcsv($out, $headers);
-						    	}		    	
-						        fputcsv($out, $data);
+                                    XmlCsvExport::getCsvWriter()->writeCsv($out, $headers, XmlExportEngine::$exportOptions['delimiter']);
+						    	}
+                                XmlCsvExport::getCsvWriter()->writeCsv($out, $data, XmlExportEngine::$exportOptions['delimiter']);
 						    }
 						    $rowCount++;
 						}

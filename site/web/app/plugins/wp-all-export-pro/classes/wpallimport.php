@@ -113,6 +113,10 @@ final class PMXE_Wpallimport
 
 		$custom_type = (empty($exportOptions['cpt'])) ? 'post' : $exportOptions['cpt'][0];
 
+		if ($custom_type == 'shop_review') {
+		    $custom_type = 'woo_reviews';
+        }
+
 		// Do not create an import template for WooCommerce Refunds
 		if ( $export->options['export_to'] == 'xml' && in_array($export->options['xml_template_type'], array('custom', 'XmlGoogleMerchants')) )  return false;
 
@@ -145,6 +149,18 @@ final class PMXE_Wpallimport
 				'is_update_attachments' => 0,
 				'is_update_acf' => 0,
                 'is_update_comment_status' => 0,
+                'is_update_comment_post_id' => 0,
+                'is_update_comment_author' => 0,
+                'is_update_comment_author_email' => 0,
+                'is_update_comment_author_url' => 0,
+                'is_update_comment_author_IP' => 0,
+                'is_update_comment_karma' => 0,
+                'is_update_comment_approved' => 0,
+                'is_update_comment_verified' => 0,
+                'is_update_comment_rating' => 0,
+                'is_update_comment_agent' => 0,
+                'is_update_comment_user_id' => 0,
+                'is_update_comment_type' => 0,
                 'import_img_tags' => 1,
 				'update_acf_logic' => 'only',
 				'acf_list' => '',					
@@ -286,26 +302,30 @@ final class PMXE_Wpallimport
 				self::$templateOptions['is_update_url'] = 0;
 			}
 
-			if (XmlExportEngine::$is_taxonomy_export){
-          self::$templateOptions['taxonomy_type'] = $exportOptions['taxonomy_to_export'];
-      }
+            if ( XmlExportEngine::$is_woo_review_export || XmlExportEngine::$is_comment_export) {
+                self::$templateOptions['is_update_comment_type'] = 1;
+            }
+
+            if (XmlExportEngine::$is_taxonomy_export){
+                self::$templateOptions['taxonomy_type'] = $exportOptions['taxonomy_to_export'];
+            }
 
 			self::prepare_import_template( $exportOptions );
 
-      if ( in_array('product', $exportOptions['cpt']) )
-      {
-          self::$templateOptions['single_page_parent'] = '';
-          if ( ! empty($exportOptions['export_variations']) && $exportOptions['export_variations'] == XmlExportEngine::VARIABLE_PRODUCTS_EXPORT_VARIATION ){
-              if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_PARENT_TITLE ){
-                  self::$templateOptions['matching_parent'] = 'first_is_variation';
-              }
-              if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_DEFAULT_TITLE ) {
-                  self::$templateOptions['matching_parent'] = 'first_is_parent_id';
-              }
-              self::$templateOptions['create_new_records'] = 0;
-              self::$templateOptions['is_update_product_type'] = 0;
-          }
-      }
+            if ( in_array('product', $exportOptions['cpt']) )
+            {
+                self::$templateOptions['single_page_parent'] = '';
+                if ( ! empty($exportOptions['export_variations']) && $exportOptions['export_variations'] == XmlExportEngine::VARIABLE_PRODUCTS_EXPORT_VARIATION ){
+                      if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_PARENT_TITLE ){
+                          self::$templateOptions['matching_parent'] = 'first_is_variation';
+                      }
+                      if ( $exportOptions['export_variations_title'] == XmlExportEngine::VARIATION_USE_DEFAULT_TITLE ) {
+                          self::$templateOptions['matching_parent'] = 'first_is_parent_id';
+                      }
+                      self::$templateOptions['create_new_records'] = 0;
+                      self::$templateOptions['is_update_product_type'] = 0;
+                }
+            }
 
 			$tpl_options = self::$templateOptions;
 
@@ -404,7 +424,7 @@ final class PMXE_Wpallimport
 
 					$target = $is_secure_import ? $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXE_Plugin::UPLOADS_DIRECTORY . DIRECTORY_SEPARATOR . $security_folder : $wp_uploads['path'];						
 
-					$csv = new PMXI_CsvParser( array( 'filename' => $xmlPath, 'targetDir' => $target ) );		
+					$csv = new PMXI_CsvParser( array( 'filename' => $xmlPath, 'targetDir' => $target, 'delimiter' =>  $options['delimiter']) );
 
 					if ( ! in_array($xmlPath, $exportOptions['attachment_list']) )
 					{
@@ -456,6 +476,7 @@ final class PMXE_Wpallimport
 
 	public static function prepare_import_template( $exportOptions )
 	{
+
 		$options = $exportOptions;
 
 		$is_xml_template = $options['export_to'] == 'xml';
@@ -471,7 +492,7 @@ final class PMXE_Wpallimport
 
 		if ( ! empty($options['is_user_export']) ) self::$templateOptions['pmui']['import_users'] = 1;
 
-		foreach ($options['ids'] as $ID => $value) 
+		foreach ($options['ids'] as $ID => $value)
 		{
 			if (empty($options['cc_type'][$ID])) continue;
 
@@ -508,8 +529,7 @@ final class PMXE_Wpallimport
 
 					break;
 
-				case 'acf':					
-
+				case 'acf':
 					if (empty($required_add_ons['PMAI_Plugin']))
 					{
 						$required_add_ons['PMAI_Plugin'] = array(
@@ -523,8 +543,11 @@ final class PMXE_Wpallimport
 
 					// add ACF group ID to the template options
 					if( ! in_array($field_options['group_id'], self::$templateOptions['acf'])){
-						self::$templateOptions['acf'][$field_options['group_id']] = 1;
-					}					
+						$group = get_post($field_options['group_id']);
+						if (!empty($group)) {
+							self::$templateOptions['acf'][$group->post_excerpt] = 1;
+						}
+					}
 
 					self::$templateOptions['fields'][$field_options['key']] = XmlExportACF::prepare_import_template( $options, self::$templateOptions, $acf_list, $element_name, $field_options);											 
 
@@ -539,7 +562,23 @@ final class PMXE_Wpallimport
 					XmlExportMediaGallery::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);
 
 					if($addons->isUserAddonActive()) {
-                        XmlExportUser::prepare_import_template($options, self::$templateOptions, $element_name, $ID);
+                        if ( XmlExportEngine::$is_user_export ) {
+                             XmlExportUser::prepare_import_template($options, self::$templateOptions, $element_name, $ID, $cf_list);
+                        }
+
+                        if ( XmlExportEngine::$is_woo_customer_export ) {
+                            XmlExportWooCommerceCustomer::prepare_import_template( $options, self::$templateOptions, $bill_list, $ship_list, $element_name, $ID);
+                        }
+
+						XmlExportUser::prepare_import_template($options, self::$templateOptions, $element_name, $ID, $cf_list);
+
+                    }
+
+					if (XmlExportEngine::$is_comment_export) {
+                        XmlExportComment::prepare_import_template($options, self::$templateOptions, $element_name, $ID);
+                    }
+                    if(XmlExportEngine::$is_woo_review_export) {
+                        XmlExportWooCommerceReview::prepare_import_template($options, self::$templateOptions, $element_name, $ID);
                     }
 
                     XmlExportTaxonomy::prepare_import_template( $options, self::$templateOptions, $element_name, $ID);

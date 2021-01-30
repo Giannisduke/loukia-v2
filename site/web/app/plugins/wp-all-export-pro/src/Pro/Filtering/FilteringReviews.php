@@ -3,10 +3,10 @@
 namespace Wpae\Pro\Filtering;
 
 /**
- * Class FilteringComments
+ * Class FilteringReviews
  * @package Wpae\Pro\Filtering
  */
-class FilteringComments extends FilteringBase
+class FilteringReviews extends FilteringBase
 {
     /**
      * @return bool
@@ -33,20 +33,16 @@ class FilteringComments extends FilteringBase
                 $this->queryWhere .= ")";
             }
         }
+
     }
 
-    /**
-     *
-     */
     public function getExcludeQueryWhere($postsToExclude){
-
-        return " AND ({$this->wpdb->comments}.comment_ID NOT IN (" . implode(',', $postsToExclude) . "))";
+        $this->queryWhere = " AND ({$this->wpdb->comments}.comment_ID NOT IN (" . implode(',', $postsToExclude) . "))";
     }
-
-
 
     /**
      * @param $rule
+     * @return self
      */
     public function parse_single_rule($rule) {
         apply_filters('wp_all_export_single_filter_rule', $rule);

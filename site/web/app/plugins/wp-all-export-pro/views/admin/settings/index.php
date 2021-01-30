@@ -23,7 +23,7 @@
                 <tr>
                     <th scope="row"><label><?php _e('License Key', 'wp_all_export_plugin'); ?></label></th>
                     <td>
-                    <input type="password" class="regular-text" name="license"
+                        <input type="password" class="regular-text" name="license"
                                value="<?php if (!empty($post['license'])) esc_attr_e(PMXE_Plugin::decode($post['license'])); ?>"/>
                         <?php if (!empty($post['license'])) { ?>
 
@@ -57,7 +57,8 @@
             <tbody>
 
             <tr>
-                <th scope="row"><label><?php _e('Automatic Scheduling License Key', 'wp_all_export_plugin'); ?></label></th>
+                <th scope="row"><label><?php _e('Automatic Scheduling License Key', 'wp_all_export_plugin'); ?></label>
+                </th>
                 <td>
                     <input type="password" class="regular-text" name="scheduling_license"
                            value="<?php if (!empty($post['scheduling_license'])) esc_attr_e(PMXE_Plugin::decode($post['scheduling_license'])); ?>"/>
@@ -74,10 +75,10 @@
                     <?php } ?>
                     <?php
                     $scheduling = \Wpae\Scheduling\Scheduling::create();
-                    if(!($scheduling->checkLicense())){
-                    ?>
-                    <p class="description"><?php _e('A license key is required to use Automatic Scheduling. If you have already subscribed, <a href="https://www.wpallimport.com/portal/automatic-scheduling/" target="_blank">click here to access your license key</a>. If you dont have a license, <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704" target="_blank">click here to subscribe</a>.', 'wp_all_export_plugin'); ?></p>
-                    <?php
+                    if (!($scheduling->checkLicense())) {
+                        ?>
+                        <p class="description"><?php _e('A license key is required to use Automatic Scheduling. If you have already subscribed, <a href="https://www.wpallimport.com/portal/automatic-scheduling/" target="_blank">click here to access your license key</a>. If you dont have a license, <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704" target="_blank">click here to subscribe</a>.', 'wp_all_export_plugin'); ?></p>
+                        <?php
                     }
                     ?>
                 </td>
@@ -130,8 +131,8 @@
                     <tr>
                         <td>
                             <label class="selectit" for="template-<?php echo $t->id ?>"><input
-                                    id="template-<?php echo $t->id ?>" type="checkbox" name="templates[]"
-                                    value="<?php echo $t->id ?>"/> <?php echo $t->name ?></label>
+                                        id="template-<?php echo $t->id ?>" type="checkbox" name="templates[]"
+                                        value="<?php echo $t->id ?>"/> <?php echo $t->name ?></label>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -240,15 +241,16 @@
 <?php if ($is_license_active): ?>
     <form name="settings" method="post" action="" class="settings">
 
-	<h3><?php _e('Licenses', 'wp_all_export_plugin') ?></h3>
-	
-	<table class="form-table">
-		<tbody>			
-			<tr>
-				<th scope="row"><label><?php _e('License Key', 'wp_all_export_plugin'); ?></label></th>
-				<td>
-					<input type="password" class="regular-text" name="license" value="<?php if (!empty($post['license'])) esc_attr_e( PMXE_Plugin::decode($post['license'] )); ?>"/>
-					<?php if( ! empty($post['license']) ) { ?>
+        <h3><?php _e('Licenses', 'wp_all_export_plugin') ?></h3>
+
+        <table class="form-table">
+            <tbody>
+            <tr>
+                <th scope="row"><label><?php _e('License Key', 'wp_all_export_plugin'); ?></label></th>
+                <td>
+                    <input type="password" class="regular-text" name="license"
+                           value="<?php if (!empty($post['license'])) esc_attr_e(PMXE_Plugin::decode($post['license'])); ?>"/>
+                    <?php if (!empty($post['license'])) { ?>
 
                         <?php if (!empty($post['license_status']) && $post['license_status'] == 'valid') { ?>
                             <p style="color:green; display: inline-block;"><?php _e('Active', 'wp_all_export_plugin'); ?></p>
@@ -297,7 +299,7 @@
                     <?php } ?>
                     <?php
                     $scheduling = \Wpae\Scheduling\Scheduling::create();
-                    if(!($scheduling->checkLicense())){
+                    if (!($scheduling->checkLicense())) {
                         ?>
                         <p class="description"><?php _e('A license key is required to use Automatic Scheduling. If you have already subscribed, <a href="https://www.wpallimport.com/portal/automatic-scheduling/" target="_blank">click here to access your license key</a>. If you dont have a license, <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704" target="_blank">click here to subscribe</a>.', 'wp_all_export_plugin'); ?></p>
                         <?php
@@ -345,5 +347,37 @@ $functions_content = file_get_contents($functions);
 
 </div>
 
+<hr/>
+<br>
+<form name="client-mode-settings" method="post" action="" class="client-mode-settings">
+
+    <div>
+        <h3>Client Mode</h3>
+        <div style="float: left; width: 20%;">
+            Roles With Access
+        </div>
+        <div style="float: left; width: 70%;">
+
+            <?php foreach ($roles as $key => $role) {
+                $roleObject = get_role($key);
+                ?>
+                <input type="checkbox" id="role-<?php echo $key; ?>"
+                       value="<?php echo $key; ?>"
+                    <?php if(is_array($post['client_mode_roles']) && in_array($key, $post['client_mode_roles'])) {?> checked="checked" <?php } ?>
+                    <?php if($roleObject->has_cap('manage_options')) {?> disabled="disabled" checked="checked" <?php }?>
+                       name="client_mode_roles[]"/>
+                <label
+                        for="role-<?php echo $key; ?>"><?php echo $role['name']; ?> <br/></label>
+            <?php } ?>
+        </div>
+        <div class="clear"></div>
+        <p class="submit-buttons">
+            <?php wp_nonce_field('edit-client-mode-settings', '_wpnonce_edit-client_mode_settings') ?>
+            <input type="hidden" name="is_client_mode_submitted" value="1"/>
+            <input type="submit" class="button-primary" value="Save Client Mode Settings"/>
+        </p>
+
+    </div>
+</form>
 <a href="http://soflyy.com/" target="_blank"
    class="wpallexport-created-by"><?php _e('Created by', 'wp_all_export_plugin'); ?> <span></span></a>

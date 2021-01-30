@@ -38,12 +38,8 @@ class FilteringTaxonomies extends FilteringBase
     /**
      *
      */
-    public function checkNewStuff(){
-        //If re-run, this export will only include records that have not been previously exported.
-        if ($this->isExportNewStuff()){
-            $postList = new \PMXE_Post_List();
-            $this->queryWhere = " AND ({$this->wpdb->terms}.term_id NOT IN (SELECT post_id FROM " . $postList->getTable() . " WHERE export_id = '". $this->exportId ."'))";
-        }
+    protected function getExcludeQueryWhere($postsToExclude) {
+        $this->queryWhere = " AND ({$this->wpdb->terms}.term_id NOT IN (" . implode(',', $postsToExclude) . "))";
     }
 
     /**
@@ -165,5 +161,10 @@ class FilteringTaxonomies extends FilteringBase
                 break;
         }
         $this->recursion_parse_query($rule);
+    }
+
+    protected function getModifiedQueryWhere($export)
+    {
+        return;
     }
 }

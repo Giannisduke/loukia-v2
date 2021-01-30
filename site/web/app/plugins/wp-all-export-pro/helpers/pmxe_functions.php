@@ -152,13 +152,10 @@
                 }
                 else
                 {
-                    if ( in_array(XmlExportEngine::$exportOptions['xml_template_type'], array('custom', 'XmlGoogleMerchants')) ){
-                        $post_date = date("Y-m-d H:i:s", $timestamp);
-                    } else {
-                        $post_date = date("Y-m-d", $timestamp);
-                    }
+                    $post_date = date("Y-m-d H:i:s", $timestamp);
                 }
             }
             return $post_date;
         }
     }
+

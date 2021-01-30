@@ -212,7 +212,8 @@
 
                     $preview.parent('.wp-pointer-content').removeClass('wp-pointer-content').addClass('wpallexport-pointer-content');
 
-                    $preview.find('.navigation a').unbind('click').die('click').live('click', function () {
+                    $preview.find('.navigation a').unbind('click');
+                    $preview.on('click', '.navigation a', function () {
 
                         tagno += '#prev' == $(this).attr('href') ? -1 : 1;
 

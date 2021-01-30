@@ -40,8 +40,11 @@ if ( ! class_exists('XmlExportEngine') ){
 		public static $woo_coupon_export;
 		public static $woo_refund_export;
 		public static $user_export = false;
-		public static $comment_export;
-		public static $taxonomy_export;
+        public static $woo_customer_export = false;
+        public static $comment_export;
+		public static $woo_review_export = false;
+        public static $taxonomy_export;
+
 
 		public static $is_preview = false;
 
@@ -210,10 +213,12 @@ if ( ! class_exists('XmlExportEngine') ){
 
 		private $filters;
 
-		public static $is_user_export    = false;	
+		public static $is_user_export    = false;
+        public static $is_woo_customer_export = false;
 		public static $is_comment_export = false;
 		public static $is_taxonomy_export = false;
-		public static $post_types    = array();	
+		public static $is_woo_review_export = false;
+		public static $post_types    = array();
 		public static $exportOptions = array();
 		public static $exportQuery;
 		public static $exportID     = false;
@@ -222,7 +227,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 		public static $is_auto_generate_enabled = true;
 
-		public function __construct( $post, & $errors = false ){		
+		public function __construct( $post, & $errors = false ){
 
 			$this->post   = $post;
 			$this->errors = $errors;			
@@ -364,8 +369,8 @@ if ( ! class_exists('XmlExportEngine') ){
 						'user_email' => 'Email',
 						'user_registered' => 'Date Registered (Y-m-d H:i:s)',
 						'display_name' => 'Display Name',
-						'cf_first_name' => 'First Name',
-						'cf_last_name' => 'Last Name',
+						'first_name' => 'First Name',
+						'last_name' => 'Last Name',
 						'nickname' => 'Nickname',
 						'description' => 'User Description',
 						'wp_capabilities' => 'User Role'						
@@ -378,22 +383,26 @@ if ( ! class_exists('XmlExportEngine') ){
 
 				self::$post_types = ( ! is_array($this->post['cpt']) ) ? array($this->post['cpt']) : $this->post['cpt'];								
 
-				if ( in_array('product', self::$post_types) and ! in_array('product_variation', self::$post_types)) self::$post_types[] = 'product_variation';	
+				if ( in_array('product', self::$post_types) && ! in_array('product_variation', self::$post_types)) self::$post_types[] = 'product_variation';
 
-				self::$is_user_export = ( in_array('users', self::$post_types) or in_array('shop_customer', self::$post_types) ) ? true : false;
+                self::$is_user_export = ( in_array('users', self::$post_types) ) ? true : false;
+
+                self::$is_woo_customer_export = ( in_array('shop_customer', self::$post_types) ) ? true : false;
 
 				self::$is_comment_export = ( in_array('comments', self::$post_types) ) ? true : false;
 
+				self::$is_woo_review_export = ( in_array('shop_review', self::$post_types) ) ? true : false;
+
 				self::$is_taxonomy_export = ( in_array('taxonomies', self::$post_types) ) ? true : false;
 
-			}	
+			}
 			else
 			{				
 				self::$is_user_export    = ( 'wp_user_query' == $this->post['wp_query_selector'] );
 				self::$is_comment_export = ( 'wp_comment_query' == $this->post['wp_query_selector'] );
 			}			
 
-			if ( ! self::$is_user_export && ! self::$is_comment_export && ! self::$is_taxonomy_export)
+			if ( ! self::$is_user_export && !self::$is_woo_customer_export && ! self::$is_comment_export && !self::$is_woo_review_export && ! self::$is_taxonomy_export)
 			{
 				add_filter("wp_all_export_filters", array( &$this, "filter_export_filters"), 10, 1);
 
@@ -416,7 +425,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 			self::$exportOptions = $post;
 			
-			if ( ! empty(PMXE_Plugin::$session) and PMXE_Plugin::$session->has_session() )
+			if ( ! empty(PMXE_Plugin::$session) && PMXE_Plugin::$session->has_session() )
 			{
 				$filter_args = array(
 					'filter_rules_hierarhy' => $this->post['filter_rules_hierarhy'],
@@ -447,6 +456,7 @@ if ( ! class_exists('XmlExportEngine') ){
 			self::$taxonomy_export   = new XmlExportTaxonomy();
 			self::$woo_order_export  = new XmlExportWooCommerceOrder(); 
 			self::$woo_coupon_export = new XmlExportWooCommerceCoupon();
+			self::$woo_review_export = new XmlExportWooCommerceReview();
 			do_action('pmxe_init_addons');
 
 		}	
@@ -466,10 +476,12 @@ if ( ! class_exists('XmlExportEngine') ){
 
 		protected function init(){
 
-			PMXE_Plugin::$session->set('is_user_export', self::$is_user_export);	
+			PMXE_Plugin::$session->set('is_user_export', self::$is_user_export);
+            PMXE_Plugin::$session->set('is_woo_customer_export', self::$is_woo_customer_export);
 			PMXE_Plugin::$session->set('is_comment_export', self::$is_comment_export);
 			PMXE_Plugin::$session->set('is_taxonomy_export', self::$is_taxonomy_export);
-			PMXE_Plugin::$session->save_data();	
+			PMXE_Plugin::$session->set('is_woo_review_export', self::$is_woo_review_export);
+			PMXE_Plugin::$session->save_data();
 
 			if ('advanced' == $this->post['export_type']) {
 
@@ -513,13 +525,13 @@ if ( ! class_exists('XmlExportEngine') ){
 			$table_prefix = $wpdb->prefix;
 
 			// Prepare existing taxonomies
-			if ( 'specific' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export and ! self::$is_taxonomy_export )
+			if ( 'specific' == $this->post['export_type'] && ! self::$is_user_export && ! self::$is_woo_customer_export && ! self::$is_comment_export && !self::$is_woo_review_export && ! self::$is_taxonomy_export )
 			{ 
 				$this->_existing_taxonomies = wp_all_export_get_existing_taxonomies_by_cpt( self::$post_types[0] );								
 
 				$this->_existing_meta_keys = wp_all_export_get_existing_meta_by_cpt( self::$post_types[0] );				
 			}	
-			if ( 'advanced' == $this->post['export_type'] and ! self::$is_user_export and ! self::$is_comment_export and ! self::$is_taxonomy_export )
+			if ( 'advanced' == $this->post['export_type'] && ! self::$is_user_export && ! self::$is_comment_export && ! self::$is_woo_review_export && ! self::$is_taxonomy_export )
 			{
 				$meta_keys = $wpdb->get_results("SELECT DISTINCT meta_key FROM {$table_prefix}postmeta WHERE {$table_prefix}postmeta.meta_key NOT LIKE '_edit%' LIMIT 1000");
 				if ( ! empty($meta_keys)){
@@ -534,7 +546,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 				foreach ($wp_taxonomies as $key => $obj) {	if (in_array($obj->name, array('nav_menu'))) continue;
 
-					if (strpos($obj->name, "pa_") !== 0 and strlen($obj->name) > 3)
+					if (strpos($obj->name, "pa_") !== 0 && strlen($obj->name) > 3)
 						$this->_existing_taxonomies[] = array(
 							'name' => empty($obj->label) ? $obj->name : $obj->label,
 							'label' => $obj->name,
@@ -556,12 +568,22 @@ if ( ! class_exists('XmlExportEngine') ){
 			self::$woo_coupon_export->init($this->_existing_meta_keys);			
 
 			if(XmlExportEngine::$user_export) {
+
                 // Prepare existing Users data
                 self::$user_export->init($this->_existing_meta_keys);
-            }
+
+			} elseif (self::$is_woo_customer_export) {
+
+                // Prepare existing WooCommerce Customers data
+                self::$woo_customer_export->init($this->_existing_meta_keys);
+
+			}
 
 			// Prepare existing Comments data
 			self::$comment_export->init($this->_existing_meta_keys);
+
+            // Prepare existing Reviews data
+            self::$woo_review_export->init($this->_existing_meta_keys);
 
 			// Prepare existing Taxonomy data
 			self::$taxonomy_export->init($this->_existing_meta_keys);
@@ -666,7 +688,7 @@ if ( ! class_exists('XmlExportEngine') ){
 				}	
 			}
 
-			if ( ! self::$is_comment_export )
+			if ( ! self::$is_comment_export && ! self::$is_woo_review_export )
 			{							
 				self::$acf_export->get_fields_options( $fields, $field_keys );
 			}
@@ -713,9 +735,10 @@ if ( ! class_exists('XmlExportEngine') ){
 				'cc_combine_multiple_fields_value' => ''
 			);
 
+
 			foreach ($available_sections as $slug => $section)
 			{
-				if ( ! empty($this->available_data[$section['content']]) or ! empty($section['additional']) ): 
+				if ( ! empty($this->available_data[$section['content']]) or ! empty($section['additional']) ):
 				?>										
 				<p class="wpae-available-fields-group"><?php echo $section['title']; ?><span class="wpae-expander">+</span></p>
 				<div class="wpae-custom-field">
@@ -735,7 +758,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 							if ( $field_type == 'cf' && $field_name == '_thumbnail_id' ) continue;
 
-							$is_auto_field = ( ! empty($field['auto']) or self::$is_auto_generate_enabled and ('specific' != $this->post['export_type'] or 'specific' == $this->post['export_type'] and ! in_array(self::$post_types[0], array('product'))));
+							$is_auto_field = ( ! empty($field['auto']) or self::$is_auto_generate_enabled && ('specific' != $this->post['export_type'] or 'specific' == $this->post['export_type'] && ! in_array(self::$post_types[0], array('product'))));
 
 							if (is_array($field)){
 								$field += $default;
@@ -793,7 +816,7 @@ if ( ! class_exists('XmlExportEngine') ){
 													<input type="hidden" name="ids[]" value="1"/>
 													<input type="hidden" name="cc_label[]" value="<?php echo (is_array($field)) ? $field['label'] : $field; ?>"/>										
 													<input type="hidden" name="cc_php[]" value="0"/>										
-													<input type="hidden" name="cc_code[]" value="0"/>
+													<input type="hidden" name="cc_code[]" value=""/>
 													<input type="hidden" name="cc_sql[]" value="0"/>
 													<input type="hidden" name="cc_options[]" value="<?php echo $field_options; ?>"/>										
 													<input type="hidden" name="cc_type[]" value="<?php echo (is_array($field)) ? $field['type'] : $sub_slug; ?>"/>
@@ -820,10 +843,10 @@ if ( ! class_exists('XmlExportEngine') ){
 				endif;							
 			}
 
-			if ( ! self::$is_comment_export )
+			if ( ! self::$is_comment_export && ! self::$is_woo_review_export )
 			{			
 				// Render Available ACF
-				self::$acf_export->render($i);		
+				self::$acf_export->render($i);
 			}
 
 			return ob_get_clean();
@@ -843,7 +866,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 				foreach ($available_sections as $slug => $section) 
 				{											
-					if ( ! empty($section['content']) and ! empty($this->available_data[$section['content']]) or ! empty($section['fields'])): 
+					if ( ! empty($section['content']) && ! empty($this->available_data[$section['content']]) || ! empty($section['fields'])):
 					?>	
 
 					<optgroup label="<?php echo $section['title']; ?>">
@@ -885,7 +908,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 										if (self::$is_user_export)
 										{
-											switch ($field_label) 
+											switch ($field_label)
 											{
 												case 'id':
 													$field_label = strtoupper($field_label);
@@ -903,11 +926,18 @@ if ( ! class_exists('XmlExportEngine') ){
 												case 'id':
 													$field_label = strtoupper($field_label);
 													break;
-												case 'parent':
+                                                case 'author_email':
+                                                    $field_label = 'user_email';
+                                                    break;
+                                                case 'author_username':
+                                                    $field_label = 'user_login';
+                                                    break;
+                                                case 'first_name':
+                                                case 'author_first_name':
+                                                    $field_label = 'first_name';
+                                                    break;
+                                                case 'parent':
 												case 'author':
-												case 'author_username':
-												case 'author_email':
-												case 'author_first_name':
 												case 'author_last_name':
 												case 'status':
 												case 'title':
@@ -999,7 +1029,7 @@ if ( ! class_exists('XmlExportEngine') ){
 				}
 			}
 
-			if ( ! self::$is_comment_export )
+			if ( ! self::$is_comment_export && ! self::$is_woo_review_export )
 			{	
 				// Render Available ACF
 				self::$acf_export->render_filters();	
@@ -1081,7 +1111,7 @@ if ( ! class_exists('XmlExportEngine') ){
 						endif;							
 					}
 
-					if ( ! self::$is_comment_export )
+					if ( ! self::$is_comment_export && ! self::$is_woo_review_export )
 					{	
 						// Render Available ACF
 						self::$acf_export->render_new_field();	
@@ -1163,7 +1193,7 @@ if ( ! class_exists('XmlExportEngine') ){
 
 					foreach ($loop_placeholders as $snippet) {  
 					  preg_match("%\{(.*)\}%", $snippet, $matches);
-					  if ( ! empty($matches[1]) and ! in_array($matches[1], $field_keys)) $field_keys[] = $matches[1];
+					  if ( ! empty($matches[1]) && ! in_array($matches[1], $field_keys)) $field_keys[] = $matches[1];
 					}			
 				}			
 					

@@ -22,6 +22,13 @@ class AddonService
 
         foreach ($exports as $item) {
 
+            if(!is_array($item['options']['cpt'])) {
+                $item['options']['cpt'] = array($item['options']['cpt']);
+            }
+            if(!isset($item['options']['export_type'])) {
+                return false;
+            }
+
             if (
                 ((in_array('users', $item['options']['cpt']) || in_array('shop_customer', $item['options']['cpt'])) && !$this->isUserAddonActive()) ||
                 ($item['options']['export_type'] == 'advanced' && $item['options']['wp_query_selector'] == 'wp_user_query' && !$this->isUserAddonActive())

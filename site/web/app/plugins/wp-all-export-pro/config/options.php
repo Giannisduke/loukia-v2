@@ -18,5 +18,6 @@ $config = array(
 	"scheduling_license_status" => "",
 	"zapier_api_key" => wp_all_export_rand_char(32),
 	"zapier_invitation_url" => "",
-	"zapier_invitation_url_received" => ""
-);if (!defined('WPALLEXPORT_SIGNATURE')) define('WPALLEXPORT_SIGNATURE', 'YTZjZjJiMDJiZjBhNmE3NDk0YmQxM2IxMjU3YWQyYzI=');
+	"zapier_invitation_url_received" => "",
+    "client_mode_roles" => array()
+);

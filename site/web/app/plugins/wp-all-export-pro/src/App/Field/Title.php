@@ -23,7 +23,6 @@ class Title extends Field
             throw new \Exception('Unknown field value');
         }
 
-        $value = substr($value, 0, 150);
         return $value;
     }
 
@@ -31,6 +30,5 @@ class Title extends Field
     {
         return 'title';
     }
-
 
 }

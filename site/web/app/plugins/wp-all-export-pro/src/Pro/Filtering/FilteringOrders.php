@@ -136,8 +136,8 @@ class FilteringOrders extends FilteringCPT
         $this->productsjoin  = $productsFilter->get('queryJoin');
 
         remove_all_actions('parse_query');
-        remove_all_actions('pre_get_posts');
         remove_all_filters('posts_clauses');
+        wp_all_export_remove_before_post_except_toolset_actions();
 
         add_filter('posts_join', array(&$this, 'posts_join'), 10, 1);
         add_filter('posts_where', array(&$this, 'posts_where'), 10, 1);

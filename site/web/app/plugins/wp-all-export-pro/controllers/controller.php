@@ -57,30 +57,30 @@ abstract class PMXE_Controller {
 	 * @throws Exception
 	 */
 	protected function render($viewPath = null) {
-		
-		if ( ! get_current_user_id() or ! current_user_can( PMXE_Plugin::$capabilities )) {
+
+        if ( !get_current_user_id() && (!current_user_can(PMXE_Plugin::$capabilities) || ! current_user_can(PMXE_Plugin::CLIENT_MODE_CAP))) {
 		    // This nonce is not valid.
 		    die( 'Security check' ); 
 
-		} else {
-			
-			// assume template file name depending on calling function
-			if (is_null($viewPath)) {
-				$trace = debug_backtrace();
-				$viewPath = str_replace('_', '/', preg_replace('%^' . preg_quote(PMXE_Plugin::PREFIX, '%') . '%', '', strtolower($trace[1]['class']))) . '/' . $trace[1]['function'];
-			}
-			// append file extension if not specified
-			if ( ! preg_match('%\.php$%', $viewPath)) {
-				$viewPath .= '.php';
-			}
-			$filePath = PMXE_Plugin::ROOT_DIR . '/views/' . $viewPath;
-			if (is_file($filePath)) {
-				extract($this->data);
-				include $filePath;
-			} else {
-				throw new Exception("Requested template file $filePath is not found.");
-			}
 		}
+			
+        // assume template file name depending on calling function
+        if (is_null($viewPath)) {
+            $trace = debug_backtrace();
+            $viewPath = str_replace('_', '/', preg_replace('%^' . preg_quote(PMXE_Plugin::PREFIX, '%') . '%', '', strtolower($trace[1]['class']))) . '/' . $trace[1]['function'];
+        }
+        // append file extension if not specified
+        if ( ! preg_match('%\.php$%', $viewPath)) {
+            $viewPath .= '.php';
+        }
+        $filePath = PMXE_Plugin::ROOT_DIR . '/views/' . $viewPath;
+        if (is_file($filePath)) {
+            extract($this->data);
+            include $filePath;
+        } else {
+            throw new Exception("Requested template file $filePath is not found.");
+        }
+
 	}
 	
 	/**
@@ -108,75 +108,6 @@ abstract class PMXE_Controller {
 			$this->render($viewPathRel);
 		} else { // render default error view
 			$this->render('controller/error.php');
-		}
-	}
-	
-	public function download(){
-
-
-		$nonce = (!empty($_REQUEST['_wpnonce'])) ? $_REQUEST['_wpnonce'] : '';
-		if ( ! wp_verify_nonce( $nonce, '_wpnonce-download_feed' ) && !isset($_GET['google_feed']) ) {
-		    die( __('Security check', 'wp_all_export_plugin') );
-		} else {
-
-			$is_secure_import = PMXE_Plugin::getInstance()->getOption('secure');
-
-			$id = $this->input->get('id');
-
-			$export = new PMXE_Export_Record();
-
-			$filepath = '';
-			
-			if ( ! $export->getById($id)->isEmpty())
-			{
-				if($export->options['export_to'] != XmlExportEngine::EXPORT_TYPE_GOOLE_MERCHANTS && isset($_GET['google_feed'])) {
-					die('Unauthorized');
-				}
-				if ( ! $is_secure_import)
-				{
-					$filepath = get_attached_file($export->attch_id);					
-				}
-				else
-				{
-					$filepath = wp_all_export_get_absolute_path($export->options['filepath']);
-				}				
-				if ( @file_exists($filepath) )
-				{
-					switch ($export['options']['export_to']) 
-					{
-						case XmlExportEngine::EXPORT_TYPE_XML:
-
-							if($export['options']['xml_template_type'] == XmlExportEngine::EXPORT_TYPE_GOOLE_MERCHANTS) {
-								PMXE_download::txt($filepath);
-							} else {
-								PMXE_download::xml($filepath);
-							}
-
-							break;
-						case XmlExportEngine::EXPORT_TYPE_CSV:
-							if (empty($export->options['export_to_sheet']) or $export->options['export_to_sheet'] == 'csv')
-							{
-								PMXE_download::csv($filepath);		
-							}							
-							else 
-							{
-                                switch ($export->options['export_to_sheet']){
-                                    case 'xls':
-                                        PMXE_download::xls($filepath);
-                                        break;
-                                    case 'xlsx':
-                                        PMXE_download::xlsx($filepath);
-                                        break;
-                                }
-							}							
-							break;
-
-						default:
-							
-							break;
-					}
-				}					
-			}	
 		}
 	}
 }

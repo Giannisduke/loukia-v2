@@ -45,9 +45,13 @@ class ExportController extends BaseController
 
     public function getAction(Request $request)
     {
+        $exportData = false;
+
         if(!$request->get('id')) {
             $sessionData = PMXE_Plugin::$session->get_session_data();
-            $exportData = unserialize($sessionData['google_merchants_post_data']);
+            if (isset($sessionData['google_merchants_post_data'])){
+                $exportData = unserialize($sessionData['google_merchants_post_data']);
+            }
         } else {
             $id = intval($_GET['id']);
             $export = new \PMXE_Export_Record();
@@ -144,7 +148,12 @@ class ExportController extends BaseController
 
             $this->data['export']->set(array('options' => $post, 'settings_update_on' => date('Y-m-d H:i:s')))->save();
             if (!empty($post['friendly_name'])) {
-                $this->data['export']->set(array('friendly_name' => $post['friendly_name'], 'scheduled' => (($post['is_scheduled']) ? $post['scheduled_period'] : '')))->save();
+                if(current_user_can(PMXE_Plugin::$capabilities)) {
+                    $this->data['export']->set(array('friendly_name' => $post['friendly_name'], 'scheduled' => (($post['is_scheduled']) ? $post['scheduled_period'] : '')))->save();
+                }
+            }
+            if(!empty($post['allow_client_mode'])) {
+                $this->data['export']->set(array('allow_client_mode' => 1));
             }
             // Return an url to redirect here
             return new JsonResponse(array( 'redirect' => add_query_arg(array('page' => 'pmxe-admin-manage', 'pmxe_nt' => urlencode(__('Options updated', 'pmxi_plugin'))) + array_intersect_key($_GET, array_flip($this->baseUrlParamNames)), admin_url('admin.php'))));

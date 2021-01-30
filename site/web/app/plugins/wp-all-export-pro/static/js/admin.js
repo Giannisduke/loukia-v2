@@ -237,7 +237,7 @@
 	}, 10);
 
 	// help icons
-    $('.wpallexport-help, .help_scheduling').tipsy({
+    $('.wpallexport-help').parent().tipsy({
 		gravity: function() {
 			var ver = 'n';
 			if ($(document).scrollTop() < $(this).offset().top - $('.tipsy').height() - 2) {
@@ -251,10 +251,10 @@
 			}
 	        return ver + hor;
 	    },
-		live: true,
 		html: true,
+		live: '.wpallexport-help',
 		opacity: 1
-	}).live('click', function () {
+	}).click(function () {
 		return false;
 	}).each(function () { // fix tipsy title for IE
 		$(this).attr('original-title', $(this).attr('title'));
@@ -322,7 +322,7 @@
 	}
 
 	// swither show/hide logic
-	$('input.switcher').live('change', function (e) {
+	$('input.switcher').change(function (e) {
 
 		if ($(this).is(':radio:checked')) {
 			$(this).parents('form').find('input.switcher:radio[name="' + $(this).attr('name') + '"]').not(this).change();
@@ -344,7 +344,7 @@
 	}).change();
 
 	// swither show/hide logic
-	$('input.switcher-horizontal').live('change', function (e) {
+	$('input.switcher-horizontal').change(function (e) {
 
 		if ($(this).is(':checked')) {
 			$(this).parents('form').find('input.switcher-horizontal[name="' + $(this).attr('name') + '"]').not(this).change();
@@ -361,7 +361,7 @@
 	}).change();
 
 	// autoselect input content on click
-	$('input.selectable').live('click', function () {
+	$(document).on('click', 'input.selectable', function () {
 		$(this).select();
 	});
 
@@ -383,7 +383,7 @@
 
 	});
 
-	$('.wpallexport-collapsed').find('.wpallexport-collapsed-header:not(.disable-jquery)').live('click', function(){
+	$(document).on('click', '.wpallexport-collapsed .wpallexport-collapsed-header:not(.disable-jquery)',function(){
 
 		var $parent = $(this).parents('.wpallexport-collapsed:first');
 
@@ -436,6 +436,7 @@
 
 		$('#columns').find('li:not(.placeholder)').each(function(i, e){
 			$(this).find('div.custom_column:first').attr('rel', i + 1);
+
 			if ($(this).find('input[name^=cc_type]').val() == 'id'){
 				var index = missing_fields.indexOf('id');
 				if (index > -1) {
@@ -519,7 +520,7 @@
 
 		    		$('#wp_all_export_available_rules').html('<div class="wp_all_export_preloader" style="display:block;"></div>');
 
-		    		var date_fields = ['post_date', 'post_modified', 'comment_date', 'user_registered', 'cf__completed_date', 'product_date'];
+		    		var date_fields = ['post_date', 'post_modified', 'comment_date', 'comment_parent_date', 'comment_parent_date_gmt', 'user_registered', 'cf__completed_date', 'product_date'];
 
 	    			if ( date_fields.indexOf(params.selected) > -1 )
 		    		{
@@ -654,6 +655,11 @@
 			$export_only_modified_stuff = $('#export_only_modified_stuff').is(':checked') ? 1 : 0;
 		}
 
+        var $export_only_customers_that_made_purchases = $('input[name=export_only_customers_that_made_purchases]').val();
+        if ($('#export_only_customers_that_made_purchases').length){
+            $export_only_customers_that_made_purchases = $('#export_only_customers_that_made_purchases').is(':checked') ? 1 : 0;
+        }
+
 		// prepare data for ajax request to get post count after filtering
 		var request = {
 			action: 'wpae_filtering_count',
@@ -665,6 +671,7 @@
 				'is_template_screen' : $('.wpallexport-step-3').length,
 				'export_only_new_stuff' : $export_only_new_stuff,
 				'export_only_modified_stuff' : $export_only_modified_stuff,
+                'export_only_customers_that_made_purchases' : $export_only_customers_that_made_purchases,
 				'export_type' : $('input[name=export_type]').val(),
 				'taxonomy_to_export' : $('input[name=taxonomy_to_export]').val(),
 				'wpml_lang' : $('input[name=wpml_lang]').val(),
@@ -927,7 +934,7 @@
 		    }
 		});
 
-		$('a.auto-generate-template').live('click', function(){
+		$(document).on('click', 'a.auto-generate-template', function(){
 			$('input[name^=auto_generate]').val('1');
 
 			$('.hierarhy-output').each(function(){
@@ -1127,6 +1134,9 @@
 			}
 		}).sortable({
 			items: "li:not(.placeholder)",
+			start: function(event, ui) {
+				ui.item.addClass('wpae-no-click');
+			},
 			sort: function() {
 				// gets added unintentionally by droppable interacting with sortable
 				// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
@@ -1248,7 +1258,7 @@
 		});
 
 		// Add/Edit custom column action
-		$addAnotherForm.find('.save_action').click(function(){
+		$addAnotherForm.on('click', '.save_action', function(){
 
 			if($('.wp-all-export-field-options input[name="combine_multiple_fields"]').val() == '1') {
 				if(!wpaeValidateBraces($('#combine_multiple_fields_value').val())) {
@@ -1336,6 +1346,8 @@
 				// save post date field format
 				case 'date':
 				case 'comment_date':
+				case 'comment_parent_date':
+				case 'comment_parent_date_gmt':
 				case 'user_registered':
 				case 'post_modified':
 					var $dateType = $addAnotherForm.find('select.date_field_export_data').val();
@@ -1406,311 +1418,317 @@
 
 		//custom_column_logic
 		// Clicking on column for edit
-		$('#columns').find('.custom_column').live('click', function(){
+		$('#columns').on('click', '.custom_column', function(){
 
-			$addAnotherForm.find('form')[0].reset();
-			$addAnotherForm.find('input[type=checkbox]').removeAttr('checked');
-
-			$addAnotherForm.removeClass('dc').addClass('cc');
-			$addAnotherForm.attr('rel', $(this).attr('rel'));
-
-			$addAnotherForm.find('.wpallexport-add-row-title').hide();
-			$addAnotherForm.find('.wpallexport-edit-row-title').show();
-
-			$addAnotherForm.find('input.column_name').parents('div.input:first').show();
-
-			if($('input[name^=export_to]').val() == 'xml') {
-				$addAnotherForm.find('.wpae_column_name').css('display', 'none');
-				$addAnotherForm.find('.wpae_element_name').css('display', 'block');
-
+			if($(this).parent().hasClass('wpae-no-click') && navigator.userAgent.indexOf("Firefox") !== -1) {
+				$(this).parent().removeClass('wpae-no-click');
 			} else {
-				$addAnotherForm.find('.wpae_column_name').css('display', 'block');
-				$addAnotherForm.find('.wpae_element_name').css('display', 'none');
-			}
-
-			$addAnotherForm.find('.cc_field').hide();
-			$('.custom_column').removeClass('active');
-			$(this).addClass('active');
-
-			var $elementType  = $(this).find('input[name^=cc_type]');
-			var $elementLabel = $(this).find('input[name^=cc_label]');
 
 
-			$('.wp_all_export_saving_status').html('');
+                $addAnotherForm.find('form')[0].reset();
+                $addAnotherForm.find('input[type=checkbox]').removeAttr('checked');
 
-			$addAnotherForm.find('select[name=column_value_type]').find('option').each(function(){
-				if ($(this).attr('label') == $elementLabel.val() && $(this).val() == $elementType.val())
-					$(this).attr({'selected':'selected'}).click();
-				else
-					$(this).removeAttr('selected');
-			});
+                $addAnotherForm.removeClass('dc').addClass('cc');
+                $addAnotherForm.attr('rel', $(this).attr('rel'));
 
-			$('.wp-all-export-chosen-select').trigger('chosen:updated');
+                $addAnotherForm.find('.wpallexport-add-row-title').hide();
+                $addAnotherForm.find('.wpallexport-edit-row-title').show();
 
-			// set php snipped
-			var $php_code = $(this).find('input[name^=cc_code]');
-			var $is_php = parseInt($(this).find('input[name^=cc_php]').val());
+                $addAnotherForm.find('input.column_name').parents('div.input:first').show();
 
-			if ($is_php){
-				$addAnotherForm.find('#coperate_php').attr({'checked':'checked'});
-				$addAnotherForm.find('#coperate_php').parents('div.input:first').find('div[class^=switcher-target]').show();
-			}
-			else{
-				$addAnotherForm.find('#coperate_php').removeAttr('checked');
-				$addAnotherForm.find('#coperate_php').parents('div.input:first').find('div[class^=switcher-target]').hide();
-			}
+                if ($('input[name^=export_to]').val() == 'xml') {
+                    $addAnotherForm.find('.wpae_column_name').css('display', 'none');
+                    $addAnotherForm.find('.wpae_element_name').css('display', 'block');
 
-			var $isCombineMultipleFieldsIntoOne = $(this).find('input[name^=cc_combine_multiple_fields]').val();
+                } else {
+                    $addAnotherForm.find('.wpae_column_name').css('display', 'block');
+                    $addAnotherForm.find('.wpae_element_name').css('display', 'none');
+                }
 
-			if($isCombineMultipleFieldsIntoOne == "1") {
-				$addAnotherForm.find('input[name="combine_multiple_fields"][value="1"]').attr('checked', true);
-				$addAnotherForm.find('#combine_multiple_fields_value').val($(this).find('input[name^=cc_combine_multiple_fields_value]').val());
+                $addAnotherForm.find('.cc_field').hide();
+                $('.custom_column').removeClass('active');
+                $(this).addClass('active');
 
-				$('#combine_multiple_fields_value_container').show();
-				$('#combine_multiple_fields_data').show();
-				$('.export-single').hide();
-			} else {
-				$addAnotherForm.find('input[name="combine_multiple_fields"][value="0"]').attr('checked', true);
+                var $elementType = $(this).find('input[name^=cc_type]');
+                var $elementLabel = $(this).find('input[name^=cc_label]');
 
-				$('#combine_multiple_fields_value_container').hide();
-				$('#combine_multiple_fields_data').hide();
-				$('.export-single').show();
 
-			}
+                $('.wp_all_export_saving_status').html('');
 
-			$addAnotherForm.find('#coperate_php').parents('div.input:first').find('.php_code').val($php_code.val());
+                $addAnotherForm.find('select[name=column_value_type]').find('option').each(function () {
+                    if ($(this).attr('label') == $elementLabel.val() && $(this).val() == $elementType.val())
+                        $(this).attr({'selected': 'selected'}).click();
+                    else
+                        $(this).removeAttr('selected');
+                });
 
-			var $options = $(this).find('input[name^=cc_options]').val();
-			var $settings = $(this).find('input[name^=cc_settings]').val();
+                $('.wp-all-export-chosen-select').trigger('chosen:updated');
 
-			var $fieldType = $elementType.val();
+                // set php snipped
+                var $php_code = $(this).find('input[name^=cc_code]');
+                var $is_php = parseInt($(this).find('input[name^=cc_php]').val());
 
-			if ($elementLabel.val() == '_sale_price_dates_from' || $elementLabel.val() == '_sale_price_dates_to') $fieldType = 'date';
+                if ($is_php) {
+                    $addAnotherForm.find('#coperate_php').prop('checked', true);
+                    $addAnotherForm.find('#coperate_php').parents('div.input:first').find('div[class^=switcher-target]').show();
+                }
+                else {
+                    $addAnotherForm.find('#coperate_php').prop('checked', false);
+                    $addAnotherForm.find('#coperate_php').parents('div.input:first').find('div[class^=switcher-target]').hide();
+                }
 
-			switch ( $fieldType ){
-				case 'content':
-					$addAnotherForm.find('.content_field_type').show();
-					if ($settings != "" && $settings != 0)
-					{
-						var $field_options = window.JSON.parse($settings);
-						if ($field_options.export_images_from_gallery) $addAnotherForm.find('#export_images_from_gallery').attr('checked','checked');
-					}
-					else{
-						// this option should be enabled by default
-						$addAnotherForm.find('#export_images_from_gallery').attr('checked','checked');
-					}
-					break;
-				case 'sql':
-					$addAnotherForm.find('textarea.column_value').val($(this).find('input[name^=cc_sql]').val());
-					$addAnotherForm.find('.sql_field_type').show();
-					break;
-				case 'acf':
-					if ($options.indexOf('s:4:"type";s:8:"repeater"') !== -1)
-					{
-						$addAnotherForm.find('.repeater_field_type').show();
-						if ($settings != "")
-						{
-							var $field_options = window.JSON.parse($settings);
-							if ($field_options.repeater_field_item_per_line) $addAnotherForm.find('#repeater_field_item_per_line').attr('checked','checked');
-							if ($field_options.repeater_field_fill_empty_columns) $addAnotherForm.find('#repeater_field_fill_empty_columns').attr('checked','checked');
-						}
-					}
-					break;
-				case 'woo':
-					$woo_type = $(this).find('input[name^=cc_value]');
-					switch ($woo_type.val())
-					{
-						case '_upsell_ids':
-						case '_crosssell_ids':
-						case 'item_data___upsell_ids':
-						case 'item_data___crosssell_ids':
+                var $isCombineMultipleFieldsIntoOne = $(this).find('input[name^=cc_combine_multiple_fields]').val();
 
-							$addAnotherForm.find('select.linked_field_export_data').find('option').each(function(){
-								if ($(this).val() == $settings)
-									$(this).attr({'selected':'selected'}).click();
-								else
-									$(this).removeAttr('selected');
-							});
-							$addAnotherForm.find('.linked_field_type').show();
-							break;
-					}
-					break;
-				case 'woo_order':
-					$woo_type = $(this).find('input[name^=cc_value]');
-					switch ($woo_type.val())
-					{
-						case 'post_date':
-						case 'post_modified':
-						case '_completed_date':
+                if ($isCombineMultipleFieldsIntoOne == "1") {
+                    $addAnotherForm.find('input[name="combine_multiple_fields"][value="1"]').prop('checked', true);
+                    $addAnotherForm.find('#combine_multiple_fields_value').val($(this).find('input[name^=cc_combine_multiple_fields_value]').val());
 
-							$addAnotherForm.find('select.date_field_export_data').find('option').each(function(){
-								if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
-									$(this).attr({'selected':'selected'}).click();
-								else
-									$(this).removeAttr('selected');
-							});
+                    $('#combine_multiple_fields_value_container').show();
+                    $('#combine_multiple_fields_data').show();
+                    $('.export-single').hide();
+                    $('.single-field-options').hide();
+                } else {
+                    $addAnotherForm.find('input[name="combine_multiple_fields"][value="0"]').prop('checked', true);
 
-							if ($settings != 'php' && $settings != 'unix'){
-								if ($settings != '0') $('.pmxe_date_format').val($settings); else $('.pmxe_date_format').val('');
-								$('.pmxe_date_format_wrapper').show();
-							}
-							else{
-								$('.pmxe_date_format').val('');
-							}
-							$addAnotherForm.find('.date_field_type').show();
-							break;
-					}
-					break;
-				case 'date':
-				case 'comment_date':
-				case 'user_registered':
-				case 'post_modified':
-					$addAnotherForm.find('select.date_field_export_data').find('option').each(function(){
-						if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
-							$(this).attr({'selected':'selected'}).click();
-						else
-							$(this).removeAttr('selected');
-					});
+                    $('#combine_multiple_fields_value_container').hide();
+                    $('#combine_multiple_fields_data').hide();
+                    $('.export-single').show();
+                    $('.single-field-options').show();
+                    $('.php_snipped').show();
+                }
 
-					if ($settings != 'php' && $settings != 'unix'){
-						if ($settings != '0') $('.pmxe_date_format').val($settings); else $('.pmxe_date_format').val('');
-						$('.pmxe_date_format_wrapper').show();
-					}
-					else{
-						$('.pmxe_date_format').val('');
-					}
-					$addAnotherForm.find('.date_field_type').show();
-					break;
-				default:
+                $addAnotherForm.find('#coperate_php').parents('div.input:first').find('.php_code').val($php_code.val());
 
-					if ( $elementType.val().indexOf('image_') !== -1 )
-					{
-						$addAnotherForm.find('.image_field_type').show();
+                var $options = $(this).find('input[name^=cc_options]').val();
+                var $settings = $(this).find('input[name^=cc_settings]').val();
 
-						if ($options != "")
-						{
-							var $field_options = window.JSON.parse($options);
+                var $fieldType = $elementType.val();
 
-							if ($field_options.is_export_featured) $addAnotherForm.find('#is_image_export_featured').attr('checked','checked');
-							if ($field_options.is_export_attached) $addAnotherForm.find('#is_image_export_attached_images').attr('checked','checked');
+                if ($elementLabel.val() == '_sale_price_dates_from' || $elementLabel.val() == '_sale_price_dates_to') $fieldType = 'date';
 
-							$addAnotherForm.find('input[name=image_field_separator]').val($field_options.image_separator);
-						}
-					}
+                switch ($fieldType) {
+                    case 'content':
+                        $addAnotherForm.find('.content_field_type').show();
+                        if ($settings != "" && $settings != 0) {
+                            var $field_options = window.JSON.parse($settings);
+                            if ($field_options.export_images_from_gallery) $addAnotherForm.find('#export_images_from_gallery').prop('checked', true);
+                        }
+                        else {
+                            // this option should be enabled by default
+                            $addAnotherForm.find('#export_images_from_gallery').prop('checked', true);
+                        }
+                        break;
+                    case 'sql':
+                        $addAnotherForm.find('textarea.column_value').val($(this).find('input[name^=cc_sql]').val());
+                        $addAnotherForm.find('.sql_field_type').show();
+                        break;
+                    case 'acf':
+                        if ($options.indexOf('s:4:"type";s:8:"repeater"') !== -1) {
+                            $addAnotherForm.find('.repeater_field_type').show();
+                            if ($settings != "") {
+                                var $field_options = window.JSON.parse($settings);
+                                if ($field_options.repeater_field_item_per_line) $addAnotherForm.find('#repeater_field_item_per_line').prop('checked', 'checked');
+                                if ($field_options.repeater_field_fill_empty_columns) $addAnotherForm.find('#repeater_field_fill_empty_columns').prop('checked', 'checked');
+                            }
+                        }
+                        break;
+                    case 'woo':
+                        $woo_type = $(this).find('input[name^=cc_value]');
+                        switch ($woo_type.val()) {
+                            case '_upsell_ids':
+                            case '_crosssell_ids':
+                            case 'item_data___upsell_ids':
+                            case 'item_data___crosssell_ids':
 
-					break;
-			}
+                                $addAnotherForm.find('select.linked_field_export_data').find('option').each(function () {
+                                    if ($(this).val() == $settings)
+                                        $(this).attr({'selected': 'selected'}).click();
+                                    else
+                                        $(this).removeAttr('selected');
+                                });
+                                $addAnotherForm.find('.linked_field_type').show();
+                                break;
+                        }
+                        break;
+                    case 'woo_order':
+                        $woo_type = $(this).find('input[name^=cc_value]');
+                        switch ($woo_type.val()) {
+                            case 'post_date':
+                            case 'post_modified':
+                            case '_completed_date':
 
-			$addAnotherForm.find('input.switcher').change();
+                                $addAnotherForm.find('select.date_field_export_data').find('option').each(function () {
+                                    if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
+                                        $(this).attr({'selected': 'selected'}).click();
+                                    else
+                                        $(this).removeAttr('selected');
+                                });
 
-			var $column_name = $(this).find('input[name^=cc_name]').val();
+                                if ($settings != 'php' && $settings != 'unix') {
+                                    if ($settings != '0') $('.pmxe_date_format').val($settings); else $('.pmxe_date_format').val('');
+                                    $('.pmxe_date_format_wrapper').show();
+                                }
+                                else {
+                                    $('.pmxe_date_format').val('');
+                                }
+                                $addAnotherForm.find('.date_field_type').show();
+                                break;
+                        }
+                        break;
+                    case 'date':
+                    case 'comment_date':
+                    case 'comment_parent_date':
+                    case 'comment_parent_date_gmt':
+                    case 'user_registered':
+                    case 'post_modified':
+                        $addAnotherForm.find('select.date_field_export_data').find('option').each(function () {
+                            if ($(this).val() == $settings || $settings != 'unix' && $(this).val() == 'php')
+                                $(this).attr({'selected': 'selected'}).click();
+                            else
+                                $(this).removeAttr('selected');
+                        });
 
-			$addAnotherForm.find('input.column_name').val($column_name);
-			$addAnotherForm.show();
+                        if ($settings != 'php' && $settings != 'unix') {
+                            if ($settings != '0') $('.pmxe_date_format').val($settings); else $('.pmxe_date_format').val('');
+                            $('.pmxe_date_format_wrapper').show();
+                        }
+                        else {
+                            $('.pmxe_date_format').val('');
+                        }
+                        $addAnotherForm.find('.date_field_type').show();
+                        break;
+                    default:
 
-			setTimeout(function(){
-				editor.refresh();
-			},1);
+                        if ($elementType.val().indexOf('image_') !== -1) {
+                            $addAnotherForm.find('.image_field_type').show();
 
-			$('.wpallexport-overlay').show();
+                            if ($options != "") {
+                                var $field_options = window.JSON.parse($options);
 
-			var availableDataHeight = $('.wp-all-export-edit-column.cc').height()- 200;
-			$addAnotherForm.find('.wpallexport-pointer-data.available-data').css('max-height', availableDataHeight);
+                                if ($field_options.is_export_featured) $addAnotherForm.find('#is_image_export_featured').prop('checked', 'checked');
+                                if ($field_options.is_export_attached) $addAnotherForm.find('#is_image_export_attached_images').prop('checked', 'checked');
 
-			var editor =$('#wp_all_export_code + .CodeMirror').get(0).CodeMirror;
-			editor.refresh();
+                                $addAnotherForm.find('input[name=image_field_separator]').val($field_options.image_separator);
+                            }
+                        }
+
+                        break;
+                }
+
+                $addAnotherForm.find('input.switcher').change();
+
+                var $column_name = $(this).find('input[name^=cc_name]').val();
+
+                $addAnotherForm.find('input.column_name').val($column_name);
+                $addAnotherForm.show();
+
+                setTimeout(function () {
+                    editor.refresh();
+                }, 1);
+
+                $('.wpallexport-overlay').show();
+
+                var availableDataHeight = $('.wp-all-export-edit-column.cc').height() - 200;
+                $addAnotherForm.find('.wpallexport-pointer-data.available-data').css('max-height', availableDataHeight);
+
+                var editor = $('#wp_all_export_code + .CodeMirror').get(0).CodeMirror;
+                editor.refresh();
+            }
 		});
 
 		// Preview export file
-		var doPreview = function( ths, tagno ){
+		var doPreview = function( ths, tagno ) {
 
-			$('.wpallexport-overlay').show();
+            $('.wpallexport-overlay').show();
 
-			ths.pointer({
-	            content: '<div class="wpallexport-preview-preload wpallexport-pointer-preview"></div>',
-	            position: {
-	                edge: 'right',
-	                align: 'center'
-	            },
-	            pointerWidth: 850,
-	            close: function() {
-	                $.post( ajaxurl, {
-	                    pointer: 'pksn1',
-	                    action: 'dismiss-wp-pointer'
-	                });
-	                $('.wpallexport-overlay').hide();
-	            }
-	        }).pointer('open');
+            ths.pointer({
+                content: '<div class="wpallexport-preview-preload wpallexport-pointer-preview"></div>',
+                position: {
+                    edge: 'right',
+                    align: 'center'
+                },
+                pointerWidth: 850,
+                close: function () {
+                    $.post(ajaxurl, {
+                        pointer: 'pksn1',
+                        action: 'dismiss-wp-pointer'
+                    });
+                    $('.wpallexport-overlay').hide();
+                }
+            }).pointer('open');
 
-	        var $pointer = $('.wpallexport-pointer-preview').parents('.wp-pointer').first();
+            var $pointer = $('.wpallexport-pointer-preview').parents('.wp-pointer').first();
 
-	        var $leftOffset = ($(window).width() - 850)/2;
+            var $leftOffset = ($(window).width() - 850) / 2;
 
-	        $pointer.css({'position':'fixed', 'top' : '15%', 'left' : $leftOffset + 'px'});
+            $pointer.css({'position': 'fixed', 'top': '15%', 'left': $leftOffset + 'px'});
 
-			var request = {
-				action: 'wpae_preview',
-				data: $('form.wpallexport-step-3').serialize(),
-				custom_xml: xml_editor.getValue(),
-				tagno: tagno,
-				security: wp_all_export_security
-		    };
-			var url = get_valid_ajaxurl();
-			var show_cdata = $('#show_cdata_in_preview').val();
+            var request = {
+                action: 'wpae_preview',
+                data: $('form.wpallexport-step-3').serialize(),
+                custom_xml: xml_editor.getValue(),
+                tagno: tagno,
+                security: wp_all_export_security
+            };
+            var url = get_valid_ajaxurl();
+            var show_cdata = $('#show_cdata_in_preview').val();
 
-			if (url.indexOf("?") == -1)  {
-				url += '?show_cdata=' + show_cdata;
-			} else {
-				url += '&show_cdata=' + show_cdata;
-			}
+            if (url.indexOf("?") == -1) {
+                url += '?show_cdata=' + show_cdata;
+            } else {
+                url += '&show_cdata=' + show_cdata;
+            }
 
-			$.ajax({
-				type: 'POST',
-				url: url,
-				data: request,
-				success: function(response) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: request,
+                success: function (response) {
 
-					ths.pointer({'content' : response.html});
+                    ths.pointer({'content': response.html});
 
-					$pointer.css({'position':'fixed', 'top' : '15%', 'left' : $leftOffset + 'px'});
+                    $pointer.css({'position': 'fixed', 'top': '15%', 'left': $leftOffset + 'px'});
 
-					var $preview = $('.wpallexport-preview');
+                    var $preview = $('.wpallexport-preview');
 
-					$preview.parent('.wp-pointer-content').removeClass('wp-pointer-content').addClass('wpallexport-pointer-content');
+                    $preview.parent('.wp-pointer-content').removeClass('wp-pointer-content').addClass('wpallexport-pointer-content');
 
-					$preview.find('.navigation a').unbind('click').die('click').live('click', function () {
+                    $preview.find('.navigation a').unbind('click').click(function () {
 
-						tagno += '#prev' == $(this).attr('href') ? -1 : 1;
+                        tagno += '#prev' == $(this).attr('href') ? -1 : 1;
 
-						doPreview(ths, tagno);
+                        doPreview(ths, tagno);
 
-					});
+                    });
 
-				},
-				error: function( jqXHR, textStatus ) {
-					// Handle an eval error
-					if(jqXHR.responseText.indexOf('[[ERROR]]') !== -1) {
-						vm.preiviewText = $('.wpallexport-preview-title').text();
+                },
+                error: function (jqXHR, textStatus) {
+                    // Handle an eval error
+                    if (jqXHR.responseText.indexOf('[[ERROR]]') !== -1) {
+                        vm.preiviewText = $('.wpallexport-preview-title').text();
 
-						var json = jqXHR.responseText.split('[[ERROR]]')[1];
-						json = $.parseJSON(json);
-						ths.pointer({'content' : '<div id="post-preview" class="wpallexport-preview">' +
-						'<p class="wpallexport-preview-title">' + json.title + '</p>\
-						<div class="wpallexport-preview-content">'+json.error+'</div></div></div>'});
+                        var json = jqXHR.responseText.split('[[ERROR]]')[1];
+                        json = $.parseJSON(json);
+                        ths.pointer({
+                            'content': '<div id="post-preview" class="wpallexport-preview">' +
+                            '<p class="wpallexport-preview-title">' + json.title + '</p>\
+						<div class="wpallexport-preview-content">' + json.error + '</div></div></div>'
+                        });
 
-						$pointer.css({'position':'fixed', 'top' : '15%', 'left' : $leftOffset + 'px'});
+                        $pointer.css({'position': 'fixed', 'top': '15%', 'left': $leftOffset + 'px'});
 
-					} else {
-						ths.pointer({'content' : '<div id="post-preview" class="wpallexport-preview">' +
-						'<p class="wpallexport-preview-title">An error occured</p>\
-						<div class="wpallexport-preview-content">An unknown error occured</div></div></div>'});
-						$pointer.css({'position':'fixed', 'top' : '15%', 'left' : $leftOffset + 'px'});
-					}
+                    } else {
+                        ths.pointer({
+                            'content': '<div id="post-preview" class="wpallexport-preview">' +
+                            '<p class="wpallexport-preview-title">An error occured</p>\
+                            <div class="wpallexport-preview-content">An unknown error occured</div></div></div>'
+                        });
+                        $pointer.css({'position': 'fixed', 'top': '15%', 'left': $leftOffset + 'px'});
+                    }
 
-				},
-				dataType: "json"
-			});
-
+                },
+                dataType: "json"
+            });
 		};
 
 		$(this).find('.preview_a_row').click( function(){
@@ -1751,7 +1769,7 @@
 			if ($mode == '+') $(this).find('.wpae-expander').text('-'); else $(this).find('.wpae-expander').text('+');
 		});
 
-		$('.pmxe_remove_column').live('click', function(){
+		$(document).on('click', '.pmxe_remove_column', function(){
 			$(this).parents('li:first').remove();
 		});
 
@@ -1768,7 +1786,7 @@
 				$('.pmxe_date_format_wrapper').show();
 		});
 
-		$('.xml-expander').live('click', function () {
+		$(document).on('click', '.xml-expander', function () {
 			var method;
 			if ('-' == $(this).text()) {
 				$(this).text('+');
@@ -1882,7 +1900,7 @@
 
 	    });
 
-		$('.wp_all_export_clear_all_data').live('click', function(){
+		$(document).on('click', '.wp_all_export_clear_all_data', function(){
 			$('ol#columns').find('li:not(.placeholder)').remove();
 			$('ol#columns').find('li.placeholder').fadeIn();
 		});
@@ -1983,8 +2001,8 @@
     		}
     	});
 
-    	// template form: auto submit when `load template` list value is picked
-		$(this).find('select[name="load_template"]').live('change', function () {
+     	// template form: auto submit when `load template` list value is picked
+		$(this).find('select[name="load_template"]').change(function () {
 
 			var template = $(this).find('option:selected').val();
 			var exportMode = $('.xml_template_type').find('option:selected').val();
@@ -2077,6 +2095,14 @@
 			$('#export_only_modified_stuff').removeAttr('disabled');
 		});
 	});
+    $('#export_only_customers_that_made_purchases').click(function(){
+        $(this).attr('disabled','disabled');
+        $('label[for=export_only_customers_that_made_purchases]').addClass('loading');
+        liveFiltering(null, function(){
+            $('label[for=export_only_customers_that_made_purchases]').removeClass('loading');
+            $('#export_only_customers_that_made_purchases').removeAttr('disabled');
+        });
+    });
     // [ \Step 3 ( export options ) ]
 
 
@@ -2090,7 +2116,7 @@
     // [ Additional functionality ]
 
     // Add new filtering rule
-    $('#wp_all_export_add_rule').live('click', function(){
+    $(document).on('click', '#wp_all_export_add_rule', function(){
 
     	var $el   = $('#wp_all_export_xml_element');
     	var $rule = $('#wp_all_export_rule');
@@ -2136,10 +2162,10 @@
     });
 
 	// Re-count posts when clicking "OR" | "AND" clauses
-	$('input[name^=rule]').live('click', function(){
+	$(document).on('click', 'input[name^=rule]', function(){
 		liveFiltering();
 	});
-	$('input.wpml_lang').live('click', function(){
+	$(document).on('click', 'input.wpml_lang', function(){
 		var inputName = $(this).attr('name');
 		var value = $('input[name='+inputName +']:checked').val();
 		var $thisInput = $('.wpml_lang[value='+value +']');
@@ -2149,11 +2175,12 @@
 		liveFiltering();
 	});
 	// Re-count posts when changing product matching mode in filtering section
-	$('select[name^=product_matching_mode]').live('change', function(){
+	$(document).on('change', 'select[name^=product_matching_mode]', function(){
 		liveFiltering();
 	});
+
 	// Re-count posts when deleting a filtering rule
-	$('.wp_all_export_filtering_rules').find('.remove-ico').live('click', function(){
+	$('#wpallexport-filtering-container').on('click', '.remove-ico', function(){
 		$(this).parents('li:first').remove();
 		if ( ! $('.wp_all_export_filtering_rules').find('li').length)
 		{
@@ -2563,7 +2590,32 @@
                             $('.save-changes ').addClass('disabled');
                         }
 
-						$(".save-changes").unbind('click').click(function () {
+                        // help icons
+                        $('.wpallexport-help').tipsy({
+                            gravity: function() {
+                                var ver = 'n';
+                                if ($(document).scrollTop() < $(this).offset().top - $('.tipsy').height() - 2) {
+                                    ver = 's';
+                                }
+                                var hor = '';
+                                if ($(this).offset().left + $('.tipsy').width() < $(window).width() + $(document).scrollLeft()) {
+                                    hor = 'w';
+                                } else if ($(this).offset().left - $('.tipsy').width() > $(document).scrollLeft()) {
+                                    hor = 'e';
+                                }
+                                return ver + hor;
+                            },
+                            html: true,
+                            opacity: 1
+                        }).click(function () {
+                            return false;
+                        }).each(function () { // fix tipsy title for IE
+                            $(this).attr('original-title', $(this).attr('title'));
+                            $(this).removeAttr('title');
+                        });
+
+
+                        $(".save-changes").unbind('click').click(function () {
 							if($(this).hasClass('disabled')) {
 								return false;
 							}
@@ -2718,6 +2770,12 @@
             success: function(response) {},
             dataType: "json"
         });
+
+    });
+
+    $('#runExportForm').submit(function(){
+        $('#mainRunForm').submit();
+        return false;
     });
 
 });})(jQuery, window.EventService);

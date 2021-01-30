@@ -201,7 +201,7 @@
 </style>
 <?php
 $scheduling = \Wpae\Scheduling\Scheduling::create();
-$post = $export->options;
+$schedulingExportOptions = $export->options;
 $hasActiveLicense = $scheduling->checkLicense();
 $cron_job_key = PMXE_Plugin::getInstance()->getOption('cron_job_key');
 $options = \PMXE_Plugin::getInstance()->getOption();
@@ -416,12 +416,22 @@ $export_id = $export->id;
                     });
                 });
 
-                <?php if($post['scheduling_timezone'] == 'UTC') {
+                <?php if($schedulingExportOptions['scheduling_timezone'] == 'UTC') {
                 ?>
                 var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-                $('#timezone').val(timeZone);
-                $('#timezone').trigger("chosen:updated");
+                if($('#timezone').find("option:contains('"+ timeZone +"')").length != 0){
+                    $('#timezone').trigger("chosen:updated");
+                    $('#timezone').val(timeZone);
+                    $('#timezone').trigger("chosen:updated");
+                }else{
+                    var parts = timeZone.split('/');
+                    var lastPart = parts[parts.length-1];
+                    var opt = $('#timezone').find("option:contains('"+ lastPart +"')");
+
+                    $('#timezone').val(opt.val());
+                    $('#timezone').trigger("chosen:updated");
+                }
 
                 <?php
                 }
@@ -540,13 +550,13 @@ $export_id = $export->id;
             <div class="wpallexport-collapsed-content-inner" style="padding-bottom: 0; overflow: auto; padding-right: 0;">
                 <div style="margin-bottom: 20px;">
                     <label>
-                        <input type="radio" name="scheduling_enable" value="0" <?php if($post['scheduling_enable'] == 0) { ?> checked="checked" <?php } ?>/>
+                        <input type="radio" name="scheduling_enable" value="0" <?php if($schedulingExportOptions['scheduling_enable'] == 0) { ?> checked="checked" <?php } ?>/>
                         <h4 style="display: inline-block;"><?php _e('Do Not Schedule'); ?></h4>
                     </label>
                 </div>
                 <div>
                     <label>
-                        <input type="radio" name="scheduling_enable" value="1" <?php if($post['scheduling_enable'] == 1) {?> checked="checked" <?php }?>/>
+                        <input type="radio" name="scheduling_enable" value="1" <?php if($schedulingExportOptions['scheduling_enable'] == 1) {?> checked="checked" <?php }?>/>
                         <h4 style="margin: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                             <span class="connection-icon" style="position: absolute; top:-1px; left: 152px;">
 															<?php include_once('ConnectionIcon.php'); ?>
@@ -566,26 +576,26 @@ $export_id = $export->id;
                     </label>
                 </div>
                 <div id="automatic-scheduling"
-                     style="margin-left: 21px; <?php if ($post['scheduling_enable'] != 1) { ?> display: none; <?php } ?>">
+                     style="margin-left: 21px; <?php if ($schedulingExportOptions['scheduling_enable'] != 1) { ?> display: none; <?php } ?>">
                     <div>
                         <div class="input">
                             <label style="color: rgb(68,68,68);">
                                 <input
-                                    type="radio" <?php if ($post['scheduling_run_on'] != 'monthly') { ?> checked="checked" <?php } ?>
+                                    type="radio" <?php if ($schedulingExportOptions['scheduling_run_on'] != 'monthly') { ?> checked="checked" <?php } ?>
                                     name="scheduling_run_on" value="weekly"
                                     checked="checked"/> <?php _e('Every week on...', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                             </label>
                         </div>
                         <input type="hidden" style="width: 500px;" name="scheduling_weekly_days"
-                               value="<?php echo $post['scheduling_weekly_days']; ?>" id="weekly_days"/>
+                               value="<?php echo $schedulingExportOptions['scheduling_weekly_days']; ?>" id="weekly_days"/>
                         <?php
-                        if (isset($post['scheduling_weekly_days'])) {
-                            $weeklyArray = explode(',', $post['scheduling_weekly_days']);
+                        if (isset($schedulingExportOptions['scheduling_weekly_days'])) {
+                            $weeklyArray = explode(',', $schedulingExportOptions['scheduling_weekly_days']);
                         } else {
                             $weeklyArray = array();
                         }
                         ?>
-                        <ul class="days-of-week" id="weekly" style="<?php if ($post['scheduling_run_on'] == 'monthly') { ?> display: none; <?php } ?>">
+                        <ul class="days-of-week" id="weekly" style="<?php if ($schedulingExportOptions['scheduling_run_on'] == 'monthly') { ?> display: none; <?php } ?>">
                             <li data-day="0" <?php if (in_array('0', $weeklyArray)) { ?> class="selected" <?php } ?>>
                                 Mon
                             </li>
@@ -614,21 +624,21 @@ $export_id = $export->id;
                         <div class="input">
                             <label style="color: rgb(68,68,68);">
                                 <input
-                                    type="radio" <?php if ($post['scheduling_run_on'] == 'monthly') { ?> checked="checked" <?php } ?>
+                                    type="radio" <?php if ($schedulingExportOptions['scheduling_run_on'] == 'monthly') { ?> checked="checked" <?php } ?>
                                     name="scheduling_run_on"
                                     value="monthly"/> <?php _e('Every month on the first...', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                             </label>
                         </div>
-                        <input type="hidden" name="scheduling_monthly_days" value="<?php if(isset($post['scheduling_monthly_days'])) echo $post['scheduling_monthly_days']; ?>" id="monthly_days"/>
+                        <input type="hidden" name="scheduling_monthly_days" value="<?php if(isset($schedulingExportOptions['scheduling_monthly_days'])) echo $schedulingExportOptions['scheduling_monthly_days']; ?>" id="monthly_days"/>
                         <?php
-                        if (isset($post['scheduling_monthly_days'])) {
-                            $monthlyArray = explode(',', $post['scheduling_monthly_days']);
+                        if (isset($schedulingExportOptions['scheduling_monthly_days'])) {
+                            $monthlyArray = explode(',', $schedulingExportOptions['scheduling_monthly_days']);
                         } else {
                             $monthlyArray = array();
                         }
                         ?>
                         <ul class="days-of-week" id="monthly"
-                            style="<?php if ($post['scheduling_run_on'] != 'monthly') { ?> display: none; <?php } ?>">
+                            style="<?php if ($schedulingExportOptions['scheduling_run_on'] != 'monthly') { ?> display: none; <?php } ?>">
                             <li data-day="0" <?php if (in_array('0', $monthlyArray)) { ?> class="selected" <?php } ?>>
                                 Mon
                             </li>
@@ -660,8 +670,8 @@ $export_id = $export->id;
                         </div>
 
                         <div id="times" style="margin-bottom: 10px;">
-                            <?php if (is_array($post['scheduling_times'])) {
-                                foreach ($post['scheduling_times'] as $time) { ?>
+                            <?php if (is_array($schedulingExportOptions['scheduling_times'])) {
+                                foreach ($schedulingExportOptions['scheduling_times'] as $time) { ?>
 
                                     <?php if ($time) { ?>
                                         <input class="timepicker" type="text" name="scheduling_times[]"
@@ -676,8 +686,8 @@ $export_id = $export->id;
                             <?php
 
                             $timezoneValue = false;
-                            if ($post['scheduling_timezone']) {
-                                $timezoneValue = $post['scheduling_timezone'];
+                            if ($schedulingExportOptions['scheduling_timezone']) {
+                                $timezoneValue = $schedulingExportOptions['scheduling_timezone'];
                             }
 
                             $timezoneSelect = new \Wpae\Scheduling\Timezone\TimezoneSelect();

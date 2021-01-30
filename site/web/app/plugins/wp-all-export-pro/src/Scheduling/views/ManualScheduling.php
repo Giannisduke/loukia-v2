@@ -1,11 +1,13 @@
+<?php $exportOptions = ( isset($post) ) ? $post : $schedulingExportOptions; ?>
+
 <div style="padding-top:11px">
     <label>
         <input type="radio" name="scheduling_enable"
-               value="2" <?php if ($post['scheduling_enable'] == 2) { ?> checked="checked" <?php } ?>/>
+               value="2" <?php if (isset($exportOptions['scheduling_enable']) &&  $exportOptions['scheduling_enable'] == 2) { ?> checked="checked" <?php } ?>/>
         <h4 style="margin-top: 0;display: inline-block;"><?php _e('Manual Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?></h4>
     </label>
     <div style="margin-left: 26px; margin-bottom: 10px; font-size: 13px; margin-top: -3px;"><?php _e('Run this export using cron jobs.'); ?></div>
-    <div style="<?php if ($post['scheduling_enable'] != 2) { ?> display: none; <?php } ?>" class="manual-scheduling">
+    <div style="<?php if (isset($exportOptions['scheduling_enable']) && $exportOptions['scheduling_enable'] != 2) { ?> display: none; <?php } ?>" class="manual-scheduling">
         <p style="margin:0;">
         <h5 style="margin-bottom: 10px; margin-top: 10px; font-size: 14px;"><?php _e('Trigger URL'); ?></h5>
         <code style="padding: 10px; border: 1px solid #ccc; display: block; width: 90%;">

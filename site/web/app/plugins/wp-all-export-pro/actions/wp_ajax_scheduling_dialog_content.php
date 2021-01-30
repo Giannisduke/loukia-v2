@@ -17,7 +17,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
     if (!$export) {
         throw new Exception('Export not found');
     }
-    $post = $export->options;
+    $schedulingExportOptions = $export->options;
 
     $hasActiveLicense = PMXE_Plugin::hasActiveSchedulingLicense();
 
@@ -27,20 +27,20 @@ function pmxe_wp_ajax_scheduling_dialog_content()
 
     $cron_job_key = PMXE_Plugin::getInstance()->getOption('cron_job_key');
 
-    if (!isset($post['scheduling_enable'])) {
-        $post['scheduling_enable'] = 0;
+    if (!isset($schedulingExportOptions['scheduling_enable'])) {
+        $schedulingExportOptions['scheduling_enable'] = 0;
     }
 
-    if (!isset($post['scheduling_timezone'])) {
-        $post['scheduling_timezone'] = 'UTC';
+    if (!isset($schedulingExportOptions['scheduling_timezone'])) {
+        $schedulingExportOptions['scheduling_timezone'] = 'UTC';
     }
 
-    if (!isset($post['scheduling_run_on'])) {
-        $post['scheduling_run_on'] = 'weekly';
+    if (!isset($schedulingExportOptions['scheduling_run_on'])) {
+        $schedulingExportOptions['scheduling_run_on'] = 'weekly';
     }
 
-    if (!isset($post['scheduling_times'])) {
-        $post['scheduling_times'] = array();
+    if (!isset($schedulingExportOptions['scheduling_times'])) {
+        $schedulingExportOptions['scheduling_times'] = array();
     }
     ?>
 
@@ -490,12 +490,22 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                         });
                     });
 
-                    <?php if($post['scheduling_timezone'] == 'UTC') {
+                    <?php if($schedulingExportOptions['scheduling_timezone'] == 'UTC') {
                     ?>
                     var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-                    $('#timezone').val(timeZone);
-                    $('#timezone').trigger("chosen:updated");
+                    if($('#timezone').find("option:contains('"+ timeZone +"')").length != 0){
+                        $('#timezone').trigger("chosen:updated");
+                        $('#timezone').val(timeZone);
+                        $('#timezone').trigger("chosen:updated");
+                    }else{
+                        var parts = timeZone.split('/');
+                        var lastPart = parts[parts.length-1];
+                        var opt = $('#timezone').find("option:contains('"+ lastPart +"')");
+
+                        $('#timezone').val(opt.val());
+                        $('#timezone').trigger("chosen:updated");
+                    }
 
                     <?php
                     }
@@ -625,20 +635,20 @@ function pmxe_wp_ajax_scheduling_dialog_content()
     </script>
     <?php require __DIR__ . '/../src/Scheduling/views/CommonJs.php'; ?>
     <div id="post-preview" class="wpallexport-preview wpallexport-scheduling-dialog">
-        <p class="wpallexport-preview-title"><strong>Scheduling Options</strong></p>
+        <p class="wpallexport-preview-title"><strong>Scheduling Options for Export ID #<?php echo $export_id; ?></strong></p>
         <div class="wpallexport-preview-content" style="max-height: 700px; overflow: visible;">
 
             <div style="margin-bottom: 20px;">
                 <label>
                     <input type="radio" name="scheduling_enable"
-                           value="0" <?php if ((isset($post['scheduling_enable']) && $post['scheduling_enable'] == 0) || !isset($post['scheduling_enable'])) { ?> checked="checked" <?php } ?>/>
+                           value="0" <?php if ((isset($schedulingExportOptions['scheduling_enable']) && $schedulingExportOptions['scheduling_enable'] == 0) || !isset($schedulingExportOptions['scheduling_enable'])) { ?> checked="checked" <?php } ?>/>
                     <h4 style="display: inline-block;"><?php _e('Do Not Schedule'); ?></h4>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="radio" name="scheduling_enable"
-                           value="1" <?php if ($post['scheduling_enable'] == 1) { ?> checked="checked" <?php } ?>/>
+                           value="1" <?php if ($schedulingExportOptions['scheduling_enable'] == 1) { ?> checked="checked" <?php } ?>/>
                     <h4 style="margin: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                         <span class="connection-icon" style="position: absolute; top:-1px; left: 152px;">
 															<?php include __DIR__ . '/../src/Scheduling/views/ConnectionIcon.php'; ?>
@@ -656,27 +666,27 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                     </label>
                 </div>
                 <div id="automatic-scheduling"
-                     style="margin-left: 21px; <?php if ($post['scheduling_enable'] != 1) { ?> display: none; <?php } ?>">
+                     style="margin-left: 21px; <?php if ($schedulingExportOptions['scheduling_enable'] != 1) { ?> display: none; <?php } ?>">
                     <div>
                         <div class="input">
                             <label style="color: rgb(68,68,68);">
                                 <input
-                                        type="radio" <?php if (isset($post['scheduling_run_on']) && $post['scheduling_run_on'] != 'monthly') { ?> checked="checked" <?php } ?>
+                                        type="radio" <?php if (isset($schedulingExportOptions['scheduling_run_on']) && $schedulingExportOptions['scheduling_run_on'] != 'monthly') { ?> checked="checked" <?php } ?>
                                         name="scheduling_run_on" value="weekly"
                                         checked="checked"/> <?php _e('Every week on...', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                             </label>
                         </div>
                         <input type="hidden" style="width: 500px;" name="scheduling_weekly_days"
-                               value="<?php echo $post['scheduling_weekly_days']; ?>" id="weekly_days"/>
+                               value="<?php echo $schedulingExportOptions['scheduling_weekly_days']; ?>" id="weekly_days"/>
                         <?php
-                        if (isset($post['scheduling_weekly_days'])) {
-                            $weeklyArray = explode(',', $post['scheduling_weekly_days']);
+                        if (isset($schedulingExportOptions['scheduling_weekly_days'])) {
+                            $weeklyArray = explode(',', $schedulingExportOptions['scheduling_weekly_days']);
                         } else {
                             $weeklyArray = array();
                         }
                         ?>
                         <ul class="days-of-week" id="weekly"
-                            style="<?php if ($post['scheduling_run_on'] == 'monthly') { ?> display: none; <?php } ?>">
+                            style="<?php if ($schedulingExportOptions['scheduling_run_on'] == 'monthly') { ?> display: none; <?php } ?>">
                             <li data-day="0" <?php if (in_array('0', $weeklyArray)) { ?> class="selected" <?php } ?>>
                                 Mon
                             </li>
@@ -705,22 +715,22 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                         <div class="input">
                             <label style="color: rgb(68,68,68); margin-top: 5px;">
                                 <input
-                                        type="radio" <?php if (isset($post['scheduling_run_on']) && $post['scheduling_run_on'] == 'monthly') { ?> checked="checked" <?php } ?>
+                                        type="radio" <?php if (isset($schedulingExportOptions['scheduling_run_on']) && $schedulingExportOptions['scheduling_run_on'] == 'monthly') { ?> checked="checked" <?php } ?>
                                         name="scheduling_run_on"
                                         value="monthly"/> <?php _e('Every month on the first...', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                             </label>
                         </div>
                         <input type="hidden" name="scheduling_monthly_days"
-                               value="<?php if(isset($post['scheduling_monthly_days'])) echo  $post['scheduling_monthly_days']; ?>" id="monthly_days"/>
+                               value="<?php if(isset($schedulingExportOptions['scheduling_monthly_days'])) echo  $schedulingExportOptions['scheduling_monthly_days']; ?>" id="monthly_days"/>
                         <?php
-                        if (isset($post['scheduling_monthly_days'])) {
-                            $monthlyArray = explode(',', $post['scheduling_monthly_days']);
+                        if (isset($schedulingExportOptions['scheduling_monthly_days'])) {
+                            $monthlyArray = explode(',', $schedulingExportOptions['scheduling_monthly_days']);
                         } else {
                             $monthlyArray = array();
                         }
                         ?>
                         <ul class="days-of-week" id="monthly"
-                            style="<?php if ($post['scheduling_run_on'] != 'monthly') { ?> display: none; <?php } ?>">
+                            style="<?php if ($schedulingExportOptions['scheduling_run_on'] != 'monthly') { ?> display: none; <?php } ?>">
                             <li data-day="0" <?php if (in_array('0', $monthlyArray)) { ?> class="selected" <?php } ?>>
                                 Mon
                             </li>
@@ -752,8 +762,8 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                         </div>
 
                         <div id="times" style="margin-bottom: 10px;">
-                            <?php if (isset($post['scheduling_times']) && is_array($post['scheduling_times'])) {
-                                foreach ($post['scheduling_times'] as $time) { ?>
+                            <?php if (isset($schedulingExportOptions['scheduling_times']) && is_array($schedulingExportOptions['scheduling_times'])) {
+                                foreach ($schedulingExportOptions['scheduling_times'] as $time) { ?>
 
                                     <?php if ($time) { ?>
                                         <input class="timepicker" type="text" name="scheduling_times[]"
@@ -768,8 +778,8 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                             <?php
 
                             $timezoneValue = false;
-                            if ($post['scheduling_timezone']) {
-                                $timezoneValue = $post['scheduling_timezone'];
+                            if ($schedulingExportOptions['scheduling_timezone']) {
+                                $timezoneValue = $schedulingExportOptions['scheduling_timezone'];
                             }
 
                             $timezoneSelect = new \Wpae\Scheduling\Timezone\TimezoneSelect();

@@ -80,10 +80,9 @@ abstract class FilteringBase implements FilteringInterface
      */
     abstract public function parse();
 
-    /**
-     *
-     */
-    abstract public function checkNewStuff();
+    abstract protected function getExcludeQueryWhere($postsToExclude);
+
+    abstract protected function getModifiedQueryWhere($export);
 
     /**
      * @return bool
@@ -119,6 +118,8 @@ abstract class FilteringBase implements FilteringInterface
 
         if (strpos($rule->value, "+") !== 0
             && strpos($rule->value, "-") !== 0
+            && strpos($rule->value, 'first') !== 0
+            && strpos($rule->value, 'last') !== 0
             && strpos($rule->value, "next") === false
             && strpos($rule->value, "last") === false
             && (strpos($rule->value, "second") !== false || strpos($rule->value, "minute") !== false || strpos($rule->value, "hour") !== false || (strpos($rule->value, "day") !== false && strpos($rule->value, "today") === false && strpos($rule->value, "yesterday") === false) || strpos($rule->value, "week") !== false || strpos($rule->value, "month") !== false || strpos($rule->value, "year") !== false))
@@ -126,7 +127,31 @@ abstract class FilteringBase implements FilteringInterface
             $rule->value = "-" . trim(str_replace("ago", "", $rule->value));
         }
 
-        $rule->value = strpos($rule->value, ":") !== false ? date("Y-m-d H:i:s", strtotime($rule->value)) : ( in_array($rule->condition, array('greater')) ? date("Y-m-d", strtotime('+1 day', strtotime($rule->value))) : date("Y-m-d", strtotime($rule->value)));
+        if ( strpos($rule->value, ":") !== false ) {
+
+            $rule->value = date("Y-m-d H:i:s", strtotime($rule->value));
+
+        } else {
+
+            if ( in_array($rule->condition, array('greater')) ) {
+                if ( (strpos($rule->value, "-") !== 0 && strpos($rule->value, "-") !== false) || strpos($rule->value, "/") !== false ) {
+                    $rule->value = date("Y-m-d", strtotime('+1 day', strtotime($rule->value)));
+                } else {
+                    $rule->value = date("Y-m-d H:i:s", strtotime($rule->value));
+                }
+
+            } else if( strpos($rule->value, 'day') !== false && in_array($rule->condition, array('equals_or_less'))) {
+                $rule->value = date("Y-m-d", strtotime('+1 day', strtotime($rule->value)));
+                $rule->condition = 'less';
+            } else if (preg_match("/(\d{1,2})\/(\d{2})\/(\d{4})$/", $rule->value,$matches) && in_array($rule->condition, array('equals_or_less'))) {
+                $rule->value = date("Y-m-d", strtotime('+1 day', strtotime($rule->value)));
+                $rule->condition = 'less';
+            }
+            else {
+                $rule->value = date("Y-m-d", strtotime($rule->value));
+            }
+
+        }
 
     }
 
@@ -197,7 +222,7 @@ abstract class FilteringBase implements FilteringInterface
                 $q = "NOT LIKE '%". addslashes($value) ."%'";
                 break;
             case 'is_empty':
-                $q = "IS NULL";
+                $q = " = '' OR " . $rule->element . " IS NULL";
                 break;
             case 'is_not_empty':
                 $q = "IS NOT NULL";
@@ -263,6 +288,43 @@ abstract class FilteringBase implements FilteringInterface
             }
         }
         return $export_id;
+    }
+
+    public function checkNewStuff(){
+
+        $export = new \PMXE_Export_Record();
+        $export->getById($this->exportId);
+
+        if(!empty($export)) {
+
+            //If re-run, this export will only include records that have not been previously exported.
+            if ($this->isExportNewStuff()) {
+
+                if($export->iteration > 0) {
+                    global $wpdb;
+                    $postsToExclude = array();
+                    $postList = new \PMXE_Post_List();
+
+                    $postsToExcludeSql = 'SELECT post_id FROM ' . $postList->getTable() . ' WHERE export_id = %d AND iteration < %d';
+                    $results = $wpdb->get_results($wpdb->prepare($postsToExcludeSql, $this->exportId, $export->iteration));
+
+                    foreach ($results as $result) {
+                        $postsToExclude[] = $result->post_id;
+                    }
+
+                    if (count($postsToExclude)) {
+                        $this->queryWhere .= $this->getExcludeQueryWhere($postsToExclude);
+                    }
+                }
+            }
+
+            if ($this->isExportModifiedStuff() && !empty($export->registered_on)) {
+                $export = new \PMXE_Export_Record();
+                $export->getById($this->exportId);
+
+                $this->getModifiedQueryWhere($export);
+            }
+        }
     }
 
     /**

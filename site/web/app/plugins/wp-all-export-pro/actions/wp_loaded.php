@@ -2,19 +2,11 @@
 
 function pmxe_wp_loaded() {
 
-	@ini_set("max_input_time", PMXE_Plugin::getInstance()->getOption('max_input_time'));
-
-	$maxExecutionTime  = PMXE_Plugin::getInstance()->getOption('max_execution_time');
-	if($maxExecutionTime == -1) {
-		$maxExecutionTime = 0;
-	}
-
-	@ini_set("max_execution_time", $maxExecutionTime);
-
 	$scheduledExport = new \Wpae\Scheduling\Export();
 
 	if ( ! empty($_GET['zapier_subscribe']) and ! empty($_GET['api_key']) )
 	{
+	    pmxe_set_max_execution_time();
 		$zapier_api_key = PMXE_Plugin::getInstance()->getOption('zapier_api_key');
 
 		if ( ! empty($zapier_api_key) and $zapier_api_key == $_GET['api_key'] )
@@ -41,6 +33,7 @@ function pmxe_wp_loaded() {
 
 	if ( ! empty($_GET['zapier_unsubscribe']) and ! empty($_GET['api_key']) )
 	{
+	    pmxe_set_max_execution_time();
 		$zapier_api_key = PMXE_Plugin::getInstance()->getOption('zapier_api_key');
 
 		if ( ! empty($zapier_api_key) and $zapier_api_key == $_GET['api_key'] )
@@ -64,7 +57,7 @@ function pmxe_wp_loaded() {
 
 	if ( ! empty($_GET['export_completed']) and ! empty($_GET['api_key']))
 	{
-
+        pmxe_set_max_execution_time();
 		$zapier_api_key = PMXE_Plugin::getInstance()->getOption('zapier_api_key');
 
 		if ( ! empty($zapier_api_key) and $zapier_api_key == $_GET['api_key'] )
@@ -74,7 +67,7 @@ function pmxe_wp_loaded() {
 
 			$table_prefix = PMXE_Plugin::getInstance()->getTablePrefix();
 
-			$export = $wpdb->get_row("SELECT * FROM {$table_prefix}exports ORDER BY `id` DESC LIMIT 1");
+			$export = $wpdb->get_row("SELECT * FROM {$table_prefix}exports ORDER BY `registered_on` DESC LIMIT 1");
 
 			if ( ! empty($export) and ! is_wp_error($export) )
 			{
@@ -143,7 +136,7 @@ function pmxe_wp_loaded() {
 	$cron_job_key = PMXE_Plugin::getInstance()->getOption('cron_job_key');
 
 	if ( ! empty($cron_job_key) and ! empty($_GET['export_id']) and ! empty($_GET['export_key']) and $_GET['export_key'] == $cron_job_key and !empty($_GET['action']) and in_array($_GET['action'], array('processing', 'trigger'))) {
-
+        pmxe_set_max_execution_time();
 		$logger = function($m) {
 		    echo "<p>$m</p>\\n";
 		};
@@ -286,7 +279,7 @@ function pmxe_wp_loaded() {
 
 	if ( ! empty($_GET['action']) && ! empty($_GET['export_id']) && (!empty($_GET['export_hash']) || !empty($_GET['security_token'])))
 	{
-
+        pmxe_set_max_execution_time();
 		$securityToken = '';
 		if(empty($_GET['export_hash'])) {
 			$securityToken = $_GET['security_token'];
@@ -349,12 +342,29 @@ function pmxe_wp_loaded() {
 						// If we are doing a google merchants export, send the file as a download.
 						header("Content-type: text/plain");
 						header("Content-Disposition: attachment; filename=".basename($filepath));
+						if ( ob_get_length() !== false ) {
+							ob_end_clean();
+						}
 						readfile($filepath);
 
 						die;
 					}
-					$fileurl = str_replace( "\\", "/", $fileurl );
-					wp_redirect($fileurl);
+					if(apply_filters('wp_all_export_no_cache', false)) {
+
+                        // If we are doing a google merchants export, send the file as a download.
+                        header("Content-type: " . mime_content_type($filepath));
+                        header("Content-Disposition: attachment; filename=" . basename($filepath));
+                        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+                        header("Cache-Control: post-check=0, pre-check=0", false);
+                        header("Pragma: no-cache");
+
+                        readfile($filepath);
+
+                        die;
+                    }
+
+                    $fileurl = str_replace("\\", "/", $fileurl);
+                    wp_redirect($fileurl);
 				}
 				else
 				{
@@ -375,8 +385,20 @@ function pmxe_wp_loaded() {
 	}
 
     if(isset($_GET['action']) && $_GET['action'] == 'wpae_public_api') {
+	    pmxe_set_max_execution_time();
         $router = new \Wpae\Http\Router();
         $router->route($_GET['q'], false);
     }
 }
 
+function pmxe_set_max_execution_time()
+{
+    @ini_set("max_input_time", PMXE_Plugin::getInstance()->getOption('max_input_time'));
+
+    $maxExecutionTime  = PMXE_Plugin::getInstance()->getOption('max_execution_time');
+    if($maxExecutionTime == -1) {
+        $maxExecutionTime = 0;
+    }
+
+    @ini_set("max_execution_time", $maxExecutionTime);
+}

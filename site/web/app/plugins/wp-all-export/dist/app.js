@@ -39626,7 +39626,10 @@ GoogleMerchants.controller('mainController', ['$scope', '$rootScope', '$timeout'
             dimensions: 'useWooCommerceProductValues',
             convertTo: 'cm',
             adjustPriceType: '%',
-            weight: ''
+            weight: '',
+            shippingHeight: '',
+            shippingLength: '',
+            shippingWidth: ''
         },
         template: {
             save: false,
@@ -39908,7 +39911,7 @@ GoogleMerchants.directive('tipsy', ['$document', function($document) {
                     }
                     return ver + hor;
                 },
-                live: true,
+                live: '.wpallexport-help',
                 html: true,
                 opacity: 1
             });
@@ -40079,11 +40082,13 @@ GoogleMerchants.controller('googleCategorySelectorController', ['$scope', '$log'
             if(angular.isDefined($scope.mappings[currentChild.id])){
                 // but not by the user
                 if(!$scope.mappings[currentChild.id].byUser) {
-                    $scope.mappings[currentChild.id] = {
+                    var newCategory = {
                         id: catId,
                         name: catName,
                         byUser: false
                     };
+
+                    $scope.mappings[currentChild.id] = newCategory;
                 }
             } else {
                 $scope.mappings[currentChild.id] = {
@@ -40110,16 +40115,11 @@ GoogleMerchants.controller('googleCategorySelectorController', ['$scope', '$log'
 
         $scope.visible = false;
 
-        var categoryData = {
-            id: category.id,
-            name: categoryName
-        };
-
         $scope.selectedCategory = categoryName;
         $scope.mappings[$scope.node.id] = {id: category.id, name: categoryName, byUser: true};
 
         // New cascade logic
-        selectCategoryRecursive(category.Id, categoryName, $scope.node);
+        selectCategoryRecursive(category.id, categoryName, $scope.node);
     };
 
     $scope.loadCategories = function(search) {
@@ -40571,7 +40571,7 @@ angular.module("basicInformation/basicInformation.tpl.html", []).run(["$template
     "        <div class=\"wpallexport-collapsed-content\" id=\"basic-product-information\" ng-slide-down=\"basicInformation.open\" duration=\"0.5\">\n" +
     "            <div class=\"wpallexport-collapsed-content-inner\">\n" +
     "\n" +
-    "                <h4>Item Title</h4>\n" +
+    "                <h4>Item Title <a style=\"margin-top: 7px;\" class=\"wpallexport-help\" tipsy=\"Google Merchant Center only shows the first 70 characters of titles and crops everything over 150 characters.\">?</a></h4>\n" +
     "                <div class=\"input\">\n" +
     "                    <label><input type=\"radio\" ng-model=\"basicInformation.itemTitle\" value=\"productTitle\"/>Use the product title</label>\n" +
     "                </div>\n" +
@@ -41226,6 +41226,9 @@ angular.module("shipping/shipping.tpl.html", []).run(["$templateCache", function
     "                        <span ng-if=\"!shipping.adjustShippingPrice\" style=\"width: 6px; display: inline-block;\">+</span>\n" +
     "                        <span ng-if=\"shipping.adjustShippingPrice\" style=\"width: 6px; display: inline-block;\">-</span>\n" +
     "                        Adjust Shipping Price</a>\n" +
+    "                    <input type=\"hidden\" ng-model=\"shipping.shippingHeight\"/>\n" +
+    "                    <input type=\"hidden\" ng-model=\"shipping.shippingLength\"/>\n" +
+    "                    <input type=\"hidden\" ng-model=\"shipping.shippingWidth\"/>\n" +
     "                    <div ng-slide-down=\"shipping.adjustShippingPrice\" class=\"adjust-price\" duration=\"0.2\" style=\"margin-top: 5px; \">\n" +
     "                        <input type=\"text\" style=\"margin-top: 0; margin-right: 0;\" class=\"wpae-default-input\" ng-model=\"shipping.adjustShippingPriceValue\" droppable /><select style=\"margin-top:5px;\" ng-model=\"shipping.adjustPriceType\">\n" +
     "                        <option value=\"%\">%</option>\n" +
@@ -41248,7 +41251,7 @@ angular.module("shipping/shipping.tpl.html", []).run(["$templateCache", function
     "                        <input type=\"radio\" ng-model=\"shipping.dimensions\" value=\"useWooCommerceProductValues\"/>Use WooCommerce's product values and convert them to\n" +
     "                        <select ng-model=\"shipping.convertTo\" style=\"width: 175px; height: 30px; padding: 0 0 0 8px; margin-left: 5px; margin-top: 5px; \">\n" +
     "                            <option value=\"cm\">Centimeters (cm)</option>\n" +
-    "                            <option value=\"inches\">Inches (in)</option>\n" +
+    "                            <option value=\"in\">Inches (in)</option>\n" +
     "                        </select>\n" +
     "                    </label>\n" +
     "                </div>\n" +

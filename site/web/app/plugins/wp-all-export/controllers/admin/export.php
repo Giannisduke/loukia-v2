@@ -110,10 +110,12 @@ class PMXE_Admin_Export extends PMXE_Controller_Admin
         if (is_array($this->data['post']['cpt'])) $this->data['post']['cpt'] = $this->data['post']['cpt'][0];
 
         // Delete history
-        $history_files = PMXE_Helper::safe_glob(PMXE_ROOT_DIR . '/history/*', PMXE_Helper::GLOB_RECURSE | PMXE_Helper::GLOB_PATH);
-        if (!empty($history_files)) {
-            foreach ($history_files as $filePath) {
-                @file_exists($filePath) and @unlink($filePath);
+        if(is_dir(PMXE_ROOT_DIR.'/history')) {
+            $history_files = PMXE_Helper::safe_glob(PMXE_ROOT_DIR . '/history/*', PMXE_Helper::GLOB_RECURSE | PMXE_Helper::GLOB_PATH);
+            if (!empty($history_files)) {
+                foreach ($history_files as $filePath) {
+                    @file_exists($filePath) and @unlink($filePath);
+                }
             }
         }
 
@@ -557,5 +559,19 @@ class PMXE_Admin_Export extends PMXE_Controller_Admin
             $friendly_name = 'WP_Query Export - ' . date("Y F d H:i");
             return $friendly_name;
         }
+    }
+
+    function insertAfter($input, $index, $newKey, $element) {
+        if (!array_key_exists($index, $input)) {
+            throw new Exception("Index not found");
+        }
+        $tmpArray = array();
+        foreach ($input as $key => $value) {
+            $tmpArray[$key] = $value;
+            if ($key === $index) {
+                $tmpArray[$newKey] = $element;
+            }
+        }
+        return $tmpArray;
     }
 }

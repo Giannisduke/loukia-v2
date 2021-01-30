@@ -340,7 +340,7 @@ class PMXE_Export_Record extends PMXE_Model_Record {
                         case 'XmlGoogleMerchants':
                         case 'custom':
                             require_once PMXE_ROOT_DIR . '/classes/XMLWriter.php';
-                            file_put_contents($file_path, PMXE_XMLWriter::preprocess_xml(XmlExportEngine::$exportOptions['custom_xml_template_footer']), FILE_APPEND);
+                            file_put_contents($file_path, PMXE_XMLWriter::preprocess_xml("\n".XmlExportEngine::$exportOptions['custom_xml_template_footer']), FILE_APPEND);
                         break;
                     }
 
@@ -382,7 +382,9 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 			))->update();	
 
 			do_action('pmxe_after_export', $this->id, $this);
-		}
+		} else {
+		    do_action('pmxe_after_iteration', $this->id, $this);
+        }
 
 		$this->set('registered_on', date('Y-m-d H:i:s'))->save(); // update registered_on to indicated that job has been exectured even if no files are going to be imported by the rest of the method
 		
@@ -664,9 +666,7 @@ class PMXE_Export_Record extends PMXE_Model_Record {
 	}
 
     public static function is_bundle_supported( $options )
-    {
-        $options += PMXE_Plugin::get_default_import_options();
-
+    {	
     	// custom XML template do not support import bundle
     	if ( $options['export_to'] == 'xml' && ! empty($options['xml_template_type']) && in_array($options['xml_template_type'], array('custom', 'XmlGoogleMerchants')) ) return false;
 

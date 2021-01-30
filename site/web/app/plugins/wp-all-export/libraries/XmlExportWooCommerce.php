@@ -345,10 +345,10 @@ if ( ! class_exists('XmlExportWooCommerce') )
 				}
 
 				if(\Wpae\App\Service\WooCommerceVersion::isWooCommerceNewerThan('3.0')) {
-				    $available_data['product_fields'][] = array(
+				    $available_data['existing_taxonomies'][] = array(
                         'name'  => 'Product Visibility',
                         'label' => 'product_visibility',
-                        'type'  => 'woo',
+                        'type'  => 'cats',
                         'auto'  => true
                     );
                 }
@@ -665,11 +665,6 @@ if ( ! class_exists('XmlExportWooCommerce') )
 
 						break;
 
-                    case 'product_visibility':
-                        $product = wc_get_product( $record->ID );
-                        $data[$element_name] = apply_filters('pmxe_woo_field', pmxe_filter($product->get_catalog_visibility(), $fieldSnipped), $element_value, $record->ID);
-                        break;
-
 					default:
 
 						$cur_meta_values = get_post_meta($record->ID, $element_value);
@@ -812,7 +807,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 
             foreach ($data_to_export as $key => $data) {
                 if ($key == 'Price' || $key == 'Regular Price' || $key == 'Sale Price') {
-                    $data = $rawPrices ? $data :pmxe_prepare_price($data, false, true, true);
+                    //$data = $rawPrices ? $data :pmxe_prepare_price($data, true, true, true);
                 }
                 wp_all_export_write_article($article, $key, $data);
             }
@@ -901,7 +896,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
 			$data_to_export = $this->prepare_export_data( $record, $options, $elId );
 
 			foreach ($data_to_export as $key => $data) 
-			{			
+			{
 				$element_name_ns = '';	
 				$element_name = str_replace("-", "_", preg_replace('/[^a-z0-9:_]/i', '', $key));
 				if (strpos($element_name, ":") !== false)
@@ -915,7 +910,7 @@ if ( ! class_exists('XmlExportWooCommerce') )
                 $rawPrices = apply_filters('wp_all_export_raw_prices', $rawPrices);
 
                 if ($key == 'Price' || $key == 'Regular Price' || $key == 'Sale Price') {
-                    $data = $rawPrices? $data :pmxe_prepare_price($data, false, true, true);
+                    //$data = $rawPrices? $data :pmxe_prepare_price($data, false, true, true);
                 }
 
 				$xmlWriter = apply_filters('wp_all_export_add_before_element', $xmlWriter, $element_name, XmlExportEngine::$exportID, $record->ID);

@@ -195,7 +195,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
 
         #add-subscription-field {
             position: absolute;
-            left: -152px;
+            left: -155px;
             top: -1px;
             height: 46px;
             border-radius: 5px;
@@ -242,12 +242,12 @@ function pmxe_wp_ajax_scheduling_dialog_content()
             margin-bottom: 5px;
             color: #40acad;
             text-decoration: none;
+            margin-left: 0;
         }
 
         .manual-scheduling {
             margin-left: 26px;
         }
-
         .chosen-container .chosen-results {
 
             margin: 0 4px 4px 0 !important;
@@ -494,8 +494,18 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                     ?>
                     var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-                    $('#timezone').val(timeZone);
-                    $('#timezone').trigger("chosen:updated");
+                    if($('#timezone').find("option:contains('"+ timeZone +"')").length != 0){
+                        $('#timezone').trigger("chosen:updated");
+                        $('#timezone').val(timeZone);
+                        $('#timezone').trigger("chosen:updated");
+                    }else{
+                        var parts = timeZone.split('/');
+                        var lastPart = parts[parts.length-1];
+                        var opt = $('#timezone').find("option:contains('"+ lastPart +"')");
+
+                        $('#timezone').val(opt.val());
+                        $('#timezone').trigger("chosen:updated");
+                    }
 
                     <?php
                     }
@@ -549,6 +559,8 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                                         $('.save-changes').removeClass('disabled');
                                         window.pmxeHasSchedulingSubscription = true;
 
+                                        $('.wpai-no-license').hide();
+                                        $('.wpai-license').show();
                                     } else {
 
                                         $('#subscribe-button .easing-spinner').hide();
@@ -567,7 +579,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
 
                                         setTimeout(function () {
                                             $('#add-subscription-field').animate({width: '140px'}, 225);
-                                            $('#add-subscription-field').animate({left: '-152px'}, 225);
+                                            $('#add-subscription-field').animate({left: '-155px'}, 225);
                                         }, 300);
 
                                         $('#add-subscription-field').val('');
@@ -624,7 +636,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
     <?php require __DIR__ . '/../src/Scheduling/views/CommonJs.php'; ?>
     <div id="post-preview" class="wpallexport-preview wpallexport-scheduling-dialog">
         <p class="wpallexport-preview-title"><strong>Scheduling Options</strong></p>
-        <div class="wpallexport-preview-content" style="max-height: 900px; overflow: visible;">
+        <div class="wpallexport-preview-content" style="max-height: 700px; overflow: visible;">
 
             <div style="margin-bottom: 20px;">
                 <label>
@@ -637,17 +649,12 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                 <label>
                     <input type="radio" name="scheduling_enable"
                            value="1" <?php if ($post['scheduling_enable'] == 1) { ?> checked="checked" <?php } ?>/>
-                    <h4 style="margin-top: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
-                        <span class="connection-icon" style="position: absolute; top:-1px; left: 152px;">
-                                    <?php include __DIR__ . '/../src/Scheduling/views/ConnectionIcon.php'; ?>
-                                </span>
-                        <?php if (!$scheduling->checkConnection() && $hasActiveLicense) { ?>
-                            <span style="margin-left: 25px; display: inline-block; font-weight: normal;">
-                                                                    <span <?php if (!$scheduling->checkConnection() && $scheduling->checkLicense()) { ?> style="color: #f2b03d;" <?php } ?>>Unable to connect -</span>
-<a style="text-decoration: underline; color: #0073aa;"
-   href="http://wpallimport.com/support"
-   target="_blank">please contact support</a>.
-                            </span>
+                    <h4 style="margin: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
+                        <span class="connection-icon">
+															<?php include __DIR__ . '/../src/Scheduling/views/ConnectionIcon.php'; ?>
+														</span>
+                        <?php if (!$scheduling->checkConnection()) { ?>
+                            <span class="wpai-license  wpai-license-text" style="display: inline-block; font-weight: normal; <?php if(!$hasActiveLicense) { ?> display: none; <?php }?> color: #f2b03d;  ">Unable to connect - <a target="_blank" style="text-decoration: underline;" href="http://wpallimport.com/support">please contact support</a>.</span>
                         <?php } ?>
                     </h4>
                 </label>
@@ -714,7 +721,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                             </label>
                         </div>
                         <input type="hidden" name="scheduling_monthly_days"
-                               value="<?php echo $post['scheduling_monthly_days']; ?>" id="monthly_days"/>
+                               value="<?php if(isset($post['scheduling_monthly_days'])) echo $post['scheduling_monthly_days']; ?>" id="monthly_days"/>
                         <?php
                         if (isset($post['scheduling_monthly_days'])) {
                             $monthlyArray = explode(',', $post['scheduling_monthly_days']);
@@ -790,7 +797,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                              style="margin-left: 5px; margin-top: 65px; margin-bottom: 130px; position: relative;">
                             <div class="button-container">
 
-                                <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704"
+                                <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=automatic-scheduling"
                                    target="_blank" id="subscribe-button">
                                     <div class="button button-primary button-hero wpallexport-large-button button-subscribe"
                                          style="background-image: none; width: 140px; text-align: center; position: absolute; z-index: 4;">

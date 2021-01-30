@@ -1,3 +1,6 @@
+<?php
+do_action('pmxe_addons_html');
+?>
 <table class="wpallexport-layout wpallexport-step-1">
 	<tr>
 		<td class="left">
@@ -10,7 +13,7 @@
 						<h2><?php _e('Export to XML / CSV', 'wp_all_export_plugin'); ?></h2>					
 					</div>
 					<div class="wpallexport-links">
-						<a href="http://www.wpallimport.com/support/" target="_blank"><?php _e('Support', 'wp_all_export_plugin'); ?></a> | <a href="http://www.wpallimport.com/documentation/" target="_blank"><?php _e('Documentation', 'wp_all_export_plugin'); ?></a>
+						<a href="http://www.wpallimport.com/support/?utm_source=export-plugin-free&utm_medium=help&utm_campaign=premium-support" target="_blank"><?php _e('Support', 'wp_all_export_plugin'); ?></a> | <a href="http://www.wpallimport.com/documentation/?utm_source=export-plugin-free&utm_medium=help&utm_campaign=docs" target="_blank"><?php _e('Documentation', 'wp_all_export_plugin'); ?></a>
 					</div>
 				</div>			
 
@@ -86,13 +89,26 @@
 										}
 									}
 
-								?>								
+                                    if (  class_exists('WooCommerce') ) {
+
+                                        $reviewElement = new stdClass();
+                                        $reviewElement->labels = new stdClass();
+                                        $reviewElement->labels->name = __('WooCommerce Reviews', PMXE_Plugin::LANGUAGE_DOMAIN);
+
+                                        $sorted_cpt = $this->insertAfter($sorted_cpt, 'product', 'shop_review', $reviewElement);
+                                    }
+
+                                ?>
 
 								<select id="file_selector">
 									<option value=""><?php _e('Choose a post type...', 'wp_all_export_plugin'); ?></option>									
 					            	<?php if (count($sorted_cpt)): $unknown_cpt = array(); ?>
 										<?php foreach ($sorted_cpt as $key => $ct):?>
-											<?php 
+											<?php
+                                                // Remove unused post types
+                                                if( in_array($key, array('wp_block', 'customize_changeset', 'custom_css', 'scheduled_action', 'scheduled-action', 'user_request', 'oembed_cache'))) {
+                                                    continue;
+                                                }
 												$image_src = 'dashicon-cpt';																								
 												$cpt_label = $ct->labels->name;												
 
@@ -100,6 +116,9 @@
 												{
 													$image_src = 'dashicon-' . $key;	 
 												}
+                                                else if($key == 'shop_review') {
+                                                    $image_src = 'dashicon-review';
+                                                }
 												else
 												{
 													$unknown_cpt[$key] = $ct;
@@ -132,19 +151,23 @@
 									</select>
 								</div>
 								<div class="wpallexport-free-edition-notice wpallexport-user-export-notice">
-									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=export-users&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Users','wp_all_export_plugin');?></a>
-									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
+									<a class="thickbox open-plugin-details-modal upgrade_link" href="/wp-admin/plugin-install.php?tab=plugin-information&plugin=export-wp-users-xml-csv&TB_iframe=true&width=772&height=566"><?php _e('Install the User Export Add-On','wp_all_export_plugin');?></a>
+									<p><?php _e('This free add-on is required to export users.', 'wp_all_export_plugin'); ?></p>
 								</div>
 								<div class="wpallexport-free-edition-notice wpallexport-shop_customer-export-notice">
-									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=export-users&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Customers','wp_all_export_plugin');?></a>
+									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-wooco-customers"><?php _e('Upgrade to the Pro edition of WP All Export to Export Customers','wp_all_export_plugin');?></a>
 									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
 								</div>
 								<div class="wpallexport-free-edition-notice wpallexport-comments-export-notice">
-									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=export-users&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Comments','wp_all_export_plugin');?></a>
+									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-comments"><?php _e('Upgrade to the Pro edition of WP All Export to Export Comments','wp_all_export_plugin');?></a>
 									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
 								</div>
+                                <div class="wpallexport-free-edition-notice wpallexport-reviews-export-notice">
+                                    <a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-reviews"><?php _e('WP All Export Pro is Required to Export Reviews <br/>Purchase WP All Export Pro','wp_all_export_plugin');?></a>
+                                    <p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
+                                </div>
 								<div class="wpallexport-free-edition-notice wpallexport-taxonomies-export-notice">
-									<a class="upgrade_link" target="_blank" href="http://www.wpallimport.com/order-now/export/?utm_source=wordpress.org&utm_campaign=free%2Bwp%2Ball%2Bexport%2Bplugin&utm_medium=taxonomies"><?php _e('Upgrade to the Pro edition of WP All Export to Export Taxonomies','wp_all_export_plugin');?></a>
+									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-taxonomies"><?php _e('Upgrade to the Pro edition of WP All Export to Export Taxonomies','wp_all_export_plugin');?></a>
 									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
 								</div>						
 							</div>
@@ -167,12 +190,12 @@
 								</select>
 								
 								<div class="wpallexport-free-edition-notice wpallexport-user-export-notice" style="margin-bottom: 20px;">
-									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=export-users&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Users','wp_all_export_plugin');?></a>
+									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-users"><?php _e('Upgrade to the Pro edition of WP All Export to Export Users','wp_all_export_plugin');?></a>
 									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
 								</div>
 
 								<div class="wpallexport-free-edition-notice wpallexport-comments-export-notice" style="margin-bottom: 20px;">
-									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=export-users&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Comments','wp_all_export_plugin');?></a>
+									<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-comments"><?php _e('Upgrade to the Pro edition of WP All Export to Export Comments','wp_all_export_plugin');?></a>
 									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_export_plugin'); ?></p>
 								</div>
 
@@ -219,3 +242,5 @@
 		</td>		
 	</tr>
 </table>
+
+<?php add_thickbox(); ?>

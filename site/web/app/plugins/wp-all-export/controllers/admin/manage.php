@@ -218,7 +218,7 @@ class PMXE_Admin_Manage extends PMXE_Controller_Admin {
 
 			PMXE_Plugin::$session->save_data();			
 
-			if ( ! $this->errors->get_error_codes()) {		
+			if ( ! $this->errors->get_error_codes() && $this->input->post('record-count')) {
 
 				// deligate operation to other controller
 				$controller = new PMXE_Admin_Export();
@@ -230,12 +230,8 @@ class PMXE_Admin_Manage extends PMXE_Controller_Admin {
 
 			$this->errors->remove('count-validation');
 			if ( ! $this->errors->get_error_codes()) {												
-				?>
-				<script type="text/javascript">
-				window.location.href = "<?php echo add_query_arg('pmxe_nt', urlencode(__('Options updated', 'wp_all_export_plugin')), $this->baseUrl); ?>";
-				</script>
-				<?php
-				die();	
+				wp_redirect(add_query_arg('pmxe_nt', urlencode(__('Options updated', 'wp_all_export_plugin')), $this->baseUrl));
+				die();
 			}
 
 		}
@@ -342,7 +338,7 @@ class PMXE_Admin_Manage extends PMXE_Controller_Admin {
 		} else {
 
 			$uploads  = wp_upload_dir();
-						
+
 			$id = $this->input->get('id');
 
 			$export = new PMXE_Export_Record();		
@@ -488,5 +484,43 @@ class PMXE_Admin_Manage extends PMXE_Controller_Admin {
 			}		
 		}
 	}
+
+    /**
+     * @param $post
+     * @return string
+     */
+    protected function getFriendlyName($post)
+    {
+        $friendly_name = '';
+        $post_types = PMXE_Plugin::$session->get('cpt');
+        if (!empty($post_types)) {
+            if (in_array('users', $post_types)) {
+                $friendly_name = 'Users Export - ' . date("Y F d H:i");
+                return $friendly_name;
+            } elseif (in_array('shop_customer', $post_types)) {
+                $friendly_name = 'Customers Export - ' . date("Y F d H:i");
+                return $friendly_name;
+            } elseif (in_array('comments', $post_types)) {
+                $friendly_name = 'Comments Export - ' . date("Y F d H:i");
+                return $friendly_name;
+            } elseif (in_array('taxonomies', $post_types)) {
+                $tx = get_taxonomy($post['taxonomy_to_export']);
+                if (!empty($tx->labels->name)) {
+                    $friendly_name = $tx->labels->name . ' Export - ' . date("Y F d H:i");
+                    return $friendly_name;
+                } else {
+                    $friendly_name = 'Taxonomy Terms Export - ' . date("Y F d H:i");
+                    return $friendly_name;
+                }
+            } else {
+                $post_type_details = get_post_type_object(array_shift($post_types));
+                $friendly_name = $post_type_details->labels->name . ' Export - ' . date("Y F d H:i");
+                return $friendly_name;
+            }
+        } else {
+            $friendly_name = 'WP_Query Export - ' . date("Y F d H:i");
+            return $friendly_name;
+        }
+    }
 
 }

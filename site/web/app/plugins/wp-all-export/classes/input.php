@@ -23,13 +23,12 @@ class PMXE_Input {
 		$this->addFilter('strip_tags');
 		$this->addFilter('esc_sql');
         $this->addFilter('esc_js');
-        $result = $this->read($_GET, $paramName, $default);
+		$result = $this->read($_GET, $paramName, $default);
 		$this->removeFilter('htmlspecialchars');
 		$this->removeFilter('strip_tags');		
 		$this->removeFilter('esc_sql');
         $this->removeFilter('esc_js');
-
-        return $result;
+		return $result;
 	}
 	
 	public function post($paramName, $default = NULL) {

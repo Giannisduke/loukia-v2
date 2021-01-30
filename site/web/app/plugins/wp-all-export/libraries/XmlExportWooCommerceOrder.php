@@ -555,6 +555,10 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 							if ( ! in_array($friendly_name, $headers)) $headers[] = $friendly_name;
 						}
 					}
+					else{
+						$friendly_name = str_replace(" (per tax)", "", $options['cc_name'][$element_key]);
+						if ( ! in_array($friendly_name, $headers)) $headers[] = $friendly_name;
+					}
 
 					break;
 				// Discount Amount (per coupon)
@@ -569,6 +573,11 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 							if ( ! in_array("Coupon Code", $headers)) $headers[] = "Coupon Code";
 						}
 					}
+					else{
+						$friendly_name = str_replace("(per coupon)", "", $options['cc_name'][$element_key]);
+						if ( ! in_array($friendly_name, $headers)) $headers[] = $friendly_name;
+						if ( ! in_array("Coupon Code", $headers)) $headers[] = "Coupon Code";
+					}
 
 					break;
 				// Fee Amount (per surcharge)	
@@ -582,6 +591,11 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 							if ( ! in_array($friendly_name, $headers)) $headers[] = $friendly_name;
 							if ( ! in_array("Fee Name", $headers)) $headers[] = "Fee Name";
 						}
+					}
+					else{
+						$friendly_name = str_replace(" (per surcharge)", "", $options['cc_name'][$element_key]);
+						if ( ! in_array($friendly_name, $headers)) $headers[] = $friendly_name;
+						if ( ! in_array("Fee Name", $headers)) $headers[] = "Fee Name";
 					}
 
 					break;	
@@ -978,7 +992,7 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 				<div class="wpae-custom-field">
 					<?php if ( ! in_array($slug, array('order', 'customer', 'cf', 'other'))) : ?>
 					<div class="wpallexport-free-edition-notice">									
-						<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=118611&edd_options%5Bprice_id%5D=1&utm_source=wordpress.org&utm_medium=wooco+orders&utm_campaign=free+wp+all+export+plugin"><?php _e('Upgrade to the Pro edition of WP All Export to Export Order Data','wp_all_export_plugin');?></a>
+						<a class="upgrade_link" target="_blank" href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707173&edd_options%5Bprice_id%5D=1&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=export-wooco-order-data"><?php _e('Upgrade to the Pro edition of WP All Export to Export Order Data','wp_all_export_plugin');?></a>
 					</div>
 					<?php endif; ?>
 					<ul>
@@ -1294,8 +1308,10 @@ if ( ! class_exists('XmlExportWooCommerceOrder') )
 				'_line_total' 			=> __('Item Total', 'wp_all_export_plugin'),
                 '_line_subtotal_tax'    => __('Item Tax', 'wp_all_export_plugin'),
                 '_line_tax' 			=> __('Item Tax Total', 'wp_all_export_plugin'),
-                '_line_tax_data'        => __('Item Tax Data', 'wp_all_export_plugin')
-			);			
+                '_line_tax_data'        => __('Item Tax Data', 'wp_all_export_plugin'),
+				'__line_item_id'		=> __('Order Line ID', 'wp_all_export_plugin'),
+				'__line_item_title'		=> __('Order Line Title', 'wp_all_export_plugin'),
+			);
 
 			return apply_filters('wp_all_export_available_order_default_product_data_filter', $data);
 		}

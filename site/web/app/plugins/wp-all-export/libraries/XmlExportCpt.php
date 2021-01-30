@@ -612,6 +612,10 @@ final class XmlExportCpt
                 $templateOptions['status_xpath'] = '{' . $element_name . '[1]}';
                 $templateOptions['is_update_status'] = 1;
                 break;
+            case 'comment_status':
+                $templateOptions['comment_status_xpath'] = '{'.$element_name.'[1]}';
+                $templateOptions['is_update_comment_status'] = 1;
+                break;
             case 'date':
                 $templateOptions[$element_type] = '{' . $element_name . '[1]}';
                 $templateOptions['is_update_dates'] = 1;

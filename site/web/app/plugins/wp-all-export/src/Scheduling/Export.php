@@ -23,7 +23,7 @@ class Export
     {
         // trigger update child exports with correct WHERE & JOIN filters
         if (!empty($export->options['cpt']) and class_exists('WooCommerce') and in_array('shop_order', $export->options['cpt']) and empty($export->parent_id)) {
-            $queue_exports = XmlExportWooCommerceOrder::prepare_child_exports($export, true);
+            $queue_exports = \XmlExportWooCommerceOrder::prepare_child_exports($export, true);
 
             if (empty($queue_exports)) {
                 delete_option('wp_all_export_queue_' . $export->id);

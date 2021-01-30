@@ -420,8 +420,18 @@ $export_id = $export->id;
                 ?>
                 var timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-                $('#timezone').val(timeZone);
-                $('#timezone').trigger("chosen:updated");
+                if($('#timezone').find("option:contains('"+ timeZone +"')").length != 0){
+                    $('#timezone').trigger("chosen:updated");
+                    $('#timezone').val(timeZone);
+                    $('#timezone').trigger("chosen:updated");
+                }else{
+                    var parts = timeZone.split('/');
+                    var lastPart = parts[parts.length-1];
+                    var opt = $('#timezone').find("option:contains('"+ lastPart +"')");
+
+                    $('#timezone').val(opt.val());
+                    $('#timezone').trigger("chosen:updated");
+                }
 
                 <?php
                 }
@@ -463,13 +473,16 @@ $export_id = $export->id;
                                 $('#subscribe-button .button-subscribe').css('background-color','#425f9a');
                                 if(response.success) {
                                     hasActiveLicense = true;
-                                    $('.wpae-save-button').removeClass('disabled');
+                                    $('.wpae-save-button').slideDown().css('display','block');
                                     $('#subscribe-button .easing-spinner').hide();
                                     $('#subscribe-button svg.success').show();
                                     $('#subscribe-button svg.success').fadeOut(3000, function () {
                                         $('.subscribe').hide({queue: false});
                                         $('#subscribe-filler').show({queue: false});
                                     });
+
+                                    $('.wpai-no-license').hide();
+                                    $('.wpai-license').show();
                                 } else {
                                     $('#subscribe-button .easing-spinner').hide();
                                     $('#subscribe-button svg.error').show();
@@ -486,7 +499,7 @@ $export_id = $export->id;
 
                                     setTimeout(function () {
                                         $('#add-subscription-field').animate({width:'140px'}, 225);
-                                        $('#add-subscription-field').animate({left:'-152px'}, 225);
+                                        $('#add-subscription-field').animate({left:'-155px'}, 225);
                                     }, 300);
 
                                     $('#add-subscription-field').val('');
@@ -544,17 +557,12 @@ $export_id = $export->id;
                 <div>
                     <label>
                         <input type="radio" name="scheduling_enable" value="1" <?php if($post['scheduling_enable'] == 1) {?> checked="checked" <?php }?>/>
-                        <h4 style="margin-top: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
-                            <span class="connection-icon" style="position: absolute; top:-1px; left: 152px;">
-                                    <?php include 'ConnectionIcon.php'; ?>
-                                </span>
-                            <?php if (!$scheduling->checkConnection() && $hasActiveLicense) { ?>
-                                <span style="margin-left: 25px; display: inline-block; font-weight: normal;">
-                                    <span <?php if(!$scheduling->checkConnection() && $scheduling->checkLicense() ) { ?> style="color: #f2b03d;" <?php } ?>>Unable to connect -</span>
-                                 <a style="text-decoration: underline; color: #0073aa;"
-                                                       href="http://wpallimport.com/support"
-                                                       target="_blank">please contact support</a>.
-                                </span>
+                        <h4 style="margin: 0; position: relative; display: inline-block;"><?php _e('Automatic Scheduling', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
+                            <span class="connection-icon" style="">
+															<?php include_once('ConnectionIcon.php'); ?>
+														</span>
+                            <?php if (!$scheduling->checkConnection()) { ?>
+                                <span class="wpai-license  wpai-license-text" style="display: inline-block; font-weight: normal; <?php if(!$hasActiveLicense) { ?> display: none; <?php }?> color: #f2b03d;  ">Unable to connect - <a target="_blank" style="text-decoration: underline;" href="http://wpallimport.com/support">please contact support</a>.</span>
                             <?php } ?>
                         </h4>
                     </label>
@@ -694,7 +702,7 @@ $export_id = $export->id;
                         <div class="subscribe" style="margin-left: 5px; margin-top: 65px; margin-bottom: 130px; position: relative;">
                             <div class="button-container">
 
-                                <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704" target="_blank" id="subscribe-button">
+                                <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=515704&utm_source=export-plugin-free&utm_medium=upgrade-notice&utm_campaign=automatic-scheduling" target="_blank" id="subscribe-button">
                                     <div class="button button-primary button-hero wpallexport-large-button button-subscribe"
                                          style="background-image: none; width: 140px; text-align: center; position: absolute; z-index: 4;">
                                         <svg class="success" width="30" height="30" viewBox="0 0 1792 1792"
@@ -738,8 +746,8 @@ $export_id = $export->id;
     <div style="clear: both;"></div>
 </div>
 
-<div class="wpae-save-button button button-primary button-hero wpallexport-large-button wpae-export-complete-save-button <?php if(!$hasActiveLicense) { echo 'disabled'; }?>"
-     style="position: relative; width: 285px; display: block; margin:auto; background-image: none; margin-top: 25px;">
+<div class="wpae-save-button button button-primary button-hero wpallexport-large-button wpae-export-complete-save-button" id="save-scheduling-button"
+     style="position: relative; width: 285px; <?php if($hasActiveLicense) { echo 'display: block;';} else { echo "display: none;";}?> margin:auto; background-image: none; margin-top: 25px;">
     <svg width="30" height="30" viewBox="0 0 1792 1792"
          xmlns="http://www.w3.org/2000/svg"
          style="fill: white;">

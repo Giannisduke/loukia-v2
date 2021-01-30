@@ -10,8 +10,10 @@ class TimezoneSelect
         'Africa' => \DateTimeZone::AFRICA,
         'America' => \DateTimeZone::AMERICA,
         'Antarctica' => \DateTimeZone::ANTARCTICA,
+        'Arctic' => \DateTimeZone::ARCTIC,
         'Asia' => \DateTimeZone::ASIA,
         'Atlantic' => \DateTimeZone::ATLANTIC,
+        'Australia' => \DateTimeZone::AUSTRALIA,
         'Europe' => \DateTimeZone::EUROPE,
         'Indian' => \DateTimeZone::INDIAN,
         'Pacific' => \DateTimeZone::PACIFIC

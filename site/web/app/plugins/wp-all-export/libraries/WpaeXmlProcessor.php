@@ -161,8 +161,9 @@ class WpaeXmlProcessor
                         $f = $this->dom->createDocumentFragment();
                         $f->appendXML($nodeXML);
                         $this->parseElement($f);
-                        $element->parentNode->parentNode->replaceChild($f, $element->parentNode);
-
+                        if($element->parentNode->parentNode) {
+                            $element->parentNode->parentNode->replaceChild($f, $element->parentNode);
+                        }
                     } else {
                         foreach ($snippetValues as $snippetValue) {
                             $newValueNode = $element->parentNode->cloneNode(true);
@@ -628,9 +629,10 @@ class WpaeXmlProcessor
     {
         $xml = str_replace('<!--', '<commentTempNode>', $xml);
         $xml = str_replace('-->', '</commentTempNode>', $xml);
-
         $xml = str_replace("\"{}\"", '""', $xml);
-        $xml = str_replace("{}", '""', $xml);
+
+        preg_replace('%(\[.*)({})(.*\])%', "$1\"\"$2", $xml);
+
         $xml = str_replace(">\"\"<", '><', $xml);
         $xml = str_replace("[implode(',',{})]", "", $xml);
         return $xml;

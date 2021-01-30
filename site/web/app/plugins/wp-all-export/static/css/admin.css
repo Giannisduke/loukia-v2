@@ -298,6 +298,15 @@
 	.wpallexport-plugin #available_data ul li .pmxe_remove_column{
 		display: none;
 	}
+
+.wpallexport-plugin span.wpai-license-text {
+	margin-left: 20px;
+}
+
+.wpallexport-plugin .wpai-license img {
+	position: absolute;
+}
+
 .wpallexport-plugin .wpae-available-fields-group{
 	background: none repeat scroll 0 0 white;
 	border: 1px dotted #ccc;
@@ -353,6 +362,11 @@
 .wpallexport-plugin .wpae-other-fields{
 	display: none;
 }
+
+.wpae-custom-field .wpallexport-free-edition-notice {
+	margin-left: 20px;
+}
+
 .wpallexport-plugin .pmxe_remove_column{
 	color: red;
 	cursor: pointer;
@@ -559,14 +573,12 @@
 	background-position: center;
 }
 .wpallexport-plugin .preload {
-	background-image: url("../img/loading-step-2.gif");
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: 50% 10px;
 	min-height: 35px;
 }
 .wpallexport-plugin .wpallexport-preview-preload {
-	background-image: url("../img/loading-step-2.gif");
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	background-position: 50% 20px;
 	height: 80px;
 }
@@ -1757,8 +1769,9 @@ a.wpallexport-import-to-format span.wpallexport-import-to-title {
 .wpallexport-plugin #file_selector .dd-option .dashicon-cpt:before,
 .wpallexport-plugin #file_selector .dd-selected .dashicon-cpt:before{
 	font-family: "dashicons";
-	content: "\f333";
+	content: "\f111";
 	color: #555;
+	margin-top: -2px;
 }
 .wpallexport-plugin #file_selector .dd-option .dashicon-users:before,
 .wpallexport-plugin #file_selector .dd-selected .dashicon-users:before{
@@ -1786,6 +1799,22 @@ a.wpallexport-import-to-format span.wpallexport-import-to-title {
 	color:#46ba69;
 	line-height: 24px;
 }
+
+.wpallexport-plugin #file_selector .dd-option .dashicon-review:before,
+.wpallexport-plugin #file_selector .dd-selected .dashicon-review:before{
+	content: '';
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='1280.000000pt' height='1222.000000pt' viewBox='0 0 1280.000000 1222.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cmetadata%3E%0ACreated by potrace 1.15, written by Peter Selinger 2001-2017%0A%3C/metadata%3E%3Cg transform='translate(0.000000,1222.000000) scale(0.100000,-0.100000)'%0Afill='%23555' stroke='none'%3E%3Cpath d='M6273 12205 c-115 -32 -205 -96 -266 -187 -19 -29 -304 -602 -635%0A-1273 -330 -671 -719 -1461 -864 -1755 l-264 -535 -220 -32 c-3672 -539 -3667%0A-538 -3722 -557 -100 -35 -199 -123 -248 -219 -76 -148 -69 -309 18 -454 23%0A-37 448 -457 1450 -1430 1270 -1233 1418 -1380 1413 -1403 -2 -14 -39 -223%0A-80 -465 -42 -242 -111 -645 -155 -895 -43 -250 -124 -718 -180 -1040 -56%0A-322 -135 -778 -176 -1015 -90 -512 -92 -552 -30 -680 102 -216 358 -320 574%0A-233 31 13 836 432 1788 931 l1731 906 804 -420 c442 -231 1223 -640 1734%0A-907 512 -268 953 -495 980 -504 63 -22 202 -23 268 -3 111 33 228 129 277%0A225 29 57 50 146 50 212 0 32 -41 292 -90 578 -138 795 -261 1506 -371 2145%0A-56 319 -124 716 -153 882 l-52 303 1422 1392 c965 944 1432 1408 1453 1442%0A43 71 62 130 68 211 16 208 -126 413 -324 468 -32 9 -379 61 -770 117 -392 55%0A-1034 145 -1425 200 -392 56 -868 123 -1058 150 -190 26 -419 58 -510 71 -91%0A12 -170 27 -177 33 -6 6 -399 799 -873 1761 -473 963 -877 1774 -898 1804 -44%0A65 -131 131 -210 161 -74 29 -207 36 -279 15z'/%3E%3C/g%3E%3C/svg%3E");
+	background-size: 22px 22px;
+	background-repeat: no-repeat;
+	margin-top: -2px;
+	width: 22px;
+	height: 22px;
+}
+.wpallexport-plugin #file_selector .dd-selected .dashicon-review:before {
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' standalone='no'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3E%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='1280.000000pt' height='1222.000000pt' viewBox='0 0 1280.000000 1222.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cmetadata%3E%0ACreated by potrace 1.15, written by Peter Selinger 2001-2017%0A%3C/metadata%3E%3Cg transform='translate(0.000000,1222.000000) scale(0.100000,-0.100000)'%0Afill='%2346ba69' stroke='none'%3E%3Cpath d='M6273 12205 c-115 -32 -205 -96 -266 -187 -19 -29 -304 -602 -635%0A-1273 -330 -671 -719 -1461 -864 -1755 l-264 -535 -220 -32 c-3672 -539 -3667%0A-538 -3722 -557 -100 -35 -199 -123 -248 -219 -76 -148 -69 -309 18 -454 23%0A-37 448 -457 1450 -1430 1270 -1233 1418 -1380 1413 -1403 -2 -14 -39 -223%0A-80 -465 -42 -242 -111 -645 -155 -895 -43 -250 -124 -718 -180 -1040 -56%0A-322 -135 -778 -176 -1015 -90 -512 -92 -552 -30 -680 102 -216 358 -320 574%0A-233 31 13 836 432 1788 931 l1731 906 804 -420 c442 -231 1223 -640 1734%0A-907 512 -268 953 -495 980 -504 63 -22 202 -23 268 -3 111 33 228 129 277%0A225 29 57 50 146 50 212 0 32 -41 292 -90 578 -138 795 -261 1506 -371 2145%0A-56 319 -124 716 -153 882 l-52 303 1422 1392 c965 944 1432 1408 1453 1442%0A43 71 62 130 68 211 16 208 -126 413 -324 468 -32 9 -379 61 -770 117 -392 55%0A-1034 145 -1425 200 -392 56 -868 123 -1058 150 -190 26 -419 58 -510 71 -91%0A12 -170 27 -177 33 -6 6 -399 799 -873 1761 -473 963 -877 1774 -898 1804 -44%0A65 -131 131 -210 161 -74 29 -207 36 -279 15z'/%3E%3C/g%3E%3C/svg%3E");
+	margin-top: 2px;
+}
+
 .wpallexport-plugin input[name=url]{
 	font-size: 18px !important;
 	height: 49px;
@@ -2801,7 +2830,7 @@ a.wpallexport-import-to-format span.wpallexport-import-to-title {
 }
 .wpallexport-plugin form.options{
 	position: relative;
-	margin-top: 0px !important;
+	margin-top: 0 !important;
 	overflow: hidden;
 }
 .wpallexport-plugin form.edit{
@@ -3493,7 +3522,7 @@ a.wpallexport-import-to-format span.wpallexport-import-to-title {
 }
 
 .wpallexport-plugin .delete_action{
-	left: 110px;
+	left: 113px;
 	bottom: 14px;
 	background: #e14d43;
 	margin-left: 5px;
@@ -4199,3 +4228,21 @@ input label {
 	top: 9px;
 }
 /** END COMBINE MULTIPLE ELEMENTS INTO ONE **/
+
+.wpallexport-plugin .connection-icon {
+	top: -1px;
+	left: 152px;
+	position: absolute;
+}
+
+.wpallexport-plugin .pmxe_date_format{
+	width: 100%;
+	padding: 18px;
+	height: 25px;
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+	border-radius: 5px;
+	background-color: #fff;
+	margin-bottom: 10px;
+
+}

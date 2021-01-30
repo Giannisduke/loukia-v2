@@ -62,6 +62,13 @@ class SchedulingLicenseController
     {
         global $wpdb;
 
+        delete_transient(PMXE_Plugin::$cache_key);
+
+        $wpdb->query( $wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name = %s", $this->slug . '_' . PMXE_Plugin::$cache_key) );
+        $wpdb->query( $wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name = %s", $this->slug . '_timeout_' . PMXE_Plugin::$cache_key) );
+
+        delete_site_transient('update_plugins');
+
         // retrieve the license from the database
         return $this->licensingActivator->activateLicense(PMXE_Plugin::getSchedulingName(),\Wpae\App\Service\License\LicenseActivator::CONTEXT_SCHEDULING);
     }
@@ -69,6 +76,13 @@ class SchedulingLicenseController
     public function check_scheduling_license()
     {
         $options = PMXE_Plugin::getInstance()->getOption();
+
+        global $wpdb;
+
+        delete_transient(PMXE_Plugin::$cache_key);
+
+        $wpdb->query( $wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name = %s", $this->slug . '_' . PMXE_Plugin::$cache_key) );
+        $wpdb->query( $wpdb->prepare("DELETE FROM $wpdb->options WHERE option_name = %s", $this->slug . '_timeout_' . PMXE_Plugin::$cache_key) );
 
         return $this->licensingActivator->checkLicense(PMXE_Plugin::getSchedulingName(), $options, LicenseActivator::CONTEXT_SCHEDULING);
     }

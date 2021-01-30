@@ -23,7 +23,12 @@ if ( ! class_exists('XmlExportACF') )
 
 				$saved_acfs = get_posts(array('posts_per_page' => -1, 'post_type' => 'acf-field-group'));
 
-				$acfs = acf_local()->groups;
+				if (function_exists('acf_local')) {
+                    $acfs = acf_local()->groups;
+                }
+                if (empty($acfs) && function_exists('acf_get_local_field_groups')) {
+                    $acfs = acf_get_local_field_groups();
+                }
 
 				if ( ! empty($acfs) and is_array($acfs)) $this->_acf_groups = $acfs;
 
@@ -96,7 +101,12 @@ if ( ! class_exists('XmlExportACF') )
 						}
 						else
 						{
-							$acf_fields = acf_local()->fields;
+                            if (function_exists('acf_local')) {
+                                $acf_fields = acf_local()->fields;
+                            }
+                            if (empty($acf_fields) && function_exists('acf_get_local_fields')) {
+                                $acf_fields = acf_get_local_fields();
+                            }
 
 							if ( ! empty($acf_fields) )
 							{
@@ -172,8 +182,9 @@ if ( ! class_exists('XmlExportACF') )
 
 							$orderby = "order_no";
 
-							@array_multisort($sortArray[$orderby],SORT_ASC, $fields);
-
+                            if(is_array($sortArray[$orderby])) {
+                                @array_multisort($sortArray[$orderby], SORT_ASC, $fields);
+                            }
 							foreach ($fields as $field){
 								if (in_array($field['type'], array('tab'))) continue;
 								$this->_acf_groups[$key]['fields'][] = $field;
@@ -226,7 +237,7 @@ if ( ! class_exists('XmlExportACF') )
 			}
 
 
-			if ( ! empty($field_value) )
+			if ( ! empty($field_value))
 			{
 				$field_value = maybe_unserialize($field_value);
 
@@ -717,14 +728,20 @@ if ( ! class_exists('XmlExportACF') )
 
 								if ($is_xml_export) $xmlWriter->startElement('row');
 
-								foreach ($row['field']['sub_fields'] as $sub_field) {
+                                foreach ($row['field']['sub_fields'] as $sub_field) {
 
 									if ($acf and version_compare($acf->settings['version'], '5.0.0') >= 0)
 									{
-										$v = $row['value'][ $row['i'] ][ $sub_field['key'] ];
+                                        $v = $row['value'][ $row['i'] ][ $sub_field['key'] ];
 										$cache_slug = "format_value/post_id=".$row['post_id']."/name={$sub_field['name']}";
 										wp_cache_delete($cache_slug, 'acf');
-										if ($is_xml_export) $v = acf_format_value($v, $row['post_id'], $sub_field);
+
+                                        if ($acf and version_compare($acf->settings['version'], '5.7.10') >= 0) {
+                                            $store = acf_get_store('values');
+                                            $store->remove($row['post_id'] . ":" . $sub_field['name'] . ":formatted");
+                                        }
+
+                                        if ($is_xml_export) $v = acf_format_value($v, $row['post_id'], $sub_field);
 									}
 									else
 									{
@@ -1074,6 +1091,9 @@ if ( ! class_exists('XmlExportACF') )
 				}
 				else
 				{
+				    if($field_value === 0 || $field_value === "0") {
+				        $val = 0;
+                    }
 
 					// $article[$element_name] = ($preview) ? trim(preg_replace('~[\r\n]+~', ' ', htmlspecialchars($val))) : $val;
 					wp_all_export_write_article( $article, $element_name, ($preview) ? trim(preg_replace('~[\r\n]+~', ' ', htmlspecialchars($val))) : $val);

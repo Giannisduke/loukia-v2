@@ -19,7 +19,7 @@
     <h3 id="wpae_help_repeating_fields_tab"><span>+</span>&nbsp;<?php _e('What do I get for $9 a month?', 'wp_all_export_plugin'); ?></h3>
 
     <div rel="wpae_help_repeating_fields_tab" class="wp_all_export_help_tab" style="padding-left:8px;">
-        <?php _e('You\'ll receive a license key for Automatic Scheduling that you can use in WP All Export and WP All Import (WP All Import support coming soon). You can set up as many imports and exports on as many sites as you like. We do ask, however, that you not share your license with anyone else.'); ?>
+        <?php _e('You\'ll receive a license key for Automatic Scheduling that you can use in WP All Export and WP All Import. You can set up as many imports and exports on as many sites as you like. We do ask, however, that you not share your license with anyone else.'); ?>
     </div>
 
     <h3 id="wpae_help_example_template_tab">

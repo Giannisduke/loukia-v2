@@ -1,0 +1,10 @@
+<rss xmlns:g="http://base.google.com/ns/1.0" xmlns:c="http://base.google.com/cns/1.0" version="2.0">
+<channel>
+<title>
+<![CDATA[ {BlogName} ]]>
+</title>
+<link><![CDATA[ {BlogURL} ]]></link>
+<description><![CDATA[ {BlogDescription} ]]></description>
+{separator}
+	</channel>
+</rss>

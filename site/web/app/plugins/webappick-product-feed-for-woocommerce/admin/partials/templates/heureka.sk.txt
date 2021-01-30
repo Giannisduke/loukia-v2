@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SHOP>
+    <datetime>{DateTimeNow}</datetime>
+	<title>{BlogName}</title>
+	<link>{BlogURL}</link>
+	<description>{BlogDescription}</description>
+ {separator}
+</SHOP>

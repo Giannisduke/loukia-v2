@@ -1,0 +1,344 @@
+# Translation of Themes - Twenty Fifteen in Greek
+# This file is distributed under the same license as the Themes - Twenty Fifteen package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-04-03 20:31:48+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: el_GR\n"
+"Project-Id-Version: Themes - Twenty Fifteen\n"
+
+#. Description of the theme
+msgid "Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer."
+msgstr "Το προεπιλεγμένο θέμα 2015 ειναι καθαρό, εστιάζει στο ιστολόγιο, και είναι σχεδιασμένο για σαφήνεια. H απλή τυπογραφία του Twenty Fifteen είναι αναγνώσιμη σε μια ευρεία ποικιλία μεγεθών οθόνης, και είναι κατάλληλη για πολλές γλώσσες. Το σχεδιάσαμε προσέγγιζοντας το με πρώτη σκεψη το κινητο, που σημαίνει ότι το περιεχόμενό σας παίρνει το κέντρο της σκηνής, ανεξάρτητα από το εάν οι επισκέπτες σας φτάνουν από το smartphone, tablet, laptop, ή επιτραπέζιο υπολογιστή."
+
+#. Theme Name of the theme
+msgid "Twenty Fifteen"
+msgstr "Twenty Fifteen"
+
+#: functions.php:246
+msgid "Light Blue"
+msgstr "Ανοιχτό μπλε"
+
+#: functions.php:241
+msgid "Bright Blue"
+msgstr "Φωτεινό Μπλε"
+
+#: functions.php:236
+msgid "Blue Gray"
+msgstr "Μπλε Γκρι"
+
+#: functions.php:226
+msgid "Dark Purple"
+msgstr "Σκούρο Μωβ"
+
+#: functions.php:221
+msgid "Light Pink"
+msgstr "Ανοιχτό Ροζ"
+
+#: functions.php:216
+msgid "Medium Pink"
+msgstr "Ροζ"
+
+#: functions.php:211
+msgid "Dark Brown"
+msgstr "Σκούρο Καφέ"
+
+#: functions.php:201
+msgid "White"
+msgstr "Λευκό"
+
+#: functions.php:196
+msgid "Light Gray"
+msgstr "Ανοιχτό Γκρι"
+
+#: functions.php:191
+msgid "Dark Gray"
+msgstr "Σκούρο Γκρι"
+
+#. translators: %s: Post title.
+#: comments.php:31
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr "Μία σκέψη στο &ldquo;%s&rdquo;"
+
+#. translators: %s: Post title.
+#: inc/template-tags.php:132
+msgid "Leave a comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr "Αφήστε το σχόλιό σας<span class=\"screen-reader-text\"> στο %s</span>"
+
+#: single.php:39
+msgid "Previous post:"
+msgstr "Προηγούμενο άρθρο:"
+
+#: single.php:38
+msgid "Previous"
+msgstr "Προηγούμενες"
+
+#: single.php:36
+msgid "Next post:"
+msgstr "Επόμενο άρθρο:"
+
+#: single.php:35
+msgid "Next"
+msgstr "Επόμενη"
+
+#. translators: %s: Search query.
+#: search.php:21
+msgid "Search Results for: %s"
+msgstr "Αποτελέσματα για %s"
+
+#: inc/template-tags.php:122
+msgctxt "Used before full size attachment link."
+msgid "Full size"
+msgstr "Πλήρη μέγεθος"
+
+#: inc/template-tags.php:110
+msgctxt "Used before tag names."
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: inc/template-tags.php:101
+msgctxt "Used before category names."
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: inc/template-tags.php:97 inc/template-tags.php:106
+msgctxt "Used between list items, there is a space after the comma."
+msgid ", "
+msgstr ","
+
+#: inc/template-tags.php:91
+msgctxt "Used before post author name."
+msgid "Author"
+msgstr "Συντάκτης"
+
+#: inc/template-tags.php:81
+msgctxt "Used before publish date."
+msgid "Posted on"
+msgstr "Δημοσιεύτηκε την"
+
+#: inc/template-tags.php:58
+msgctxt "Used before post format."
+msgid "Format"
+msgstr "Μορφή"
+
+#: inc/template-tags.php:51
+msgid "Featured"
+msgstr "Επιλεγμένα"
+
+#: inc/template-tags.php:31
+msgid "Newer Comments"
+msgstr "Νεώτερα σχόλια"
+
+#: inc/template-tags.php:26
+msgid "Older Comments"
+msgstr "Παλιότερα σχόλια"
+
+#: inc/template-tags.php:23
+msgid "Comment navigation"
+msgstr "Πλοήγηση σχολίων"
+
+#: inc/customizer.php:239
+msgid "Blue"
+msgstr "Μπλε"
+
+#: functions.php:231 inc/customizer.php:228
+msgid "Purple"
+msgstr "Μωβ"
+
+#: inc/customizer.php:217
+msgid "Pink"
+msgstr "Ροζ"
+
+#: functions.php:206 inc/customizer.php:206
+msgid "Yellow"
+msgstr "Κίτρινο"
+
+#: inc/customizer.php:195
+msgid "Dark"
+msgstr "Σκούρο"
+
+#: inc/customizer.php:184
+msgid "Default"
+msgstr "Προεπιλογή"
+
+#: inc/customizer.php:103
+msgid "Header and Sidebar Background Color"
+msgstr "Χρώμα Παρασκηνίου Επικεφαλίδας και Πλευρικής Στήλης"
+
+#: inc/customizer.php:79 inc/customizer.php:104 inc/customizer.php:111
+msgid "Applied to the header on small screens and the sidebar on wide screens."
+msgstr "Εφαρμόζεται στην επικεφαλίδα στις μικρότερες οθόνες και στην πλάγια στήλη στις πιο πλατιές."
+
+#: inc/customizer.php:78
+msgid "Header and Sidebar Text Color"
+msgstr "Χρώμα Κειμένου Επικεφαλίδας και ΠΛάγιας Στήλης"
+
+#: inc/customizer.php:55
+msgid "Base Color Scheme"
+msgstr "Βασικό Χρωματικό Θέμα"
+
+#. translators: %s: WordPress version.
+#: inc/back-compat.php:38 inc/back-compat.php:50 inc/back-compat.php:67
+msgid "Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again."
+msgstr "Το Twenty Fifteen απαιτεί τουλάχιστον την έκδοση 4.1 του WordPress. Αυτή τη στιγμή χρησιμοποιείτε την έκδοση %s. Παρακαλούμε αναβαθμίστε και προσπαθήστε ξανά."
+
+#: image.php:88
+msgctxt "Parent post link"
+msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
+msgstr "<span class=\"meta-nav\">Δημοσιεύθηκε στο</span><span class=\"post-title\">%title</span>"
+
+#: image.php:25
+msgid "Next Image"
+msgstr "Επόμενη εικόνα"
+
+#: image.php:25
+msgid "Previous Image"
+msgstr "Προηγούμενη εικόνα"
+
+#: header.php:50
+msgid "Menu and widgets"
+msgstr "Μενού και μικροεφαρμογές"
+
+#: header.php:27
+msgid "Skip to content"
+msgstr "Μετάβαση σε περιεχόμενο"
+
+#: functions.php:403
+msgid "collapse child menu"
+msgstr "άνοιγμα υπό-μενού"
+
+#: functions.php:402
+msgid "expand child menu"
+msgstr "επέκταση του μενού απόγονος"
+
+#: functions.php:322
+msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
+msgid "no-subset"
+msgstr "χωρίς-υποσύνολο"
+
+#: functions.php:314
+msgctxt "Inconsolata font: on or off"
+msgid "on"
+msgstr "ενεργό"
+
+#: functions.php:306
+msgctxt "Noto Serif font: on or off"
+msgid "on"
+msgstr "ενεργό"
+
+#: functions.php:298
+msgctxt "Noto Sans font: on or off"
+msgid "on"
+msgstr "ενεργό"
+
+#: functions.php:271
+msgid "Add widgets here to appear in your sidebar."
+msgstr "Προσθέστε μικροεφαρμογές εδώ ώστε να εμφανιστούν στην πλευρική στήλη."
+
+#: functions.php:269
+msgid "Widget Area"
+msgstr "Περιοχή μικροεφαρμογών"
+
+#: functions.php:87
+msgid "Social Links Menu"
+msgstr "Μενού Συνδέσμων Κοινωνικών Δικτύων"
+
+#: functions.php:86
+msgid "Primary Menu"
+msgstr "Κύριο μενού"
+
+#. translators: %s: WordPress
+#: footer.php:33
+msgid "Proudly powered by %s"
+msgstr "Κατασκευασμένο με %s"
+
+#: content-none.php:36
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Φαίνεται ότι δεν βρήκαμε αυτό που ζητούσατε. Αν θέλετε, δοκιμάστε την αναζήτηση."
+
+#: content-none.php:31
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Λυπάμαι, αλλά τίποτα δεν βρέθηκε που ταιριάζει στους όρους αναζήτησης. Παρακαλώ προσπαθήστε ξανά με άλλες λέξεις κλειδιά."
+
+#. translators: %s: Post editor URL.
+#: content-none.php:25
+msgid "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
+msgstr "Έτοιμος να δημοσιεύσετε το πρώτο σας άρθρο; <a href=\"%s\">Ξεκινήστε εδώ</a>."
+
+#: content-none.php:15
+msgid "Nothing Found"
+msgstr "Κανένα αποτέλεσμα"
+
+#: content-link.php:60 content.php:61 image.php:74 content-search.php:28
+#: content-search.php:33 content-page.php:37
+msgid "Edit"
+msgstr "Αλλαγή"
+
+#: content-link.php:39 content.php:41 image.php:61 content-page.php:26
+msgid "Pages:"
+msgstr "Σελίδες:"
+
+#. translators: %s: Post title.
+#: content-link.php:32 content.php:34 inc/template-tags.php:252
+msgid "Continue reading %s"
+msgstr "Συνεχίστε την ανάγνωση %s"
+
+#: comments.php:71
+msgid "Comments are closed."
+msgstr "Τα σχόλια είναι κλειστά."
+
+#. translators: 1: Number of comments, 2: Post title.
+#: comments.php:35
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s σκέψη στο&ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s σκέψεις στο &ldquo;%2$s&rdquo;"
+
+#. translators: %s: Author display name.
+#: author-bio.php:36
+msgid "View all posts by %s"
+msgstr "Δείτε όλα τα άρθρα του/της %s"
+
+#: author-bio.php:12
+msgid "Published by"
+msgstr "Δημοσιεύθηκε από "
+
+#: content-link.php:43 index.php:50 content.php:45 archive.php:53 search.php:48
+#: image.php:65 content-page.php:30
+msgid "Page"
+msgstr "Σελίδα"
+
+#: index.php:49 archive.php:52 search.php:47
+msgid "Next page"
+msgstr "Επόμενη Σελίδα"
+
+#: index.php:48 archive.php:51 search.php:46
+msgid "Previous page"
+msgstr "Προηγούμενη σελίδα"
+
+#: 404.php:21
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr "Στην τοποθεσία αυτή δεν βρέθηκε τίποτα. Μήπως να δοκιμάσετε την αναζήτηση;"
+
+#: 404.php:17
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Ωπα! Αυτή η σελίδα δε βρέθηκε."
+
+#. Author of the theme
+msgid "the WordPress team"
+msgstr "ομάδα WordPress"
+
+#. Theme URI of the theme
+msgid "https://wordpress.org/themes/twentyfifteen/"
+msgstr "https://wordpress.org/themes/twentyfifteen/"
+
+#. Author URI of the theme
+#: footer.php:30
+msgid "https://wordpress.org/"
+msgstr "https://wordpress.org/"

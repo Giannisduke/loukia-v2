@@ -82,6 +82,15 @@ function widgets_init() {
   ]);
 
   register_sidebar([
+    'name'          => __('Product', 'loukia'),
+    'id'            => 'sidebar-product',
+    'before_widget' => '<section class="widget %1$s %2$s">',
+    'after_widget'  => '</section>',
+    'before_title'  => '<div class="separator">',
+    'after_title'   => '</div>'
+  ]);
+
+  register_sidebar([
     'name'          => __('Footer', 'loukia'),
     'id'            => 'sidebar-footer',
     'before_widget' => '<section class="widget %1$s %2$s">',
@@ -106,6 +115,7 @@ function display_sidebar() {
     is_page_template('template-custom.php'),
     is_singular( 'portfolio' ),
     is_cart(),
+  //  is_product(),
 
   ]);
 

@@ -28,13 +28,15 @@ use Roots\Sage\Wrapper;
 
           <aside class="sidebar" id="sidebarcollapse">
             <?php
-            if ( !is_shop() ) {
+            if ( !is_shop() && !is_product() ) {
             include Wrapper\sidebar_path();
             }
             elseif ( is_shop() ) {
               dynamic_sidebar('sidebar-shop');
             }
-
+            elseif ( is_product() ) {
+              dynamic_sidebar('sidebar-product');
+            }
             ?>
           </aside><!-- /.sidebar -->
         <?php endif; ?>

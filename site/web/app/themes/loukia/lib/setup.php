@@ -19,10 +19,10 @@ function setup() {
   'gallery_thumbnail_image_width' => 100,
   //'single_image_width' => 654,
   ) );
-  add_theme_support( 'wc-product-gallery-zoom' );
-  add_theme_support( 'wc-product-gallery-lightbox' );
-  add_theme_support( 'wc-product-gallery-slider' );
-
+  //add_theme_support( 'wc-product-gallery-zoom' );
+  //add_theme_support( 'wc-product-gallery-lightbox' );
+  //add_theme_support( 'wc-product-gallery-slider' );
+  //add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
 
 
   // Make theme available for translation
@@ -115,7 +115,7 @@ function display_sidebar() {
     is_page_template('template-custom.php'),
     is_singular( 'portfolio' ),
     is_cart(),
-  //  is_product(),
+    is_product(),
 
   ]);
 

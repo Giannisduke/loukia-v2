@@ -19,9 +19,7 @@ use Roots\Sage\Wrapper;
       get_template_part('templates/header');
     ?>
     <div class="wrap container-fluid" role="document">
-      <div class="row">
 
-</div>
       <div class="content row">
 
         <?php if (Setup\display_sidebar()) : ?>

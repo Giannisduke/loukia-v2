@@ -91,6 +91,40 @@ function loukia_dequeue_styles( $enqueue_styles ) {
 }
 add_filter( 'woocommerce_enqueue_styles', 'loukia_dequeue_styles' );
 
+   remove_action('wp_head', '_admin_bar_bump_cb');
+
+   /**
+ * Change number of related products output
+ */
+function woo_related_products_limit() {
+  global $product;
+
+	$args['posts_per_page'] = 6;
+	return $args;
+}
+add_filter( 'woocommerce_output_related_products_args', 'jk_related_products_args', 20 );
+  function jk_related_products_args( $args ) {
+	$args['posts_per_page'] = 6; // 4 related products
+	$args['columns'] = 2; // arranged in 2 columns
+	return $args;
+}
+
+
+function eboy_get_product_tag() {
+
+// The input(s).
+$product_id = null;
+$sep = ', ';
+$before = '<h2>#';
+$after = '</h2>';
+
+// NOTICE! Understand what this does before running.
+$result = wc_get_product_tag_list( $product_id, $sep, $before, $after );
+echo $result;
+
+}
+add_action ('woocommerce_single_product_summary', 'eboy_get_product_tag', 6);
+
 
 ####################################################
 #    Woocommerce Actions

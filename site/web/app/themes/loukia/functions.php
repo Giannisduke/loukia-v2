@@ -18,7 +18,8 @@ $sage_includes = [
   'lib/customizer.php', // Theme customizer
   'lib/sidebar_widget.php', // widget sidebar
   'lib/cpt.php', // Theme Custom Post Types
-  'lib/bs4navwalker.php' // Bootstrap Menu
+  'lib/bs4navwalker.php', // Bootstrap Menu
+  'lib/custom-product-variations_light.php'
 ];
 
 foreach ($sage_includes as $file) {
@@ -114,16 +115,22 @@ function eboy_get_product_tag() {
 
 // The input(s).
 $product_id = null;
-$sep = ', ';
-$before = '<h2>#';
-$after = '</h2>';
+$sep = '<li class="list-group-item"># ';
+$before = '<ul>';
+$after = '</ul>';
+$sep_2 = '</li>';
 
 // NOTICE! Understand what this does before running.
-$result = wc_get_product_tag_list( $product_id, $sep, $before, $after );
-echo $result;
+$result = wc_get_product_tag_list( $product_id, $sep, $sep_2 );
+
+echo '<ul class="list-group">' . $result . '</ul>';
 
 }
 add_action ('woocommerce_single_product_summary', 'eboy_get_product_tag', 6);
+
+
+
+
 
 
 ####################################################
@@ -138,6 +145,7 @@ add_action( 'woocommerce_before_main_content_product', 'woocommerce_breadcrumb',
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
 
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 function facet_selections() {
   echo facetwp_display('selections');
 }

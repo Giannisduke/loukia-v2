@@ -21,8 +21,8 @@ function setup() {
   ) );
   //add_theme_support( 'wc-product-gallery-zoom' );
   //add_theme_support( 'wc-product-gallery-lightbox' );
-  //add_theme_support( 'wc-product-gallery-slider' );
-  //add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
+  add_theme_support( 'wc-product-gallery-slider' );
+  add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
 
 
   // Make theme available for translation

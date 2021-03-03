@@ -1,5 +1,5 @@
 <div class="d-flex flex-column justify-content-between navwrap">
-  <div><a class="btn btn-primary btn-sm mail"></a></div>
+  <div><a href="https://loukia.gr/επικοινωνία/" class="btn btn-primary btn-sm mail"></a></div>
 
   <div>
     <div class="d-flex flex-column">

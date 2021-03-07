@@ -29,6 +29,7 @@ web/app/plugins/*
 !web/app/plugins/webappick-product-feed-for-woocommerce
 !web/app/plugins/wp-all-export
 !web/app/plugins/wp-all-export-pro
+!web/app/plugins/wordpress-seo
 web/app/mu-plugins/*/
 web/app/upgrade
 web/app/uploads/*

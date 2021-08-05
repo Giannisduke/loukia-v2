@@ -18,4 +18,5 @@ sshd_password_authentication: false
 
 ip_whitelist:
   - 127.0.0.0/8
+  - 64.225.102.248
   - "{{ ipify_public_ip | default('') }}"

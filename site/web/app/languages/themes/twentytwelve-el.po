@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twelve package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-01-28 05:18:15+0000\n"
+"PO-Revision-Date: 2021-05-17 11:31:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -245,7 +245,7 @@ msgstr "Κανένα αποτέλεσμα"
 
 #: content-link.php:15
 msgid "Link"
-msgstr "Σύνδεσμός"
+msgstr "Σύνδεσμος"
 
 #: content-link.php:27 content.php:60 functions.php:464 content-image.php:26
 #: content-quote.php:26 content-status.php:43 image.php:42 content-aside.php:29

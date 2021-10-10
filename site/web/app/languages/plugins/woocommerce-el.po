@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-08 16:52:04+0000\n"
+"PO-Revision-Date: 2021-02-26 18:01:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,9 +11,210 @@ msgstr ""
 "Language: el_GR\n"
 "Project-Id-Version: Plugins - WooCommerce - Stable (latest release)\n"
 
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:53
+msgid "<a href=\"https://docs.woocommerce.com/document/managing-products/?utm_source=help_panel\">Explore our docs</a> for more information, or just get started!"
+msgstr "<a href=\"https://docs.woocommerce.com/document/managing-products/?utm_source=help_panel\">Περιηγηθείτε στα κείμενά μας</a> για περισσότερες πληροφορίες, ή απλώς ξεκινήστε!"
+
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:51
+msgid "Nice one, you’ve created a WooCommerce store! Now it’s time to add your first product.<br/><br/>"
+msgstr "Τέλεια, δημιουργήσατε ένα WooCommerce κατάστημα! Τώρα είναι η στιγμή να προσθέσετε το πρώτο σας προϊόν.<br/><br/>"
+
+#: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:47
+msgid "New! Manage your store activity from the Home screen"
+msgstr "Νέο! Διαχειριστείτε τη δραστηριότητα του καταστήματός σας από την Αρχική οθόνη."
+
+#: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:47
+msgid "Visit the theme marketplace"
+msgstr "Επισκεφθείτε την αγορά θεμάτων "
+
+#: packages/woocommerce-admin/src/Notes/OnboardingEmailMarketing.php:35
+msgid "Sign up for tips, product updates, and inspiration"
+msgstr "Εγγραφείτε για συμβουλές, ενημερώσεις του προϊόντος κι έμπνευση."
+
+#. translators: %1$s: action label, %2$s: action URL
+#: packages/woocommerce-admin/includes/emails/plain-merchant-notification.php:19
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: i18n/states.php:627
+msgid "Odisha"
+msgstr "Odisha"
+
+#: i18n/states.php:341
+msgid "Santo Domingo"
+msgstr "Santo Domingo"
+
+#: i18n/states.php:340
+msgid "San José de Ocoa"
+msgstr "San José de Ocoa"
+
+#: i18n/states.php:339
+msgid "Hato Mayor"
+msgstr "Hato Mayor"
+
+#: i18n/states.php:338
+msgid "Monte Plata"
+msgstr "Monte Plata"
+
+#: i18n/states.php:337
+msgid "Monseñor Nouel"
+msgstr "Monseñor Nouel"
+
+#: i18n/states.php:336
+msgid "Valverde"
+msgstr "Valverde"
+
+#: i18n/states.php:335
+msgid "Santiago Rodríguez"
+msgstr "Santiago Rodríguez"
+
+#: i18n/states.php:334
+msgid "Santiago"
+msgstr "Santiago"
+
+#: i18n/states.php:333
+msgid "Sánchez Ramírez"
+msgstr "Sánchez Ramírez"
+
+#: i18n/states.php:332
+msgid "San Pedro de Macorís"
+msgstr "San Pedro de Macorís"
+
+#: i18n/states.php:330
+msgid "San Cristóbal"
+msgstr "San Cristóbal"
+
+#: i18n/states.php:329
+msgid "Samaná"
+msgstr "Samaná"
+
+#: i18n/states.php:328
+msgid "Hermanas Mirabal"
+msgstr "Hermanas Mirabal"
+
+#: i18n/states.php:327
+msgid "Puerto Plata"
+msgstr "Puerto Plata"
+
+#: i18n/states.php:326
+msgid "Peravia"
+msgstr "Peravia"
+
+#: i18n/states.php:325
+msgid "Pedernales"
+msgstr "Pedernales"
+
+#: i18n/states.php:324
+msgid "Monte Cristi"
+msgstr "Monte Cristi"
+
+#: i18n/states.php:323
+msgid "María Trinidad Sánchez"
+msgstr "María Trinidad Sánchez"
+
+#: i18n/states.php:322
+msgid "La Vega"
+msgstr "La Vega"
+
+#: i18n/states.php:321
+msgid "La Romana"
+msgstr "La Romana"
+
+#: i18n/states.php:320
+msgid "La Altagracia"
+msgstr "La Altagracia"
+
+#: i18n/states.php:319
+msgid "Independencia"
+msgstr "Independencia"
+
+#: i18n/states.php:318
+msgid "Espaillat"
+msgstr "Espaillat"
+
+#: i18n/states.php:317
+msgid "El Seibo"
+msgstr "El Seibo"
+
+#: i18n/states.php:316
+msgid "Elías Piña"
+msgstr "Elías Piña"
+
+#: i18n/states.php:315
+msgid "Duarte"
+msgstr "Duarte"
+
+#: i18n/states.php:314
+msgid "Dajabón"
+msgstr "Dajabón"
+
+#: i18n/states.php:313
+msgid "Barahona"
+msgstr "Barahona"
+
+#: i18n/states.php:312
+msgid "Baoruco"
+msgstr "Baoruco"
+
+#: i18n/states.php:311
+msgid "Azua"
+msgstr "Azua"
+
+#: i18n/states.php:310
+msgid "Distrito Nacional"
+msgstr "Distrito Nacional"
+
+#: packages/woocommerce-admin/src/API/ProductAttributes.php:128
+msgid "No product attribute with that slug was found."
+msgstr "Δεν βρέθηκε χαρακτηριστικό προϊόντος με αυτό το σύντομο όνομα."
+
+#: packages/woocommerce-admin/src/API/ProductAttributes.php:59
+msgid "Search by similar attribute name."
+msgstr "Αναζήτηση με παρεμφερές όνομα χαρακτηριστικού."
+
+#: packages/woocommerce-admin/src/API/ProductAttributeTerms.php:38
+#: packages/woocommerce-admin/src/API/ProductAttributes.php:37
+msgid "Slug identifier for the resource."
+msgstr "Αναγνωριστικό σύντομου ονόματος για τον πόρο."
+
+#. translators: 1: line break tag, 2: open link to WordPress update link, 3:
+#. close link tag.
+#: packages/woocommerce-admin/src/Features/Navigation/Init.php:60
+msgid "%1$s %2$sUpdate WordPress to enable the new navigation%3$s"
+msgstr "%1$s %2$sΕνημερώστε το WordPress για να ενεργοποιηθεί η νέα πλοήγηση%3$s"
+
+#: packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php:40
+msgid "You're invited to share your experience"
+msgstr "Σας προσκαλούμε να μοιραστείτε την εμπειρία σας."
+
+#: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:39
+msgid "Choosing a theme?"
+msgstr "Επιλέξατε θέμα;"
+
+#: packages/woocommerce-admin/src/Notes/InsightFirstProductAndPayment.php:40
+msgid "Insight"
+msgstr "Συνοπτικά"
+
+#: includes/class-wc-countries.php:987
+msgid "Department"
+msgstr "Παράρτημα"
+
+#: includes/admin/plugin-updates/views/html-notice-untested-extensions-modal.php:21
+msgid "Are you sure you're ready?"
+msgstr "Είστε σίγουρα έτοιμος;"
+
+#: includes/admin/plugin-updates/views/html-notice-untested-extensions-modal.php:44
+msgid "We strongly recommend creating a backup of your site before updating."
+msgstr "Συνιστούμε τη δημιουργία ενός αντιγράφου ασφαλείας του ιστοτοπού σας πριν την ενημέρωση."
+
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:264
 msgid "Whether the product is visible in the catalog"
 msgstr "Αν το προϊόν είναι ορατό στον κατάλογο"
+
+#. translators: %s: extension namespace
+#: packages/woocommerce-blocks/src/Domain/Services/ExtendRestApi.php:203
+msgid "Extension data registered by %s"
+msgstr "Δεδομένα επέκτασης καταχωρημένα από %s"
 
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartCouponSchema.php:36
 msgid "The coupon's unique code."
@@ -23,6 +224,14 @@ msgstr "Ο μοναδικός κωδικός του κουπονιού"
 #: packages/woocommerce-admin/dist/app/index.js:2
 msgid "Thank you for your feedback!"
 msgstr "Ευχαριστούμε για το σχόλιό σας!"
+
+#: packages/woocommerce-blocks/src/StoreApi/Schemas/AbstractSchema.php:94
+msgid "Extensions data."
+msgstr "Δεδομένα Επεκτάσεων."
+
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:573
+msgid "An account is already registered with your email address. Please log in before proceeding."
+msgstr "Ένας λογαριασμός έχει ήδη καταχωρηθεί με τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας. Παρακαλώ, συνδεθείτε πριν προχωρήσετε."
 
 #: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:352
 msgid "Unable to create order"
@@ -44,6 +253,10 @@ msgstr "Πόσο εύκολο ήταν να ενημερώσετε μια παρ
 #: i18n/states.php:620
 msgid "Ladakh"
 msgstr "Ladakh"
+
+#: packages/woocommerce-blocks/src/StoreApi/Schemas/CartSchema.php:138
+msgid "Current set billing address for the customer."
+msgstr "Η υφιστάμενη δηλωμένη διεύθυνση χρέωσης του πελάτη. "
 
 #: packages/woocommerce-admin/src/Features/Navigation/Menu.php:690
 msgid "WordPress Dashboard"
@@ -124,6 +337,18 @@ msgstr "Trelawny"
 #: packages/woocommerce-admin/src/Features/CustomerEffortScoreTracks.php:282
 msgid "How easy was it to edit your product?"
 msgstr "Πόσο εύκολο ήταν να τροποποιήσετε το προϊόν σας;"
+
+#: packages/woocommerce-admin/src/Notes/NavigationFeedback.php:39
+msgid "You now have access to the new WooCommerce navigation"
+msgstr "Πλέον έχετε πρόσβαση στην νέα πλοήγηση του WooCommerce."
+
+#: packages/woocommerce-admin/src/Notes/ManageOrdersOnTheGo.php:49
+msgid "Look for orders, customer info, and process refunds in one click with the Woo app."
+msgstr "Αναζητήστε παραγγελίες, πληροφορίες πελάτη κι επεξεργαστείτε επιστροφές χρημάτων με ένα κλικ, με την εφαρμογή Woo."
+
+#: packages/woocommerce-admin/src/Notes/NavigationFeedback.php:36
+msgid "We're introducing the new navigation for a more intuitive and improved user experience. We'd like to hear your thoughts and first impressions."
+msgstr "Παρουσιάζουμε τη νέα πλοήγηση για μια πιο ευκολονόητη και βελτιωμένη εμπειρία χρήστη. Θα θέλαμε να ακούσουμε τις σκέψεις και τις πρώτες εντυπώσεις σας."
 
 #: packages/woocommerce-admin/src/Features/Navigation/Init.php:68
 msgid "Navigation"
@@ -424,6 +649,26 @@ msgstr "Αναζήτηση για παρόμοια προϊόντα όνομα, 
 #: packages/woocommerce-admin/src/API/OnboardingTasks.php:503
 msgid "Country codes that are supported by Stripe."
 msgstr "Οι κωδικοί χώρας δεν υποστηρίζονται από το Stripe."
+
+#: packages/woocommerce-admin/src/API/OnboardingTasks.php:512
+msgid "If the store has the TaxJar extension active."
+msgstr "Αν το κατάστημα έχει ενεργοποιημένη την επέκταση TaxJar."
+
+#: packages/woocommerce-admin/src/API/OnboardingTasks.php:497
+msgid "The number of shipping zones configured for the store."
+msgstr "Ο αριθμός των ζωνών αποστολής που έχουν ρυθμιστεί για το κατάστημα."
+
+#: packages/woocommerce-admin/src/API/OnboardingTasks.php:473
+msgid "If the store has an enabled payment gateway."
+msgstr "Αν το κατάστημα έχει ενεργοποιημένη πύλη πληρωμών."
+
+#: packages/woocommerce-admin/src/API/OnboardingTasks.php:479
+msgid "If the store has any physical (non-virtual) products."
+msgstr "Αν το κατάστημα διαθέτει φυσικά (μη-εικονικά) προϊόντα."
+
+#: packages/woocommerce-admin/src/API/OnboardingTasks.php:458
+msgid "Country codes that support Automated Taxes."
+msgstr "Κωδικοί χωρών που υποστηρίζουν Αυτόματους Φόρους."
 
 #: packages/woocommerce-admin/src/Notes/ConfirmTaxSettings.php:35
 msgid "Confirm tax settings"
@@ -1828,6 +2073,10 @@ msgstr "Δεκαδική ακρίβεια για τις επιστρεφόμεν
 msgid "Line total tax."
 msgstr "Γραμμή συνολικού φόρου."
 
+#: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:243
+msgid "Line subtotal tax."
+msgstr "Γραμμή υποσυνόλου φόρου."
+
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:40
 msgid "Name of the package."
 msgstr "Όνομα του πακέτου."
@@ -3212,6 +3461,26 @@ msgstr "Τα δεδομένα προφίλ της διαδικασίας έντ�
 msgid "Account type used for Jetpack."
 msgstr "Τύπος λογαριασμός που χρησιμοποιείται για το Jetpack."
 
+#: packages/woocommerce-admin/src/API/Notes.php:632
+msgid "Date after which the user should be reminded of the note, if any (GMT)."
+msgstr "Ημερομηνία μετά την οποία ο χρήστης θα πρέπει να ειδοποιηθεί για την σημείωση, αν υπάρχει (GTM)."
+
+#: packages/woocommerce-admin/src/API/Notes.php:626
+msgid "Date after which the user should be reminded of the note, if any."
+msgstr "Ημερομηνία μετά την οποία ο χρήστης θα πρέπει να ειδοποιηθεί για την σημείωση, αν υπάρχει."
+
+#: packages/woocommerce-admin/src/API/Notes.php:579
+msgid "Locale used for the note title and content."
+msgstr "Τοπικοποίηση που χρησιμοποιήθηκε για τον τίτλο και το περιεχόμενο της σημείωσης."
+
+#: packages/woocommerce-admin/src/API/Notes.php:597
+msgid "Content data for the note. JSON string. Available for re-localization."
+msgstr "Δεδομένα περιερχομένου της σημείωσης. JSON string. Διαθέσιμο για αναπροσαρμογή τοπικότητας."
+
+#: packages/woocommerce-admin/src/API/Notes.php:638
+msgid "Whether or not a user can request to be reminded about the note."
+msgstr "Αν ο χρήστης μπορεί ή όχι, να αιτηθεί την υπενθύμιση της σημείωσης."
+
 #. translators: 1: numeric product quantity, 2: name of product
 #: packages/woocommerce-admin/src/API/Reports/Orders/Controller.php:490
 msgid "%1$s× %2$s"
@@ -3338,6 +3607,12 @@ msgstr "Μέσος όρος αντικειμένων ανά Παραγγελία
 #: packages/woocommerce-admin/src/API/Reports/Orders/Controller.php:215
 msgid "Net total revenue."
 msgstr "Καθαρό συνολικό κέρδος."
+
+#: packages/woocommerce-admin/src/API/Reports/Variations/Stats/Controller.php:388
+#: packages/woocommerce-admin/src/API/Reports/Products/Stats/Controller.php:381
+#: packages/woocommerce-admin/src/API/Reports/Products/Controller.php:312
+msgid "Limit result to items from the specified categories."
+msgstr "Περιορισμός αποτελέσματος σε αντικείμενα με καθορισμένες κατηγορίες."
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:407
 msgid "Manage stock."
@@ -3552,6 +3827,10 @@ msgstr "Η ανθρωπίνως αναγνώσιμη ετικέτα για τα 
 #: packages/woocommerce-admin/src/API/Reports/Downloads/Controller.php:229
 msgid "User name of the downloader."
 msgstr "Όνομα χρήστη του λήπτη."
+
+#: packages/woocommerce-admin/src/API/Reports/Downloads/Controller.php:223
+msgid "User ID for the downloader."
+msgstr "ID χρήστη του λήπτη."
 
 #: packages/woocommerce-admin/src/API/Reports/Downloads/Controller.php:235
 msgid "IP address for the downloader."
@@ -3872,6 +4151,58 @@ msgstr "Αναδημιουργία μηνύματος δεδομένων."
 #: packages/woocommerce-admin/src/API/Leaderboards.php:249
 msgid "Top Customers - Total Spend"
 msgstr "Κορυφαίοι πελάτες - Συνολική δαπάνη"
+
+#: packages/woocommerce-admin/src/API/Reports/Export/Controller.php:168
+msgid "There is no data to export for the given request."
+msgstr "Δεν υπάρχουν δεδομένα προς εξαγωγή για το δοθέν αίτημα."
+
+#: packages/woocommerce-admin/src/API/NoteActions.php:32
+msgid "Unique ID for the Note."
+msgstr "Μοναδικό αναγνωριστικό για την Σημείωση."
+
+#: packages/woocommerce-admin/src/API/Reports/Variations/Stats/Controller.php:260
+#: packages/woocommerce-admin/src/API/Reports/Orders/Stats/Controller.php:303
+#: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:279
+#: packages/woocommerce-admin/src/API/Reports/Downloads/Stats/Controller.php:199
+#: packages/woocommerce-admin/src/API/Reports/Coupons/Stats/Controller.php:242
+#: packages/woocommerce-admin/src/API/Reports/Revenue/Stats/Controller.php:328
+#: packages/woocommerce-admin/src/API/Reports/Products/Stats/Controller.php:263
+msgid "The date the report end, as GMT."
+msgstr "Η ημερομηνία που η αναφορά σταμάτησε, ως GMT."
+
+#: packages/woocommerce-admin/src/API/Reports/Variations/Stats/Controller.php:254
+#: packages/woocommerce-admin/src/API/Reports/Orders/Stats/Controller.php:297
+#: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:273
+#: packages/woocommerce-admin/src/API/Reports/Downloads/Stats/Controller.php:193
+#: packages/woocommerce-admin/src/API/Reports/Coupons/Stats/Controller.php:236
+#: packages/woocommerce-admin/src/API/Reports/Revenue/Stats/Controller.php:322
+#: packages/woocommerce-admin/src/API/Reports/Products/Stats/Controller.php:257
+msgid "The date the report end, in the site's timezone."
+msgstr "Η ημερομηνία που η αναφορά σταμάτησε, στην ζώνη ώρας του ιστότοπου."
+
+#: packages/woocommerce-admin/src/API/Reports/Variations/Stats/Controller.php:248
+#: packages/woocommerce-admin/src/API/Reports/Orders/Stats/Controller.php:291
+#: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:267
+#: packages/woocommerce-admin/src/API/Reports/Downloads/Stats/Controller.php:187
+#: packages/woocommerce-admin/src/API/Reports/Coupons/Stats/Controller.php:230
+#: packages/woocommerce-admin/src/API/Reports/Revenue/Stats/Controller.php:316
+#: packages/woocommerce-admin/src/API/Reports/Products/Stats/Controller.php:251
+msgid "The date the report start, as GMT."
+msgstr "Η ημερομηνία που η αναφορά ξεκίνησε, ως GMT."
+
+#: packages/woocommerce-admin/src/API/Reports/Variations/Stats/Controller.php:242
+#: packages/woocommerce-admin/src/API/Reports/Orders/Stats/Controller.php:285
+#: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:261
+#: packages/woocommerce-admin/src/API/Reports/Downloads/Stats/Controller.php:181
+#: packages/woocommerce-admin/src/API/Reports/Coupons/Stats/Controller.php:224
+#: packages/woocommerce-admin/src/API/Reports/Revenue/Stats/Controller.php:310
+#: packages/woocommerce-admin/src/API/Reports/Products/Stats/Controller.php:245
+msgid "The date the report start, in the site's timezone."
+msgstr "Η ημερομηνία που η αναφορά ξεκίνησε, στην ζώνη ώρας του ιστότοπου."
+
+#: packages/woocommerce-admin/src/API/NoteActions.php:36
+msgid "Unique ID for the Note Action."
+msgstr "Μοναδικό ID για την ενέργεια Σημείωσης."
 
 #: packages/woocommerce-admin/src/API/OnboardingTasks.php:436
 msgid "Homepage created."
@@ -4258,6 +4589,10 @@ msgstr[1] "Διακοπή τρέλας για %d δευτερόλεπτα"
 msgid "There was a failure fetching this action: %s"
 msgstr "Παρουσιάστηκε αποτυχία κατά την ανάκτηση αυτής της ενέργειας: %s"
 
+#: packages/action-scheduler/classes/ActionScheduler_AdminView.php:149
+msgid "Activity log for the action."
+msgstr "Αρχείο καταγραφής δραστηριότητας για την ενέργεια."
+
 #: packages/action-scheduler/classes/ActionScheduler_AdminView.php:148
 msgid "Scheduled"
 msgstr "Προγραμματισμένο "
@@ -4270,6 +4605,18 @@ msgstr "Η ημερομηνία/ώρα που είναι/ήταν προγραμ
 msgid "Action statuses are Pending, Complete, Canceled, Failed"
 msgstr "Οι καταστάσεις ενέργειας είναι Σε εκκρεμότητα, Ολοκληρώθηκαν, Ακυρώθηκαν, Απέτυχαν"
 
+#: packages/action-scheduler/classes/ActionScheduler_AdminView.php:147
+msgid "The action's schedule frequency."
+msgstr "Η συχνότητα χρονοδιαγράμματος της ενέργειας."
+
+#: packages/action-scheduler/classes/ActionScheduler_AdminView.php:146
+msgid "Optional action group."
+msgstr "Προαιρετική ομάδα ενεργειών."
+
+#: packages/action-scheduler/classes/ActionScheduler_AdminView.php:143
+msgid "Name of the action hook that will be triggered."
+msgstr "Η ονομασία ζεύξης ενεργειών που θα ενεργοποιηθεί."
+
 #: packages/action-scheduler/classes/ActionScheduler_AdminView.php:127
 msgid "About"
 msgstr "Σχετικά"
@@ -4280,6 +4627,10 @@ msgid "Migrating %d action"
 msgid_plural "Migrating %d actions"
 msgstr[0] "Μετεγκατάσταση %d ενέργειας"
 msgstr[1] "Μετεγκατάσταση %d ενεργειών"
+
+#: packages/action-scheduler/classes/ActionScheduler_AdminView.php:129
+msgid "About Action Scheduler %s"
+msgstr "Για τον προγραμματιστή ενεργειών %s"
 
 #: includes/admin/views/html-admin-page-status-report.php:165
 msgid "Active Plugin"
@@ -4461,6 +4812,10 @@ msgstr "Προϊόν σε προσφορά"
 #: packages/woocommerce-blocks/src/BlockTypes/ProductCategories.php:194
 msgid "List of categories with their product counts"
 msgstr "Λίστα κατηγοριών με τον αριθμό προϊόντων τους"
+
+#: includes/shortcodes/class-wc-shortcode-checkout.php:110
+msgid "You are paying for a guest order. Please continue with payment only if you recognize this order."
+msgstr "Πληρώνετε για την παραγγελία ως επισκέπτης. Παρακαλούμε συνεχίστε με την πληρωμή μόνο αν αναγνωρίζετε αυτή την παραγγελία."
 
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/ImageAttachmentSchema.php:43
 msgid "Thumbnail URL."
@@ -4727,6 +5082,10 @@ msgstr "Μοναδικό αναγνωριστικό για το προϊόν μ�
 msgid "If this attribute has term archive pages."
 msgstr "Αν αυτό το χαρακτηριστικό έχει σελίδες ιστορικού όρου."
 
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductAttributesById.php:59
+msgid "Invalid attribute ID."
+msgstr "Λανθασμένο ID χαρακτηριστικoύ."
+
 #. translators: %d number of seconds
 #: includes/class-wc-form-handler.php:491
 msgid "You cannot add a new payment method so soon after the previous one. Please wait for %d second."
@@ -4784,6 +5143,10 @@ msgstr "Το κλειδί άδειας MaxMind είναι άκυρο. Εάν έ�
 #: includes/data-stores/class-wc-product-variation-data-store-cpt.php:58
 msgid "Invalid product type: passed ID does not correspond to a product variation."
 msgstr "Εσφαλμένος τύπος προϊόντος: το περασμένο ID δεν αντιστοιχεί με κάποια παραλλαγή προϊόντος."
+
+#: includes/integrations/maxmind-geolocation/class-wc-integration-maxmind-database-service.php:148
+msgid "Missing MaxMind Reader library!"
+msgstr "Λείπει η βιβλιοθήκη ανάγνωσης MaxMind!"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:445
 msgid "Welcome to"
@@ -5549,7 +5912,7 @@ msgstr "Διαχειριστείτε τις αναφορές του καταστ
 
 #: includes/admin/settings/class-wc-settings-accounts.php:87
 msgid "When creating an account, automatically generate an account username for the customer based on their name, surname or email"
-msgstr "Κατή τη δημιουργία ενός λογαριασμού, δημιουργήστε αυτόματα ένα Όνομα χρήστη για τον πελάτη βασισμένο στο όνομα, το επίθετο και το email"
+msgstr "Κατά τη δημιουργία ενός λογαριασμού, δημιουργήστε αυτόματα ένα Όνομα χρήστη για τον πελάτη βασισμένο στο όνομα, το επίθετο και το email"
 
 #: includes/emails/class-wc-email-new-order.php:164
 msgid "Congratulations on the sale."

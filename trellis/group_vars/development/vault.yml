@@ -1,10 +1,14 @@
-# Documentation: https://roots.io/trellis/docs/vault/
-vault_mysql_root_password: devpw
-
-# Variables to accompany `group_vars/development/wordpress_sites.yml`
-# Note: the site name (`loukia.gr`) must match up with the site name in the above file.
+vault_mysql_root_password: pDS4jA2aqrnp4Ms1VFYVOZjlfmcjMf8Kh235ztmUAsrPCQw1zYXcudZgaTgVTqQ5
 vault_wordpress_sites:
-  loukia.test:
-    admin_password: admin
+  eboy.gr:
+    admin_password: BG7JHqhgQAquLiyVtRyChMe4aHf8gAHqa0rVRUqdjH6QFWdcpoi1d9arTvSrlbaK
     env:
-      db_password: example_dbpassword
+      db_password: UooKlnAI9tBZMavtxwv4mqBGavhPWAj7FJiziSKTWVcaF9sqgP2l9DC2PDQK4G42
+      auth_key: ijj1B6PEbsUCbrArS2i9Hm9P6YQPE7cpwXquvpuriabDS6aYHTLmryACeogwcTPp
+      secure_auth_key: g6Fs1zcCpXnoHh87bHwesa8t5Puje3fZnrtacoyx3QlQwM2MpalI4KHXeZaSIYbo
+      logged_in_key: aBMfCw0FUcPVZ0LQ7gnmWnZOeZTcIH4Vm6Wve1MASZodWh9uJjU4V3bApUlI7CeA
+      nonce_key: 9wHpNMSzOD2k8Op6lOBBD6Y0eZpLtxBqU2a3ce3Betvikm8BqNDCzKJAAMFWfWUc
+      auth_salt: 7z0ChI2YYcSCymxcvSYCTlZwnaSCmLvroXA4O98UMiydWk7MBlIM4WalQzEy2ais
+      secure_auth_salt: efaRrcg08pHp7yiBlwWHs44uDXRF89GXgbOtFh9RSV2tb5Kq7iC3XSHF1Mmbpcrx
+      logged_in_salt: 3wrwJHz2Cxj5D0LjbgcBUv5ubSTYds10MhVkzSNE0eeiIPnWyJm1sBgv9ztLxKbX
+      nonce_salt: dwZZEhmnAW3zWUpuZa9AFmV2T4aj3N9jF3i9SxnrPqmbgPbsN2U4PfZPDIW90cEe

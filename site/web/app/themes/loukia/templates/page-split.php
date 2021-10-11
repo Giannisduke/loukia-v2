@@ -30,9 +30,11 @@
             <div id="carousel_<?php echo $counter_outer; ?>" class="carousel slide main_carousel" data-ride="carousel">
               <!-- Wrapper for slides -->
         	<div class="carousel-inner">
-        		<?php foreach( $images as $image ): ?>
+        		<?php foreach( $images as $image ):
+              $image_alt = get_the_title();
+              ?>
         	    <div class="carousel-item <?php if($count1==0) : echo ' active'; endif; ?>">
-        	        <img src="<?php echo $image['url']; ?>" class="img-fluid main_img" alt="<?php echo $image['alt']; ?>" />
+                <img src="<?php echo $image['sizes']['large']; ?>" class="img-fluid" alt="<?php echo $image_alt; ?>" />
         	    </div><!-- item -->
         		<?php $count1++; ?>
         		<?php endforeach; ?>

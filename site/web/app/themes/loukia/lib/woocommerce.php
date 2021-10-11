@@ -281,4 +281,4 @@ global $product;
     echo $attributes->size;
     echo 'test end';
 }
-add_action( 'woocommerce_single_product_summary', 'nt_product_attributes', 8 );
+//add_action( 'woocommerce_single_product_summary', 'nt_product_attributes', 8 );

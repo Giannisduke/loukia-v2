@@ -2,51 +2,106 @@
 # This file is distributed under the same license as the Plugins - Regenerate Thumbnails - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-30 09:46:27+0000\n"
+"PO-Revision-Date: 2021-05-20 17:23:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: el_GR\n"
 "Project-Id-Version: Plugins - Regenerate Thumbnails - Stable (latest release)\n"
 
-#: regenerate-thumbnails.php:256 regenerate-thumbnails.php:433
-#: regenerate-thumbnails.php:449 regenerate-thumbnails.php:473
-msgctxt "action for a single image"
-msgid "Regenerate Thumbnails"
-msgstr "Αναδημιουργία μικρογραφίας"
+#. translators: Used for listing old sizes of currently registered thumbnails
+#: includes/class-regeneratethumbnails-regenerator.php:686
+msgid "%s (old)"
+msgstr "%s (παλιό)"
 
-#: regenerate-thumbnails.php:166
-msgctxt "admin menu entry title"
-msgid "Regenerate Thumbnails"
-msgstr "Αναδημιουργία μικρογραφιών"
+#: includes/class-regeneratethumbnails-regenerator.php:612
+msgid "Attachment %d"
+msgstr "Συνημμένο %d"
 
-#: regenerate-thumbnails.php:165 regenerate-thumbnails.php:317
-msgctxt "admin page title"
-msgid "Regenerate Thumbnails"
-msgstr "Αναδημιουργία μικρογραφιών"
+#: includes/class-regeneratethumbnails-regenerator.php:574
+msgid "Unable to load the metadata for this attachment."
+msgstr "Δεν είναι δυνατή η φόρτωση των μετα-δεδομένων για αυτό το συνημμένο."
+
+#: includes/class-regeneratethumbnails-regenerator.php:558
+msgid "The current image editor cannot process this file type."
+msgstr "Ο τρέχων επεξεργαστής εικόνων δεν μπορεί να επεξεργαστεί αυτόν τον τύπο αρχείου."
+
+#. translators: The relative upload path to the attachment.
+#: includes/class-regeneratethumbnails-regenerator.php:141
+msgid "The fullsize image file cannot be found in your uploads directory at <code>%s</code>. Without it, new thumbnail images can't be generated."
+msgstr "Δεν είναι δυνατή η εύρεση του αρχείου εικόνας πλήρους μεγέθουςν στον κατάλογο αρχείων στο <code>%s</code> . Χωρίς αυτό, δεν είναι η δημιουργία νέων εικόνων μικρογραφιών."
+
+#: includes/class-regeneratethumbnails-regenerator.php:84
+msgid "This attachment is a site icon and therefore the thumbnails shouldn't be touched."
+msgstr "Αυτό το συνημμένο είναι ένα εικονίδιο ιστοτόπου και επομένως η μικρογραφία του δεν πρέπει να αλλάξει."
+
+#: includes/class-regeneratethumbnails-regenerator.php:73
+msgid "This item is not an attachment."
+msgstr "Το στοιχείο αυτό δεν είναι συνημμένο."
+
+#: includes/class-regeneratethumbnails-regenerator.php:62
+msgid "No attachment exists with that ID."
+msgstr "Δεν υπάρχει συνημμένο με αυτό το ID."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:262
+msgid "The page number requested is larger than the number of pages available."
+msgstr "Ο αριθμός σελίδας που ζητήθηκε είναι μεγαλύτερος από το συνολικό αριθμό διαθέσιμων σελίδων."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:64
+msgid "Posts to process per loop. This is to control memory usage and you likely don't need to adjust this."
+msgstr "Αναρτήσεις για επεξεργασία σε κάθε κύκλο. Αυτό γίνεται για τον έλεγχο της χρήσης της μνήμης και πιθανότατα δεν χρειάζεται να το προσαρμόσετε."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:58
+msgid "Specific post IDs to update rather than any posts that use this attachment."
+msgstr "Συγκεκριμένα IDs αναρτήσεων που θέλετε να ενημερωθούν και όχι όλες οι αναρτήσεις που χρησιμοποιούν αυτό το συνημμένο."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:52
+msgid "The types of posts to update. Defaults to all public post types."
+msgstr "Οι τύποι αναρτήσεων προς ενημέρωση. Προεπιλογές σε όλους τους τύπους δημόσιων αναρτήσεων."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:47
+msgid "Whether to update the image tags in any posts that make use of this attachment."
+msgstr "Αν θέλετε να ενημερώσετε τις ετικέτες εικόνας σε τυχόν αναρτήσεις που κάνουν χρήση αυτού του συνημμένου."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:42
+msgid "Whether to delete any old, now unregistered thumbnail files."
+msgstr "Εάν θα διαγραφούν τα παλιά, τώρα μη καταχωρημένα αρχεία μικρογραφίας."
+
+#: includes/class-regeneratethumbnails-rest-controller.php:37
+msgid "Whether to only regenerate missing thumbnails. It's faster with this enabled."
+msgstr "Εάν θα επαναδημιουργηθούν μόνο μικρογραφίες που λείπουν. Είναι πιο γρήγορα με αυτό ενεργοποιημένο."
 
 #: regenerate-thumbnails.php:495
 msgctxt "bulk actions dropdown"
 msgid "Regenerate Thumbnails"
 msgstr "Αναδημιουργία μικρογραφιών"
 
-#: includes/class-regeneratethumbnails-regenerator.php:612
-msgid "Attachment %d"
-msgstr "Συνημμένο %d"
+#: regenerate-thumbnails.php:433 regenerate-thumbnails.php:449
+#: regenerate-thumbnails.php:473
+msgid "Regenerate the thumbnails for this single image"
+msgstr "Επαναδημιουργήστε τις μικρογραφίες για αυτή την εικόνα"
 
-#: regenerate-thumbnails.php:273
-msgid "Pause"
-msgstr "Παύση"
+#: regenerate-thumbnails.php:360
+msgid "This tool won't be able to do anything because your server doesn't support image editing which means that WordPress can't create thumbnail images. Please ask your host to install the Imagick or GD PHP extensions."
+msgstr "Αυτό το εργαλείο δεν είναι σε θέση να κάνει τίποτα επειδή ο διακομιστής σας δεν υποστηρίζει επεξεργασία εικόνας που σημαίνει ότι το WordPress δεν μπορεί να δημιουργήσει εικόνες μικρογραφιών. Ζητήστε από τον πάροχο σας να εγκαταστήσει τις επεκτάσεις Imagick ή GD PHP."
 
-#: regenerate-thumbnails.php:272
-msgid "Regeneration Log"
-msgstr "Ιστορικό επαναδημιουργιών"
+#: regenerate-thumbnails.php:331
+msgid "This tool requires that JavaScript be enabled to work."
+msgstr "Αυτό το εργαλείο χρειάζεται η JavaScript να είναι ενεργοποιημένη."
 
-#. Author URI of the plugin
-msgid "https://alex.blog/"
-msgstr "https://alex.blog/"
+#: regenerate-thumbnails.php:321
+msgid "This plugin requires WordPress 4.7 or newer. You are on version %1$s. Please <a href=\"%2$s\">upgrade</a>."
+msgstr "Αυτό το πρόσθετο απαιτεί WordPress 4.7 ή νεότερο. Είστε στην έκδοση %1$s . Παρακαλώ <a href=\"%2$s\">αναβαθμίστε.</a>"
+
+#: regenerate-thumbnails.php:294
+msgid "Regenerate Thumbnails For The %d Selected Attachments"
+msgstr "Δημιουργεί τις μικρογραφίες για όλα τα επιλεγμένα %d συνημμένα"
+
+#: regenerate-thumbnails.php:282
+msgid "Unable to fetch a list of attachment IDs to process from the WordPress REST API. You can check your browser's console for details."
+msgstr "Δεν είναι δυνατή η λήψη μιας λίστας συνημμένων για επεξεργασία από το API του WordPress REST. Μπορείτε να ελέγξετε την κονσόλα του φυλλομετρητή σας για λεπτομέρειες."
 
 #: regenerate-thumbnails.php:281
 msgid "{count} seconds"
@@ -64,17 +119,13 @@ msgstr "{count} ώρες"
 msgid "All done in {duration}."
 msgstr "Ολοκληρώθηκε σε  {duration}."
 
-#. Plugin URI of the plugin
-msgid "https://alex.blog/wordpress-plugins/regenerate-thumbnails/"
-msgstr "https://alex.blog/wordpress-plugins/regenerate-thumbnails/"
+#: regenerate-thumbnails.php:277
+msgid "Skipped Attachment ID {id}: {reason}"
+msgstr "Αγνοήθηκε το συνημμένο με: ID {id} : {reason}"
 
-#: regenerate-thumbnails.php:331
-msgid "This tool requires that JavaScript be enabled to work."
-msgstr "Αυτό το εργαλείο χρειάζεται η JavaScript να είναι ενεργοποιημένη."
-
-#: regenerate-thumbnails.php:271
-msgid "Errors Encountered"
-msgstr "Σφάλματα που παρουσιάστηκαν"
+#: regenerate-thumbnails.php:276
+msgid "Skipped Attachment ID {id} ({name}): {reason}"
+msgstr "Αγνοήθηκε το συνημμένο με: ID {id} ({name}): {reason}"
 
 #: regenerate-thumbnails.php:275
 msgid "Regenerated {name}"
@@ -84,13 +135,33 @@ msgstr "Επαναδημιουργήθηκε {name}"
 msgid "Resume"
 msgstr "Συνέχεια"
 
-#: regenerate-thumbnails.php:294
-msgid "Regenerate Thumbnails For The %d Selected Attachments"
-msgstr "Δημιουργεί τις μικρογραφίες για όλα τα επιλεγμένα %d συνημμένα"
+#: regenerate-thumbnails.php:273
+msgid "Pause"
+msgstr "Παύση"
 
-#: regenerate-thumbnails.php:261
-msgid "Preview"
-msgstr "Προεπισκόπιση"
+#: regenerate-thumbnails.php:272
+msgid "Regeneration Log"
+msgstr "Ιστορικό επαναδημιουργιών"
+
+#: regenerate-thumbnails.php:271
+msgid "Errors Encountered"
+msgstr "Σφάλματα που παρουσιάστηκαν"
+
+#: regenerate-thumbnails.php:268
+msgid "The attachment says it also has these thumbnail sizes but they are no longer in use by WordPress. You can probably safely have this plugin delete them, especially if you have this plugin update any posts that make use of this attachment."
+msgstr "Το συνημμένο λέει ότι έχει επίσης αυτά τα μεγέθη μικρογραφιών, αλλά δεν χρησιμοποιούνται πλέον από το WordPress. Μπορείτε πιθανώς να τα διαγράψετε με ασφάλεια μέσω του παρόντος εργαλείου, ειδικά αν έχετε καθορίσει να ενημερώνει το εργαλείο όσες αναρτήσεις κάνουν χρήση αυτού του συνημμένου."
+
+#: regenerate-thumbnails.php:267
+msgid "These are the currently registered thumbnail sizes, whether they exist for this attachment, and their filenames:"
+msgstr "Αυτά είναι τα μεγέθη μικρογραφιών που έχουν καταχωρηθεί αυτήν τη στιγμή, αν υπάρχουν για αυτό το συνημμένο και τα ονόματα αρχείων τους:"
+
+#: regenerate-thumbnails.php:266
+msgid "There was an error regenerating this attachment. The error was: <em>{message}</em>"
+msgstr "Παρουσιάστηκε σφάλμα κατά την αναδημιουργία αυτού του συνημμένου. Το σφάλμα ήταν: <em>{message}</em>"
+
+#: regenerate-thumbnails.php:265
+msgid "Error Regenerating"
+msgstr "Σφάλμα επαναδημιουργίας"
 
 #: regenerate-thumbnails.php:264
 msgid "Done! Click here to go back."
@@ -100,51 +171,86 @@ msgstr "Έγιναν! Κλικ για επιστροφή."
 msgid "Regenerating…"
 msgstr "Επαναδημιουργία..."
 
-#: regenerate-thumbnails.php:259
-msgid "<strong>ERROR:</strong> {error}"
-msgstr "<strong>ΣΦΑΛΜΑ:</strong> {error}"
+#: regenerate-thumbnails.php:262
+msgid "Update the content of posts that use this attachment to use the new sizes."
+msgstr "Ενημερώστε το περιεχόμενο των αναρτήσεων που χρησιμοποιούν αυτό το συνημμένο για να χρησιμοποιήσετε τα νέα μεγέθη."
+
+#: regenerate-thumbnails.php:261
+msgid "Preview"
+msgstr "Προεπισκόπηση"
 
 #: regenerate-thumbnails.php:260
 msgid "<code>{filename}</code> {width}×{height} pixels"
 msgstr "<code>{filename}</code> {width}×{height} pixels"
 
-#: regenerate-thumbnails.php:265
-msgid "Error Regenerating"
-msgstr "Σφάλμα επαναδημιουργίας"
+#: regenerate-thumbnails.php:259
+msgid "<strong>ERROR:</strong> {error}"
+msgstr "<strong>ΣΦΑΛΜΑ:</strong> {error}"
 
 #. translators: single image sdmin page title
 #: regenerate-thumbnails.php:258
 msgid "Regenerate Thumbnails: {name} — WordPress"
 msgstr "Επαναδημιουργία μικρογραφιών: {name} — WordPress"
 
+#: regenerate-thumbnails.php:256 regenerate-thumbnails.php:433
+#: regenerate-thumbnails.php:449 regenerate-thumbnails.php:473
+msgctxt "action for a single image"
+msgid "Regenerate Thumbnails"
+msgstr "Αναδημιουργία μικρογραφίας"
+
+#: regenerate-thumbnails.php:253
+msgid "Another alternative is to use the <a href=\"{url-photon}\">Photon</a> functionality that comes with the <a href=\"{url-jetpack}\">Jetpack</a> plugin. It generates thumbnails on-demand using WordPress.com's infrastructure. <em>Disclaimer: The author of this plugin, Regenerate Thumbnails, is an employee of the company behind WordPress.com and Jetpack but I would recommend it even if I wasn't.</em>"
+msgstr "Μια άλλη εναλλακτική λύση είναι να χρησιμοποιήσετε τη λειτουργικότητα <a href=\"{url-photon}\">Photon</a> που συνοδεύει το πρόσθετο<a href=\"{url-jetpack}\">Jetpack.</a> Δημιουργεί μικρογραφίες κατ 'απαίτηση χρησιμοποιώντας την υποδομή του WordPress.com. <em>Αποποίηση ευθύνης: Ο συγγραφέας αυτού του plugin, Regenerate Thumbnails, είναι υπάλληλος της εταιρείας πίσω από WordPress.com και Jetpack, αλλά θα το συνιστούσα ακόμα και αν δεν ήμουν.</em>"
+
+#: regenerate-thumbnails.php:252
+msgid "If you have <a href=\"{url-cli}\">command-line</a> access to your site's server, consider using <a href=\"{url-wpcli}\">WP-CLI</a> instead of this tool. It has a built-in <a href=\"{url-wpcli-regenerate}\">regenerate command</a> that works similarly to this tool but should be significantly faster since it has the advantage of being a command-line tool."
+msgstr "Εάν έχετε πρόσβαση <a href=\"{url-cli}\">στη γραμμή εντολών</a> στο διακομιστή του ιστοτόπου σας, εξετάστε το ενδεχόμενο να χρησιμοποιήσετε <a href=\"{url-wpcli}\">το WP-CLI</a> αντί για αυτό το εργαλείο. Έχει μια ενσωματωμένη <a href=\"{url-wpcli-regenerate}\">εντολή αναγέννησης</a> που λειτουργεί παρόμοια με αυτό το εργαλείο, αλλά είναι σημαντικά ταχύτερη, καθώς έχει το πλεονέκτημα ότι είναι ένα εργαλείο γραμμής εντολών."
+
 #: regenerate-thumbnails.php:251
 msgid "Alternatives"
 msgstr "Εναλλακτικά"
+
+#: regenerate-thumbnails.php:250
+msgid "These are all of the thumbnail sizes that are currently registered:"
+msgstr "Αυτές είναι όλες οι ενεργές δηλωμένες διαστάσεις μικρογραφιών:"
 
 #: regenerate-thumbnails.php:249
 msgid "Thumbnail Sizes"
 msgstr "Μεγέθη μικρογραφιών"
 
+#: regenerate-thumbnails.php:248
+msgid "Regenerate Thumbnails For The {attachmentCount} Featured Images Only"
+msgstr "Αναδημιουργία μικρογραφίων μόνο για {attachmentCount} χαρακτηριστικές εικόνες άρθρων"
+
+#: regenerate-thumbnails.php:247
+msgid "Regenerate Thumbnails For Featured Images Only"
+msgstr "Επαναδημιουργία μικρογραφιών για τις χαρακτηριστικές εικόνες μόνο"
+
+#: regenerate-thumbnails.php:246
+msgid "Regenerate Thumbnails For All {attachmentCount} Attachments"
+msgstr "Αναδημιουργία μικρογραφιών για όλες τις εικόνες "
+
 #: regenerate-thumbnails.php:245
 msgid "Regenerate Thumbnails For All Attachments"
 msgstr "Επαναδημιουργία μικρογραφιών για όλα τα συνημμένα"
 
-#: regenerate-thumbnails.php:223 regenerate-thumbnails.php:334
-msgid "Loading…"
-msgstr "Φορτώνει..."
+#: regenerate-thumbnails.php:244
+msgid "Update the content of posts to use the new sizes."
+msgstr "Ενημέρωση του περιεχομένου των δημοσιεύσεων να χρησιμοποιήσει τις νέες διαστάσεις."
 
-#. translators: Used for listing old sizes of currently registered thumbnails
-#: includes/class-regeneratethumbnails-regenerator.php:686
-msgid "%s (old)"
-msgstr "%s (παλιό)"
+#. translators: %s: Media library URL
+#: regenerate-thumbnails.php:241
+msgid "To process a specific image, visit your media library and click the &quot;Regenerate Thumbnails&quot; link or button. To process multiple specific images, make sure you're in the <a href=\"%s\">list view</a> and then use the Bulk Actions dropdown after selecting one or more images."
+msgstr "Για να επεξεργαστείτε μια συγκεκριμένη εικόνα, επισκεφθείτε τη βιβλιοθήκη πολυμέσων σας και κάντε κλικ στον σύνδεσμο ή το κουμπί \"Αναδημιουργία μικρογραφίας\". Για να επεξεργαστείτε πολλές συγκεκριμένες εικόνες, βεβαιωθείτε ότι βρίσκεστε στην <a href=\"%s\">προβολή λίστας</a> και, στη συνέχεια, χρησιμοποιήστε το αναπτυσσόμενο μενού Μαζικές ενέργειες αφού επιλέξετε μία ή περισσότερες εικόνες."
 
-#: regenerate-thumbnails.php:226
-msgid "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod})"
-msgstr "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod})"
+#. translators: %s: Media options URL
+#: regenerate-thumbnails.php:236
+msgid "When you change WordPress themes or change the sizes of your thumbnails at <a href=\"%s\">Settings → Media</a>, images that you have previously uploaded to you media library will be missing thumbnail files for those new image sizes. This tool will allow you to create those missing thumbnail files for all images."
+msgstr "Όταν αλλάζετε θέματα εμφάνισης ή αλλάζετε τα μεγέθη των μικρογραφιών σας στις <a href=\"%s\"> Ρυθμίσεις → Πολυμέσα </a>, οι εικόνες που έχετε προηγουμένως ανεβάσει στη βιβλιοθήκη πολυμέσων σας δεν θα έχουν αρχεία μικρογραφιών για αυτά τα νέα μεγέθη εικόνας. Αυτό το εργαλείο θα σας επιτρέψει να δημιουργήσετε αυτά τα αρχεία μικρογραφιών που λείπουν για όλες τις εικόνες."
 
-#: regenerate-thumbnails.php:227
-msgid "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod}) <code>{filename}</code>"
-msgstr "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod}) <code>{filename}</code>"
+#: regenerate-thumbnails.php:231
+msgid "proportionally resized to fit inside dimensions"
+msgstr "αναλογική μεταβολή μεγέθους σε αυτές στις διαστάσεις"
 
 #: regenerate-thumbnails.php:230
 msgid "cropped to fit"
@@ -158,47 +264,52 @@ msgstr "<strong> {Label}: </strong> {width} x {height} pixels (η μικρογρ
 msgid "<strong>{label}:</strong> {width}×{height} pixels <code>{filename}</code>"
 msgstr "<strong>{label}:</strong> {width}×{height} pixels <code>{filename}</code>"
 
-#: includes/class-regeneratethumbnails-regenerator.php:62
-msgid "No attachment exists with that ID."
-msgstr "Δεν υπάρχει συνημμένο με αυτό το ID."
+#: regenerate-thumbnails.php:227
+msgid "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod}) <code>{filename}</code>"
+msgstr "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod}) <code>{filename}</code>"
 
-#: includes/class-regeneratethumbnails-rest-controller.php:258
-msgid "The page number requested is larger than the number of pages available."
-msgstr "Ο αριθμός σελίδας που ζητήθηκε είναι μεγαλύτερος από το συνολικό αριθμό διαθέσιμων σελίδων."
+#: regenerate-thumbnails.php:226
+msgid "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod})"
+msgstr "<strong>{label}:</strong> {width}×{height} pixels ({cropMethod})"
 
-#: includes/class-regeneratethumbnails-rest-controller.php:42
-msgid "Whether to delete any old, now unregistered thumbnail files."
-msgstr "Εάν θα διαγραφούν τα παλιά, τώρα μη καταχωρημένα αρχεία μικρογραφίας."
+#: regenerate-thumbnails.php:225
+msgid "Delete thumbnail files for old unregistered sizes in order to free up server space. This may result in broken images in your posts and pages."
+msgstr "Διαγράψτε αρχεία μικρογραφιών για παλιά μη καταχωρημένα μεγέθη για να ελευθερώσετε χώρο στο διακομιστή. Αυτό μπορεί να οδηγήσει σε κατεστραμμένες εικόνες στα άρθρα και τις σελίδες σας."
 
-#: includes/class-regeneratethumbnails-rest-controller.php:37
-msgid "Whether to only regenerate missing thumbnails. It's faster with this enabled."
-msgstr "Εάν θα επαναδημιουργηθούν μόνο μικρογραφίες που λείπουν. Είναι πιο γρήγορα με αυτό ενεργοποιημένο."
+#: regenerate-thumbnails.php:224
+msgid "Skip regenerating existing correctly sized thumbnails (faster)."
+msgstr "Παράλειψη αναδημιουργιών υπαρχουσών μικρογραφιών σωστού μεγέθους (ταχύτερα)."
+
+#: regenerate-thumbnails.php:223 regenerate-thumbnails.php:334
+msgid "Loading…"
+msgstr "Φορτώνει..."
+
+#: regenerate-thumbnails.php:166
+msgctxt "admin menu entry title"
+msgid "Regenerate Thumbnails"
+msgstr "Regenerate Thumbnails"
+
+#: regenerate-thumbnails.php:165 regenerate-thumbnails.php:317
+msgctxt "admin page title"
+msgid "Regenerate Thumbnails"
+msgstr "Regenerate Thumbnails"
+
+#. Author URI of the plugin
+msgid "https://alex.blog/"
+msgstr "https://alex.blog/"
 
 #. Author of the plugin
 msgid "Alex Mills (Viper007Bond)"
 msgstr "Alex Mills (Viper007Bond)"
 
-#: regenerate-thumbnails.php:433 regenerate-thumbnails.php:449
-#: regenerate-thumbnails.php:473
-msgid "Regenerate the thumbnails for this single image"
-msgstr "Επαναδημιουργήστε τις μικρογραφίες για αυτή την εικόνα"
+#. Description of the plugin
+msgid "Regenerate the thumbnails for one or more of your image uploads. Useful when changing their sizes or your theme."
+msgstr "Αναδημιουργήστε τις μικρογραφίες για μία ή περισσότερες εικόνες. Χρήσιμο όταν αλλάζετε τα μεγέθη τους ή το θέμα εμφάνιση του ιστοτόπου σας."
+
+#. Plugin URI of the plugin
+msgid "https://alex.blog/wordpress-plugins/regenerate-thumbnails/"
+msgstr "https://alex.blog/wordpress-plugins/regenerate-thumbnails/"
 
 #. Plugin Name of the plugin
 msgid "Regenerate Thumbnails"
-msgstr "Επαναδημιουργία Μικρογραφιών"
-
-#: regenerate-thumbnails.php:244
-msgid "Update the content of posts to use the new sizes."
-msgstr "Ενημέρωση του περιεχομένου των δημοσιεύσεων να χρησιμοποιήσει τις νέες διαστάσεις."
-
-#: regenerate-thumbnails.php:247
-msgid "Regenerate Thumbnails For Featured Images Only"
-msgstr "Επαναδημιουργία μικρογραφιών για τις χαρακτηριστικές εικόνες μόνο"
-
-#: includes/class-regeneratethumbnails-regenerator.php:73
-msgid "This item is not an attachment."
-msgstr "Το στοιχείο αυτό δεν είναι συνημμένο."
-
-#: regenerate-thumbnails.php:250
-msgid "These are all of the thumbnail sizes that are currently registered:"
-msgstr "Αυτές είναι όλες οι ενεργές δηλωμένες διαστάσεις μικρογραφιών:"
+msgstr "Regenerate Thumbnails"
